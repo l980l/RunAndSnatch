@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -25,7 +27,20 @@ public class MapGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) GenerateMap();
+        if (Input.GetMouseButtonDown(0)) 
+            GenerateMap();
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            SmoothMap();
+            DrawTile();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            RemoveSmallSpace();
+            DrawTile();
+        }
     }
 
     private void GenerateMap()
@@ -35,60 +50,90 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < smoothNum; i++) //반복이 많을수록 동굴의 경계면이 매끄러워진다.
             SmoothMap();
+
+        //RemoveSmallSpace(); // 큰 공간만 남기기.
+
+        DrawTile(); // 타일 그리기.
     }
 
     private void MapRandomFill() //맵을 비율에 따라 벽 혹은 빈 공간으로 랜덤하게 채우는 메소드
     {
-        if (useRandomSeed) seed = Time.time.ToString(); //시드
-
+        if (useRandomSeed) 
+            seed = Time.time.ToString(); //시드
         System.Random pseudoRandom = new System.Random(seed.GetHashCode()); //시드로 부터 의사 난수 생성
 
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
-                {
-                    map[x, y] = WALL;       //가장자리는 벽으로 채움
-                    OnDrawTile(x, y, WALL); //벽 타일 생성
-                }
+                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)  //가장자리는 벽으로 채움
+                    map[x, y] = WALL;       
                 else
-                {
-                    map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? WALL : ROAD; //비율에 따라 벽 혹은 빈 공간 생성
-                    OnDrawTile(x, y, map[x, y]); //타일 생성
-                }
+                    map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? ROAD : WALL; // randomFillPercent 이하의 값이 나오면 Road로.
             }
         }
     }
+    private int CountAliveNeighbours(int gridX, int gridY)
+    {
+        int count = 0;
+        for (int i = -1; i < 2; i++)
+        {
+            for (int j = -1; j < 2; j++)
+            {
+                int neighbour_x = gridX + i;
+                int neighbour_y = gridY + j;
+                // 가운데면 암것도 안함.
+                if (i == 0 && j == 0)
+                    continue;
+                // 모서리인 경우도.
+                else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= width || neighbour_y >= height)
+                    continue;
+                // Otherwise, a normal check of the neighbour 
+                else if (map[neighbour_x, neighbour_y] == 1)
+                {
+                    count = count + 1;
+                }
+            }
+        }
 
+        return count;
+    }
     private void SmoothMap()
+    {
+        int[,] newMap = new int[width, height];
+        Array.Copy(map, newMap, map.Length);
+        int DeathLimit = 3;
+        int BirthLimit = 4;
+        
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                int AliveNeighbours = CountAliveNeighbours(x, y);
+                if(map[x, y] == ROAD)
+                {
+                    if (AliveNeighbours < DeathLimit)
+                        newMap[x, y] = WALL; 
+                }
+                else
+                {
+                    if (AliveNeighbours > BirthLimit)
+                        newMap[x, y] = ROAD; 
+                }
+            }
+        }
+        Array.Copy(newMap, map, newMap.Length);
+    }
+   
+    private void DrawTile()
     {
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                int neighbourWallTiles = GetSurroundingWallCount(x, y);
-                if (neighbourWallTiles > 4) map[x, y] = WALL; //주변 칸 중 벽이 4칸을 초과할 경우 현재 타일을 벽으로 바꿈
-                else if (neighbourWallTiles < 4) map[x, y] = ROAD; //주변 칸 중 벽이 4칸 미만일 경우 현재 타일을 빈 공간으로 바꿈
+                OnDrawTile(x, y, map[x, y]); //타일 생성
             }
         }
-    }
-
-    private int GetSurroundingWallCount(int gridX, int gridY)
-    {
-        int wallCount = 0;
-        for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++)
-        { //현재 좌표를 기준으로 주변 8칸 검사
-            for (int neighbourY = gridY - 1; neighbourY <= gridY + 1; neighbourY++)
-            {
-                if (neighbourX >= 0 && neighbourX < width && neighbourY >= 0 && neighbourY < height)
-                { //맵 범위를 초과하지 않게 조건문으로 검사
-                    if (neighbourX != gridX || neighbourY != gridY) wallCount += map[neighbourX, neighbourY]; //벽은 1이고 빈 공간은 0이므로 벽일 경우 wallCount 증가
-                }
-                else wallCount++; //주변 타일이 맵 범위를 벗어날 경우 wallCount 증가
-            }
-        }
-        return wallCount;
     }
 
     private void OnDrawTile(int x, int y, int isRoad)
@@ -103,6 +148,72 @@ public class MapGenerator : MonoBehaviour
         {
             Vector3Int pos = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
             tilemap.SetTile(pos, WallTile);
+        }
+    }
+
+    private void RemoveSmallSpace()
+    {
+        int maxRoom = 0;                // 가장 큰 공간의 크기.
+        int indexX = 0, indexY = 0;     // 가장 큰 공간의 끝 주소.
+        List<(int, int)> MaxRoomList = new List<(int, int)>();  // 가장 큰 공간의 좌표들
+
+        // BFS 재료
+        int[] dx = { 0, 1, 0, -1 };
+        int[] dy = { 1, 0, -1, 0 };
+        bool[,] visited = new bool[width, height];
+        Queue<(int, int)> queue = new Queue<(int, int)>();
+
+        // 테두리는 벽이니까. 
+        for (int i = 1; i < width - 1; i++)
+        {
+            for (int j = 1; j < height - 1; j++)
+            {
+                // 방문한적 없는 공간인 경우.
+                if (map[i, j] == 1 && !visited[i,j])
+                {
+                    int nowRoom = 1;    // 이번 방 크기
+                    visited[i, j] = true;
+                    List<(int, int)> NowRoomList = new List<(int, int)>();  // 이번 방 좌표들
+                    NowRoomList.Add((i, j));
+                    queue.Enqueue((i,j));
+                    while(queue.Count > 0)
+                    {
+                        var (x, y) = queue.Dequeue();
+                        for (int k = 0; k < 4; ++k)
+                        {
+                            int nx = x + dx[k];
+                            int ny = y + dy[k];
+                            if (nx < 0 || nx >= width || ny < 0 || ny >= height || visited[nx, ny] || map[nx, ny] == WALL)
+                                continue;
+                            visited[nx, ny] = true;
+                            nowRoom++;
+                            NowRoomList.Add((nx, ny));
+                            queue.Enqueue((nx, ny));
+                        }
+                    }
+                    // maxRoom 업데이트
+                    if(nowRoom > maxRoom)
+                    {
+                        maxRoom = nowRoom;
+                        indexX = i;
+                        indexY = j;
+
+                        // MaxRoomList로 깊은 복사.
+                        MaxRoomList.Clear();
+                        foreach ((int x, int y) in NowRoomList)
+                        {
+                            MaxRoomList.Add((x,y));
+                        }
+                    }
+                }
+            }
+        }
+
+        // 가장 큰 곳만 다시 비우기. 
+        map = new int[width, height];
+        foreach ((int x, int y) in MaxRoomList)
+        {
+            map[x, y] = ROAD;
         }
     }
 }

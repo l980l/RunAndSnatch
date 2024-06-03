@@ -399,8 +399,8 @@ MonoBehaviour:
   height: 30
   seed: 
   useRandomSeed: 1
-  randomFillPercent: 45
-  smoothNum: 5
+  randomFillPercent: 50
+  smoothNum: 2
   tilemap: {fileID: 1332717844}
   WallTile: {fileID: 11400000, guid: 77736bbb5f207664db508859586c0229, type: 2}
   RoadTile: {fileID: 11400000, guid: 94154337b73862b41879125b70d6b2e8, type: 2}
