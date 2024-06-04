@@ -229,7 +229,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -395,15 +395,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1a12c56c10c9b43b31303d4109c19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 30
-  height: 30
+  width: 50
+  height: 50
   seed: 
   useRandomSeed: 1
-  randomFillPercent: 50
+  chanceToStartAlive: 50
   smoothNum: 2
   tilemap: {fileID: 1332717844}
   WallTile: {fileID: 11400000, guid: 77736bbb5f207664db508859586c0229, type: 2}
   RoadTile: {fileID: 11400000, guid: 94154337b73862b41879125b70d6b2e8, type: 2}
+  ArrPrefab:
+  - {fileID: 6742364030409802661, guid: 5c626ee2cf39b6f4f87dede5f6808776, type: 3}
 --- !u!4 &634004238
 Transform:
   m_ObjectHideFlags: 0
