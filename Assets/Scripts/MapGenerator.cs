@@ -20,7 +20,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private RuleTile WallTile;
     [SerializeField] private RuleTile RoadTile;
 
-    [SerializeField] private GameObject[] ArrPrefab;
+    [SerializeField] private GameObject PlayerPrefab;
+    [SerializeField] private GameObject ExitPrefab;
+    [SerializeField] private GameObject[] MonsterPrefabs;
+    [SerializeField] private GameObject[] ItemPrefabs;
 
     private int[,] map;
     private const int WALL = 0;
@@ -28,6 +31,10 @@ public class MapGenerator : MonoBehaviour
     private List<(int, int)> MaxRoomList;
     private List<bool> MaskRoomList;
 
+    private void Start()
+    {
+        GenerateMap();
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) 
@@ -47,12 +54,12 @@ public class MapGenerator : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(ArrPrefab[0], RandomPos(false), Quaternion.identity);
+            Instantiate(PlayerPrefab, RandomPos(false), Quaternion.identity);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Instantiate(ArrPrefab[0], RandomPos(true), Quaternion.identity);
+            Instantiate(PlayerPrefab, RandomPos(true), Quaternion.identity);
         }
     }
 
