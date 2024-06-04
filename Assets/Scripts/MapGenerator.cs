@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,32 +13,46 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private bool useRandomSeed;
 
     [Range(0, 100)]
-    [SerializeField] private int randomFillPercent;
+    [SerializeField] private int chanceToStartAlive;
     [SerializeField] private int smoothNum;
-
-    private int[,] map;
-    private const int WALL = 0;
-    private const int ROAD = 1;
 
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private RuleTile WallTile;
     [SerializeField] private RuleTile RoadTile;
+
+    [SerializeField] private GameObject[] ArrPrefab;
+
+    private int[,] map;
+    private const int WALL = 0;
+    private const int ROAD = 1;
+    private List<(int, int)> MaxRoomList;
+    private List<bool> MaskRoomList;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) 
             GenerateMap();
 
-        if (Input.GetMouseButtonDown(1))
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    SmoothMap();
+        //    DrawTile();
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    RemoveSmallSpace();
+        //    DrawTile();
+        //}
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            SmoothMap();
-            DrawTile();
+            Instantiate(ArrPrefab[0], RandomPos(false), Quaternion.identity);
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            RemoveSmallSpace();
-            DrawTile();
+            Instantiate(ArrPrefab[0], RandomPos(true), Quaternion.identity);
         }
     }
 
@@ -51,7 +64,7 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < smoothNum; i++) //반복이 많을수록 동굴의 경계면이 매끄러워진다.
             SmoothMap();
 
-        //RemoveSmallSpace(); // 큰 공간만 남기기.
+        RemoveSmallSpace(); // 큰 공간만 남기기.
 
         DrawTile(); // 타일 그리기.
     }
@@ -69,7 +82,7 @@ public class MapGenerator : MonoBehaviour
                 if (x == 0 || x == width - 1 || y == 0 || y == height - 1)  //가장자리는 벽으로 채움
                     map[x, y] = WALL;       
                 else
-                    map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? ROAD : WALL; // randomFillPercent 이하의 값이 나오면 Road로.
+                    map[x, y] = (pseudoRandom.Next(0, 100) < chanceToStartAlive) ? ROAD : WALL; // chanceToStartAlive 이하의 값이 나오면 Road로.
             }
         }
     }
@@ -124,7 +137,7 @@ public class MapGenerator : MonoBehaviour
         }
         Array.Copy(newMap, map, newMap.Length);
     }
-   
+
     private void DrawTile()
     {
         for (int x = 0; x < width; x++)
@@ -138,24 +151,18 @@ public class MapGenerator : MonoBehaviour
 
     private void OnDrawTile(int x, int y, int isRoad)
     {
-        if(isRoad == 1)
-        {
-            Vector3Int pos = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
+        Vector3Int pos = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
+        if (isRoad == 1)
             tilemap.SetTile(pos, RoadTile);
-        }
-
         else
-        {
-            Vector3Int pos = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
             tilemap.SetTile(pos, WallTile);
-        }
     }
 
-    private void RemoveSmallSpace()
+    private int SearchMaxRoom()     // MaxRoom의 크기와 좌표들을 구해서 List에 넣어주는 함수.
     {
         int maxRoom = 0;                // 가장 큰 공간의 크기.
         int indexX = 0, indexY = 0;     // 가장 큰 공간의 끝 주소.
-        List<(int, int)> MaxRoomList = new List<(int, int)>();  // 가장 큰 공간의 좌표들
+        MaxRoomList = new List<(int, int)>();  // 가장 큰 공간의 좌표들
 
         // BFS 재료
         int[] dx = { 0, 1, 0, -1 };
@@ -163,20 +170,20 @@ public class MapGenerator : MonoBehaviour
         bool[,] visited = new bool[width, height];
         Queue<(int, int)> queue = new Queue<(int, int)>();
 
-        // 테두리는 벽이니까. 
+        // 테두리는 어차피 벽이니까 넘기고.
         for (int i = 1; i < width - 1; i++)
         {
             for (int j = 1; j < height - 1; j++)
             {
                 // 방문한적 없는 공간인 경우.
-                if (map[i, j] == 1 && !visited[i,j])
+                if (map[i, j] == 1 && !visited[i, j])
                 {
                     int nowRoom = 1;    // 이번 방 크기
                     visited[i, j] = true;
                     List<(int, int)> NowRoomList = new List<(int, int)>();  // 이번 방 좌표들
                     NowRoomList.Add((i, j));
-                    queue.Enqueue((i,j));
-                    while(queue.Count > 0)
+                    queue.Enqueue((i, j));
+                    while (queue.Count > 0)
                     {
                         var (x, y) = queue.Dequeue();
                         for (int k = 0; k < 4; ++k)
@@ -192,7 +199,7 @@ public class MapGenerator : MonoBehaviour
                         }
                     }
                     // maxRoom 업데이트
-                    if(nowRoom > maxRoom)
+                    if (nowRoom > maxRoom)
                     {
                         maxRoom = nowRoom;
                         indexX = i;
@@ -202,12 +209,19 @@ public class MapGenerator : MonoBehaviour
                         MaxRoomList.Clear();
                         foreach ((int x, int y) in NowRoomList)
                         {
-                            MaxRoomList.Add((x,y));
+                            MaxRoomList.Add((x, y));
                         }
                     }
                 }
             }
         }
+        // 최대 방 크기 반환.
+        return maxRoom;
+    }
+
+    private void RemoveSmallSpace()
+    {
+        int maxRoom = SearchMaxRoom();
 
         // 가장 큰 곳만 다시 비우기. 
         map = new int[width, height];
@@ -215,5 +229,47 @@ public class MapGenerator : MonoBehaviour
         {
             map[x, y] = ROAD;
         }
+        
+        MaskRoomList = new List<bool>(new bool[maxRoom]);
+    }
+
+    // Road 위의 랜덤한 위치를 그리드 좌표계로 반환하는 함수.
+    // false을 인자로 넣어주면 모든 Road 위에서 랜덤. true을 인자로 넣어주면 벽 근처의 Road 위에서 랜덤.
+    private (int x, int y) RandomRoad(bool CheckWall)    
+    {
+        int ListSize = MaxRoomList.Count;
+        int index = 0;
+
+        // 이미 사용한 위치는 사용 안하기 위해 MaskRoomList 이용.
+        while (true)
+        {
+            index = UnityEngine.Random.Range(0, ListSize);
+            // 마스킹 안 된 곳인 경우, 이웃한 벽 체크.
+            if (!MaskRoomList[index])
+            {
+                if(CheckWall)
+                {
+                    int NearWall = 8 - CountAliveNeighbours(MaxRoomList[index].Item1, MaxRoomList[index].Item2);
+                    // 벽이 2개 이하면 다른 곳 찾아.
+                    if (NearWall < 3)
+                        continue;
+                }
+
+                MaskRoomList[index] = true;
+                break;
+            }
+        }
+        return MaxRoomList[index];
+    }
+
+    // Road 위의 랜덤한 위치를 월드 좌표계로 변환하여 반환하는 함수.
+    // false을 인자로 넣어주면 모든 Road 위에서 랜덤. true을 인자로 넣어주면 벽 근처의 Road 위에서 랜덤.
+    private Vector3 RandomPos(bool CheckWall)
+    {
+        var (x, y) = RandomRoad(CheckWall);
+        Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
+        Vector3 result = tilemap.GetComponentInParent<Grid>().CellToWorld(temp);
+
+        return result;
     }
 }
