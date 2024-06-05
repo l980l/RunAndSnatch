@@ -16,7 +16,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int chanceToStartAlive;
     [SerializeField] private int smoothNum;
 
-    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private Tilemap RoadTilemap;
+    [SerializeField] private Tilemap WallTilemap;
     [SerializeField] private RuleTile WallTile;
     [SerializeField] private RuleTile RoadTile;
 
@@ -52,15 +53,15 @@ public class MapGenerator : MonoBehaviour
         //    DrawTile();
         //}
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Instantiate(PlayerPrefab, RandomPos(false), Quaternion.identity);
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    Instantiate(PlayerPrefab, RandomPos(false), Quaternion.identity);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Instantiate(PlayerPrefab, RandomPos(true), Quaternion.identity);
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    Instantiate(PlayerPrefab, RandomPos(true), Quaternion.identity);
+        //}
     }
 
     private void GenerateMap()
@@ -160,9 +161,15 @@ public class MapGenerator : MonoBehaviour
     {
         Vector3Int pos = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
         if (isRoad == 1)
-            tilemap.SetTile(pos, RoadTile);
+        {
+            RoadTilemap.SetTile(pos, RoadTile);
+            WallTilemap.SetTile(pos, null);
+        }
         else
-            tilemap.SetTile(pos, WallTile);
+        {
+            WallTilemap.SetTile(pos, WallTile);
+            RoadTilemap.SetTile(pos, null);
+        }
     }
 
     private int SearchMaxRoom()     // MaxRoom의 크기와 좌표들을 구해서 List에 넣어주는 함수.
@@ -275,7 +282,7 @@ public class MapGenerator : MonoBehaviour
     {
         var (x, y) = RandomRoad(CheckWall);
         Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
-        Vector3 result = tilemap.GetComponentInParent<Grid>().CellToWorld(temp);
+        Vector3 result = RoadTilemap.GetComponentInParent<Grid>().CellToWorld(temp);
 
         return result;
     }
