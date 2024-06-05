@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] private Vector2 inputVec;
     [SerializeField] private float speed;
+    [SerializeField] private float SlideSpeed;
+    [SerializeField] private int MaxHP;
+    [SerializeField] private int HP;
+    [SerializeField] private float SlidingTime;
+    [SerializeField] private float SlidingCoolTime;
+
+    private Vector2 inputVec;
+    private bool bInvincible;    // 슬라이딩 할 때와 피격 시 잠시 동안.
+
+    private bool bIsSliding;  // 0 Idle, 1 Walk, 2 Interact, 3 Slide, 4 Die
+    private bool bEnableToSlide = true;
+    private Vector2 SlideVec;
 
     private Rigidbody2D rigidBody;
     private Animator animator;
@@ -22,21 +34,70 @@ public class PlayerScript : MonoBehaviour
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
+         
+        // 슬라이딩 상태가 아니고, 슬라이딩 쿨타임이 찬 상태.
+        if(!bIsSliding && bEnableToSlide)
+        {
+            if(Input.GetButtonDown("Jump"))
+            {
+                bIsSliding = true;
+                bInvincible = true;
+                bEnableToSlide = false;
+                animator.SetBool("Slide", true);
+                SlideVec = inputVec.normalized;
+                Invoke("SlideEnd", SlidingTime);
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         animator.SetFloat("Speed", inputVec.magnitude);
 
-        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
-        rigidBody.MovePosition(rigidBody.position + nextVec);
+        // 슬라이딩 중이면 
+        if (bIsSliding)
+        {
+            Vector2 nextVec = SlideVec.normalized * SlideSpeed * Time.fixedDeltaTime;
+            rigidBody.MovePosition(rigidBody.position + nextVec);
+        }
+        else
+        {
+            Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+            rigidBody.MovePosition(rigidBody.position + nextVec);
+        }
     }
 
     private void LateUpdate()
     {
-        if(inputVec.x != 0)
+        // 이동 방향에 맞게 좌우 반전.
+        if (!bIsSliding)
         {
-            spriteRenderer.flipX = inputVec.x < 0;
+            if (inputVec.x != 0)
+            {
+                spriteRenderer.flipX = inputVec.x < 0;
+            }
         }
+    }
+
+    private void Die()  // 임시로 짠 Die 함수.
+    {
+        animator.SetTrigger("Dead");
+        rigidBody.simulated = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        gameObject.SetActive(false);
+    }
+
+    private void SlideEnd()
+    {
+        // 무적 해제, 슬라이딩 상태 해제, 애니메이션 변경, 슬라이딩 쿨타임 돌리기
+        bIsSliding = false;
+        bInvincible = false;
+        animator.SetBool("Slide", false);
+        Invoke("CoolDownSliding", SlidingCoolTime);
+    }
+
+    private void CoolDownSliding()  // 슬라이딩 가능하게 하는 함수. Invoke로 호출하여 쿨타임 적용.
+    {
+        bEnableToSlide = true;
     }
 }
