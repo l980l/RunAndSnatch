@@ -179,10 +179,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1002647669}
   - component: {fileID: 1002647668}
+  - component: {fileID: 1002647664}
   - component: {fileID: 1002647667}
   - component: {fileID: 1002647666}
   - component: {fileID: 1002647665}
-  - component: {fileID: 1002647664}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -202,8 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9afe72e8fef360f4490f9cbda81daf1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputVec: {x: 0, y: 0}
   speed: 7
+  SlideSpeed: 10
+  MaxHP: 10
+  HP: 10
+  SlidingTime: 0.3
+  SlidingCoolTime: 1
 --- !u!95 &1002647665
 Animator:
   serializedVersion: 5
@@ -272,7 +276,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -881,7 +885,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
