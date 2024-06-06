@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum ItemType
 {
-    BlueShell
+    BlueShell,
+    DamageTest
 }
 
 public class Item : MonoBehaviour
