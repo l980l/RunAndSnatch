@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float SlideSpeed;
@@ -15,7 +15,7 @@ public class PlayerScript : MonoBehaviour
     private Vector2 inputVec;
     private bool bInvincible;    // 슬라이딩 할 때와 피격 시 잠시 동안.
 
-    private bool bIsSliding;  // 0 Idle, 1 Walk, 2 Interact, 3 Slide, 4 Die
+    private bool bIsSliding; 
     private bool bEnableToSlide = true;
     private Vector2 SlideVec;
 
@@ -76,6 +76,21 @@ public class PlayerScript : MonoBehaviour
             {
                 spriteRenderer.flipX = inputVec.x < 0;
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            Item item = collision.gameObject.GetComponent<Item>();
+            switch (item.ItemType)
+            {
+                case (ItemType.BlueShell):
+
+                    break;
+            }
+            Destroy(item.gameObject);
         }
     }
 
