@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera CVC;
 
     [SerializeField] private HeatlhHUD heatlhHUD;
+    [SerializeField] private StaminaHUD StaminaHUD;
     [SerializeField] private Text ItemValueText;
 
     [SerializeField] private MapGenerator mapGenerator;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetPlayer() { return Player; }
     public HeatlhHUD GetHeatlhHUD() { return heatlhHUD; }
+    public StaminaHUD GetStaminaHUD() { return StaminaHUD; }
     public void SetItemValue(int Value)
     {
         ItemValueText.text = Value.ToString() + " / " + TotalItemValue;
@@ -40,7 +42,6 @@ public class GameManager : MonoBehaviour
     {
         // 랜덤한 위치로 플레이어 생성. 초기 HealthHUD 세팅.
         Player = Instantiate(PlayerPrefab, mapGenerator.RandomPos(false), Quaternion.identity);
-        heatlhHUD.UpdateHP(); 
 
         // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
         CVC.m_Follow = Player.transform; 
