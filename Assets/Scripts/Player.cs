@@ -6,74 +6,68 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float SlideSpeed;
+    [SerializeField] private float DodgeSpeed;
     [SerializeField] private int MaxHP;
-    [SerializeField] private int HP;
-    [SerializeField] private float SlidingTime;
-    [SerializeField] private float SlidingCoolTime;
-
+    [SerializeField] private float MaxStamina;
+    [SerializeField] private float StaminaRegenSpeed;
+    private int HP;
+    private float Stamina;
     private Vector2 inputVec;
-
-    private bool bIsSliding;
-    private bool bEnableToSlide = true;
-    private Vector2 SlideVec;
+    private bool bIsDodging;
     private int AcquiredItemValue;
-
     private Rigidbody2D rigidBody;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-
-    public int GetMaxHP() { return MaxHP; }
-    public int GetHP() { return HP; }
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        HP = MaxHP;
+        Stamina = MaxStamina;
     }
 
     void Update()
     {
-        inputVec.x = Input.GetAxisRaw("Horizontal");
-        inputVec.y = Input.GetAxisRaw("Vertical");
-
-        // 슬라이딩 상태가 아니고, 슬라이딩 쿨타임이 찬 상태.
-        if (!bIsSliding && bEnableToSlide)
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-               SlideStart(); 
-            }
-        }
+        if(HP > 0)
+            GetInput();
     }
 
     private void FixedUpdate()
     {
         animator.SetFloat("Speed", inputVec.magnitude);
-
-        // 슬라이딩 중이면 
-        if (bIsSliding)
+        
+        // 회피 중이면 
+        if (bIsDodging)
         {
-            Vector2 nextVec = SlideVec.normalized * SlideSpeed * Time.fixedDeltaTime;
+            // 이동
+            Vector2 nextVec = inputVec.normalized * DodgeSpeed * Time.fixedDeltaTime;
             rigidBody.MovePosition(rigidBody.position + nextVec);
+
+            // 스테미나 소모
+            Stamina -= Time.fixedDeltaTime;
         }
         else
         {
             Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
             rigidBody.MovePosition(rigidBody.position + nextVec);
+
+            // 스테미나 회복
+            Stamina += Time.fixedDeltaTime * StaminaRegenSpeed;
+            
         }
+        // StaminaHUD 세팅
+        float Amount = (float)Stamina / (float)MaxStamina;
+        GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
     }
 
     private void LateUpdate()
     {
         // 이동 방향에 맞게 좌우 반전.
-        if (!bIsSliding)
+        if (inputVec.x != 0)
         {
-            if (inputVec.x != 0)
-            {
-                spriteRenderer.flipX = inputVec.x < 0;
-            }
+            spriteRenderer.flipX = inputVec.x < 0;
         }
     }
 
@@ -97,6 +91,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void GetInput()
+    {
+        inputVec.x = Input.GetAxisRaw("Horizontal");
+        inputVec.y = Input.GetAxisRaw("Vertical");
+
+        // 회피 상태가 아니고, 회피가 가능한 상태.
+        if (!bIsDodging && Stamina > 0)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                DodgeStart();
+            }
+        }
+
+        if(bIsDodging)
+        {
+            if (Input.GetButtonUp("Jump") || Stamina <= 0)
+            {
+                DodgeEnd();
+            }
+        }
+    }
+
     public void SetInvincible(bool bInvincible)
     {
         if (bInvincible)
@@ -107,7 +124,9 @@ public class Player : MonoBehaviour
     private void OnDamage(int Damage, Vector2 AttackPos)
     {
         HP -= Damage;
-        GameManager.Instance.GetHeatlhHUD().UpdateHP();
+        // HealthHUD 세팅
+        float amount = (float)HP / (float)MaxHP;
+        GameManager.Instance.GetHeatlhHUD().UpdateHP(amount);
 
         if (HP <= 0)
             Die();
@@ -124,34 +143,26 @@ public class Player : MonoBehaviour
         spriteRenderer.color = new Color(1, 1, 1, 1);
     }
 
-    private void Die()  // 임시로 짠 Die 함수.
+    private void Die()  
     {
         animator.SetTrigger("Dead");
+        
         rigidBody.simulated = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
     }
 
-    private void SlideStart()
+    private void DodgeStart()
     {
         SetInvincible(true);
-        bIsSliding = true;
-        bEnableToSlide = false;
-        animator.SetBool("Slide", true);
-        SlideVec = inputVec.normalized;
-        Invoke("SlideEnd", SlidingTime);
+        bIsDodging = true;
+        animator.SetBool("Dodge", true);
     }   
     
-    private void SlideEnd()
+    private void DodgeEnd()
     {
-        // 무적 해제, 슬라이딩 상태 해제, 애니메이션 변경, 슬라이딩 쿨타임 돌리기
-        bIsSliding = false;
-        animator.SetBool("Slide", false);
-        Invoke("CoolDownSliding", SlidingCoolTime);
+        // 무적 해제, 회피 상태 해제, 애니메이션 변경
         SetInvincible(false);
-    }
-
-    private void CoolDownSliding()  // 슬라이딩 가능하게 하는 함수. Invoke로 호출하여 쿨타임 적용.
-    {
-        bEnableToSlide = true;
+        bIsDodging = false;
+        animator.SetBool("Dodge", false);
     }
 }
