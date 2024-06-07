@@ -15,15 +15,10 @@ public class HeatlhHUD : MonoBehaviour
         HPBar = GetComponent<Image>();
     }
 
-    private void LateUpdate()
-    {
-        UpdateHP();
-    }
-
-    public void UpdateHP()
+    public void UpdateHP()  // Player에서 데미지를 받으면 호출.
     {
         MaxHealth = GameManager.Instance.GetPlayer().GetComponent<Player>().GetMaxHP();
         Health = GameManager.Instance.GetPlayer().GetComponent<Player>().GetHP();
-        HPBar.fillAmount = Health / MaxHealth;
+        HPBar.fillAmount = (float)Health / (float)MaxHealth;
     }
 }
