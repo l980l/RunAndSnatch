@@ -38,28 +38,37 @@ public class Player : MonoBehaviour
     {
         animator.SetFloat("Speed", inputVec.magnitude);
         
-        // 회피 중이면 
-        if (bIsDodging)
+        if(HP > 0)
         {
-            // 이동
-            Vector2 nextVec = inputVec.normalized * DodgeSpeed * Time.fixedDeltaTime;
-            rigidBody.MovePosition(rigidBody.position + nextVec);
+            // 회피 중이면 
+            if (bIsDodging)
+            {
+                // 이동
+                Vector2 nextVec = inputVec.normalized * DodgeSpeed * Time.fixedDeltaTime;
+                rigidBody.MovePosition(rigidBody.position + nextVec);
 
-            // 스테미나 소모
-            Stamina -= Time.fixedDeltaTime;
-        }
-        else
-        {
-            Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
-            rigidBody.MovePosition(rigidBody.position + nextVec);
+                // 스테미나 소모
+                if (Stamina < 0)
+                    Stamina = 0;
+                else
+                    Stamina -= Time.fixedDeltaTime;
+            }
+            else
+            {
+                Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+                rigidBody.MovePosition(rigidBody.position + nextVec);
 
-            // 스테미나 회복
-            Stamina += Time.fixedDeltaTime * StaminaRegenSpeed;
-            
+                // 스테미나 회복
+                if (Stamina < MaxStamina)
+                    Stamina += Time.fixedDeltaTime * StaminaRegenSpeed;
+                else
+                    Stamina = MaxStamina;
+
+            }
+            // StaminaHUD 세팅
+            float Amount = (float)Stamina / (float)MaxStamina;
+            GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
         }
-        // StaminaHUD 세팅
-        float Amount = (float)Stamina / (float)MaxStamina;
-        GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
     }
 
     private void LateUpdate()
