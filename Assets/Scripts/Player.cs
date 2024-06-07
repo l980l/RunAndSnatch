@@ -13,9 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float SlidingCoolTime;
 
     private Vector2 inputVec;
-    private bool bInvincible;    // 슬라이딩 할 때와 피격 시 잠시 동안.
 
-    private bool bIsSliding; 
+    private bool bIsSliding;
     private bool bEnableToSlide = true;
     private Vector2 SlideVec;
     private int AcquiredItemValue;
@@ -38,18 +37,13 @@ public class Player : MonoBehaviour
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
-         
+
         // 슬라이딩 상태가 아니고, 슬라이딩 쿨타임이 찬 상태.
-        if(!bIsSliding && bEnableToSlide)
+        if (!bIsSliding && bEnableToSlide)
         {
-            if(Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
-                bIsSliding = true;
-                bInvincible = true;
-                bEnableToSlide = false;
-                animator.SetBool("Slide", true);
-                SlideVec = inputVec.normalized;
-                Invoke("SlideEnd", SlidingTime);
+               SlideStart(); 
             }
         }
     }
@@ -95,12 +89,39 @@ public class Player : MonoBehaviour
                     GameManager.Instance.SetItemValue(AcquiredItemValue);
                     break;
                 case (ItemType.DamageTest):
-                    HP -= 10;
-                    GameManager.Instance.GetHeatlhHUD().UpdateHP(); 
+                    Vector2 AttackPos = new Vector2(collision.transform.position.x, collision.transform.position.y);
+                    OnDamage(50, AttackPos);
                     break;
             }
             Destroy(item.gameObject);
         }
+    }
+
+    public void SetInvincible(bool bInvincible)
+    {
+        if (bInvincible)
+            gameObject.layer = 11;
+        else
+            gameObject.layer = 6;
+    }
+    private void OnDamage(int Damage, Vector2 AttackPos)
+    {
+        HP -= Damage;
+        GameManager.Instance.GetHeatlhHUD().UpdateHP();
+
+        if (HP <= 0)
+            Die();
+
+        SetInvincible(true);
+        spriteRenderer.color = new Color(1, 0f, 0f, 1f);
+
+        Invoke("OffDamage", 1);
+    }
+
+    private void OffDamage()
+    {
+        SetInvincible(false);
+        spriteRenderer.color = new Color(1, 1, 1, 1);
     }
 
     private void Die()  // 임시로 짠 Die 함수.
@@ -108,16 +129,25 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Dead");
         rigidBody.simulated = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
-        gameObject.SetActive(false);
     }
 
+    private void SlideStart()
+    {
+        SetInvincible(true);
+        bIsSliding = true;
+        bEnableToSlide = false;
+        animator.SetBool("Slide", true);
+        SlideVec = inputVec.normalized;
+        Invoke("SlideEnd", SlidingTime);
+    }   
+    
     private void SlideEnd()
     {
         // 무적 해제, 슬라이딩 상태 해제, 애니메이션 변경, 슬라이딩 쿨타임 돌리기
         bIsSliding = false;
-        bInvincible = false;
         animator.SetBool("Slide", false);
         Invoke("CoolDownSliding", SlidingCoolTime);
+        SetInvincible(false);
     }
 
     private void CoolDownSliding()  // 슬라이딩 가능하게 하는 함수. Invoke로 호출하여 쿨타임 적용.
