@@ -11,8 +11,11 @@ public enum ItemType
 public class Item : MonoBehaviour
 {
     [SerializeField] public ItemType ItemType;
+    [SerializeField] private int Value;
 
     private Rigidbody2D Rigidbody2D;
+
+    public int GetItemValue() {  return Value; }
 
     private void Awake()
     {
