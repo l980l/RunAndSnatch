@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private bool bIsSliding; 
     private bool bEnableToSlide = true;
     private Vector2 SlideVec;
+    private int AcquiredItemValue;
 
     private Rigidbody2D rigidBody;
     private Animator animator;
@@ -90,6 +91,8 @@ public class Player : MonoBehaviour
             switch (item.ItemType)
             {
                 case (ItemType.BlueShell):
+                    AcquiredItemValue += item.GetItemValue();
+                    GameManager.Instance.SetItemValue(AcquiredItemValue);
                     break;
                 case (ItemType.DamageTest):
                     HP -= 10;
