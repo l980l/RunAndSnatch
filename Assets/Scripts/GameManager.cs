@@ -3,31 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] private MapGenerator mapGenerator;
+
     [SerializeField] private CinemachineVirtualCamera CVC;
+
     [SerializeField] private HeatlhHUD heatlhHUD;
+    [SerializeField] private Text ItemValueText;
+
+    [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject[] ItemPrefab;
     [SerializeField] private int ItemCount;
 
     private GameObject Player;
     private int TotalItemValue;
-    private int AcquiredItemValue;
 
     public GameObject GetPlayer() { return Player; }
     public HeatlhHUD GetHeatlhHUD() { return heatlhHUD; }
-    public int GetTotalItemValue() { return TotalItemValue; }
-    public int GetAcquiredItemValue() { return AcquiredItemValue; }
+    public void SetItemValue(int Value)
+    {
+        ItemValueText.text = Value.ToString() + " / " + TotalItemValue;
+    }
 
     private void Awake()
     {
         Instance = this;
         TotalItemValue = 0;
-        AcquiredItemValue = 0;
     }
 
     private void Start()
@@ -46,5 +52,7 @@ public class GameManager : MonoBehaviour
             TotalItemValue += ItemPrefab[index].GetComponent<Item>().GetItemValue();
             Instantiate(ItemPrefab[index], mapGenerator.RandomPos(false), Quaternion.identity);
         }
+        // ItemValueText ¼¼ÆÃ
+        SetItemValue(0);
     }
 }
