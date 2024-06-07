@@ -32,36 +32,14 @@ public class MapGenerator : MonoBehaviour
     private List<(int, int)> MaxRoomList;
     private List<bool> MaskRoomList;
 
-    private void Start()
+    private void Awake()
     {
         GenerateMap();
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) 
-            GenerateMap();
-
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    SmoothMap();
-        //    DrawTile();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    RemoveSmallSpace();
-        //    DrawTile();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    Instantiate(PlayerPrefab, RandomPos(false), Quaternion.identity);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    Instantiate(PlayerPrefab, RandomPos(true), Quaternion.identity);
-        //}
+        //if (Input.GetMouseButtonDown(0)) 
+        //    GenerateMap();
     }
 
     private void GenerateMap()
@@ -278,7 +256,7 @@ public class MapGenerator : MonoBehaviour
 
     // Road 위의 랜덤한 위치를 월드 좌표계로 변환하여 반환하는 함수.
     // false을 인자로 넣어주면 모든 Road 위에서 랜덤. true을 인자로 넣어주면 벽 근처의 Road 위에서 랜덤.
-    private Vector3 RandomPos(bool CheckWall)
+    public Vector3 RandomPos(bool CheckWall)
     {
         var (x, y) = RandomRoad(CheckWall);
         Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);

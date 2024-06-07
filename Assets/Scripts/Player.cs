@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    public int GetMaxHP() { return MaxHP; }
+    public int GetHP() { return HP; }
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -87,7 +90,8 @@ public class Player : MonoBehaviour
             switch (item.ItemType)
             {
                 case (ItemType.BlueShell):
-
+                    break;
+                case (ItemType.DamageTest):
                     break;
             }
             Destroy(item.gameObject);
