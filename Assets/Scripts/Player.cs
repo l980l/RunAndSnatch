@@ -92,6 +92,8 @@ public class Player : MonoBehaviour
                 case (ItemType.BlueShell):
                     break;
                 case (ItemType.DamageTest):
+                    HP -= 10;
+                    GameManager.Instance.GetHeatlhHUD().UpdateHP(); 
                     break;
             }
             Destroy(item.gameObject);
