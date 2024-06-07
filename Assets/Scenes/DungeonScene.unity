@@ -354,7 +354,7 @@ MonoBehaviour:
   mapGenerator: {fileID: 2026649829}
   PlayerPrefab: {fileID: 914428289684503498, guid: 743b081792d90744ea21a7acb93a8afb, type: 3}
   ItemPrefab:
-  - {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
+  - {fileID: 7232637101562408888, guid: 1a57e47e5f48ec242962e18a4bb17711, type: 3}
   ItemCount: 10
 --- !u!4 &747869933
 Transform:

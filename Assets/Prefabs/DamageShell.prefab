@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5552374449694352748}
   - component: {fileID: 1440366283942355389}
   - component: {fileID: 6774352671481289909}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: DamageShell
   m_TagString: Item
   m_Icon: {fileID: 0}
