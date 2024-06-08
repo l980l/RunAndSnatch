@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3506551882703284436}
   - component: {fileID: 5955260436839242853}
   - component: {fileID: 6690112053531199792}
+  - component: {fileID: 6896424215679525566}
   - component: {fileID: 8231039139263967978}
   - component: {fileID: 2307359982548790868}
   - component: {fileID: 5110140089342122563}
@@ -105,6 +106,20 @@ MonoBehaviour:
   MaxHP: 100
   MaxStamina: 3
   StaminaRegenSpeed: 0.3
+--- !u!114 &6896424215679525566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914428289684503498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0afe6661175e6074c88e9f86f5fc60e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScanTerm: 0.1
+  TrailLifeTime: 1
 --- !u!50 &8231039139263967978
 Rigidbody2D:
   serializedVersion: 4

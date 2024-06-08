@@ -18,12 +18,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private MotionTrail motionTrail;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        motionTrail= GetComponent<MotionTrail>();
         HP = MaxHP;
         Stamina = MaxStamina;
     }
@@ -165,13 +167,15 @@ public class Player : MonoBehaviour
         SetInvincible(true);
         bIsDodging = true;
         animator.SetBool("Dodge", true);
+        motionTrail.MotionTrailStart();
     }   
     
     private void DodgeEnd()
     {
-        // 무적 해제, 회피 상태 해제, 애니메이션 변경
+        // 무적 해제, 회피 상태 해제, 애니메이션 변경, 잔상 해제
         SetInvincible(false);
         bIsDodging = false;
         animator.SetBool("Dodge", false);
+        motionTrail.MotionTrailEnd();
     }
 }
