@@ -432,6 +432,8 @@ MonoBehaviour:
   ItemPrefab:
   - {fileID: 7232637101562408888, guid: 1a57e47e5f48ec242962e18a4bb17711, type: 3}
   ItemCount: 10
+  MonsterPrefabs: []
+  ExitPrefab: {fileID: 0}
 --- !u!4 &747869933
 Transform:
   m_ObjectHideFlags: 0
@@ -511,7 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.025922537, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.7372761, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -561,6 +563,8 @@ GameObject:
   - component: {fileID: 1023833511}
   - component: {fileID: 1023833510}
   - component: {fileID: 1023833509}
+  - component: {fileID: 1023833513}
+  - component: {fileID: 1023833514}
   m_Layer: 0
   m_Name: WallTilemap
   m_TagString: Map
@@ -614,7 +618,7 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
@@ -757,6 +761,64 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &1023833513
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023833506}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1023833509}
+    m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 1023833506}
+--- !u!114 &1023833514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023833506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a52af89a9553311418a6802dfc00ceee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 0
 --- !u!1 &1461835273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1133,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.03
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -1456,6 +1518,7 @@ GameObject:
   - component: {fileID: 2015271200}
   - component: {fileID: 2015271203}
   - component: {fileID: 2015271205}
+  - component: {fileID: 2015271206}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1506,7 +1569,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.821429
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1615,6 +1678,30 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2015271206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015271199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_AssetsPPU: 8
+  m_RefResolutionX: 320
+  m_RefResolutionY: 180
+  m_CropFrame: 0
+  m_GridSnapping: 0
+  m_FilterMode: 0
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &2023824245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,10 +1831,7 @@ MonoBehaviour:
   WallTilemap: {fileID: 1023833512}
   WallTile: {fileID: 11400000, guid: 77736bbb5f207664db508859586c0229, type: 2}
   RoadTile: {fileID: 11400000, guid: 94154337b73862b41879125b70d6b2e8, type: 2}
-  PlayerPrefab: {fileID: 6742364030409802661, guid: 5c626ee2cf39b6f4f87dede5f6808776, type: 3}
-  ExitPrefab: {fileID: 0}
-  MonsterPrefabs: []
-  ItemPrefabs: []
+  shadowCasterGenerator: {fileID: 1023833514}
 --- !u!1 &2068913701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,8 +1999,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1564744142}
   - {fileID: 2015271202}
-  - {fileID: 278750819}
   - {fileID: 1579675418}
+  - {fileID: 278750819}
   - {fileID: 2140195408}
   - {fileID: 1539433212}
   - {fileID: 1975882581}

@@ -7,6 +7,7 @@ public class MotionTrail : MonoBehaviour
 {
     [SerializeField] private float ScanTerm;
     [SerializeField] private float TrailLifeTime;
+    [SerializeField] private Color TrailColor;
 
     private int TrailPoolCount;
     private SpriteRenderer spriteRenderer;
@@ -77,7 +78,7 @@ public class MotionTrail : MonoBehaviour
         // 알파값 조절 및 비활성화
         for (int i = 0; i < TrailPoolCount; i++)
         {
-            if (Trails[i].active)
+            if (Trails[i].activeInHierarchy)
             {
                 float AfterBeginTime = Time.realtimeSinceStartup - TrailStartTimes[i];
                 if (AfterBeginTime > TrailLifeTime)
@@ -89,7 +90,7 @@ public class MotionTrail : MonoBehaviour
                 else
                 {
                     float Alpha = (TrailLifeTime - AfterBeginTime) / TrailLifeTime;
-                    Trails[i].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, Alpha);
+                    Trails[i].GetComponent<SpriteRenderer>().color = new Color(TrailColor.r, TrailColor.g, TrailColor.b, Alpha);
                 }
             }
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEditor.PlayerSettings;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -20,11 +21,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Tilemap WallTilemap;
     [SerializeField] private RuleTile WallTile;
     [SerializeField] private RuleTile RoadTile;
-
-    [SerializeField] private GameObject PlayerPrefab;
-    [SerializeField] private GameObject ExitPrefab;
-    [SerializeField] private GameObject[] MonsterPrefabs;
-    [SerializeField] private GameObject[] ItemPrefabs;
+    [SerializeField] private ShadowCasterGenerator shadowCasterGenerator;
 
     private int[,] map;
     private const int WALL = 0;
@@ -36,6 +33,7 @@ public class MapGenerator : MonoBehaviour
     {
         GenerateMap();
     }
+
     private void Update()
     {
         //if (Input.GetMouseButtonDown(0)) 
@@ -53,6 +51,8 @@ public class MapGenerator : MonoBehaviour
         RemoveSmallSpace(); // 큰 공간만 남기기.
 
         DrawTile(); // 타일 그리기.
+
+        GenerateShadowCasters();    // ShadowCaster2D 생성.
     }
 
     private void MapRandomFill() //맵을 비율에 따라 벽 혹은 빈 공간으로 랜덤하게 채우는 메소드
@@ -148,6 +148,54 @@ public class MapGenerator : MonoBehaviour
             WallTilemap.SetTile(pos, WallTile);
             RoadTilemap.SetTile(pos, null);
         }
+    }
+
+    private void SetExit()
+    {
+        // 탈출구 위치 정하기. 맵 중앙에서 상 하 좌 우 4 방향 중 하나에 탈출구를 두자.
+        int Dir = UnityEngine.Random.Range(0, 4);
+        Vector3Int tempClearTilePos = new Vector3Int(0, 0, 0);
+        Vector3Int MoveUnit = new Vector3Int(0, 0, 0);
+
+        //Vector3Int tempClearTilePos = new Vector3Int(-width / 2, 0, 0);
+        //Vector3Int MoveUnit = new Vector3Int(1, 0, 0);
+
+        switch (Dir)
+        {
+            case 0:
+                tempClearTilePos.Set(-width / 2, 0, 0);
+                MoveUnit.Set(1, 0, 0);
+                break;
+            case 1:
+                tempClearTilePos.Set(width / 2, 0, 0);
+                MoveUnit.Set(-1, 0, 0);
+                break;
+            case 2:
+                tempClearTilePos.Set(0, -width / 2, 0);
+                MoveUnit.Set(0, 1, 0);
+                break;
+            case 3:
+                tempClearTilePos.Set(0, width / 2, 0);
+                MoveUnit.Set(0, -1, 0);
+                break;
+        }
+
+        // 벽 지우기.
+        while (WallTilemap.GetTile(tempClearTilePos))
+        {
+            WallTilemap.SetTile(tempClearTilePos, null);
+            RoadTilemap.SetTile(tempClearTilePos, RoadTile);
+
+            // 이동.
+            tempClearTilePos += MoveUnit;
+        }
+    }
+
+    private void GenerateShadowCasters()
+    {
+        SetExit();
+        WallTilemap.GetComponent<TilemapCollider2D>().ProcessTilemapChanges();
+        shadowCasterGenerator.Create();
     }
 
     private int SearchMaxRoom()     // MaxRoom의 크기와 좌표들을 구해서 List에 넣어주는 함수.
