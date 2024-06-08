@@ -34,6 +34,11 @@ public class MapGenerator : MonoBehaviour
         GenerateMap();
     }
 
+    private void Start()
+    {
+        GenerateShadowCasters();    // ShadowCaster2D 생성.
+    }
+
     private void Update()
     {
         //if (Input.GetMouseButtonDown(0)) 
@@ -51,8 +56,6 @@ public class MapGenerator : MonoBehaviour
         RemoveSmallSpace(); // 큰 공간만 남기기.
 
         DrawTile(); // 타일 그리기.
-
-        GenerateShadowCasters();    // ShadowCaster2D 생성.
     }
 
     private void MapRandomFill() //맵을 비율에 따라 벽 혹은 빈 공간으로 랜덤하게 채우는 메소드
