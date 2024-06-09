@@ -14,30 +14,28 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private HeatlhHUD heatlhHUD;
     [SerializeField] private StaminaHUD StaminaHUD;
-    [SerializeField] private Text ItemValueText;
-
     [SerializeField] private MapGenerator mapGenerator;
+
+    [SerializeField] private Text ItemValueText;
     [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject[] ItemPrefab;
-    [SerializeField] private int ItemCount;
     [SerializeField] private GameObject[] MonsterPrefabs;
     [SerializeField] private GameObject ExitPrefab;
 
     private GameObject Player;
-    private int TotalItemValue;
 
     public GameObject GetPlayer() { return Player; }
     public HeatlhHUD GetHeatlhHUD() { return heatlhHUD; }
     public StaminaHUD GetStaminaHUD() { return StaminaHUD; }
-    public void SetItemValue(int Value)
+    public MapGenerator GetMapGenerator() { return mapGenerator; }
+    public void SetItemValue(int Value, int TotalItemValue)
     {
-        ItemValueText.text = Value.ToString() + " / " + TotalItemValue;
+        ItemValueText.text = Value.ToString() + " / " + TotalItemValue.ToString();
     }
 
     private void Awake()
     {
         Instance = this;
-        TotalItemValue = 0;
     }
 
     private void Start()
@@ -46,19 +44,10 @@ public class GameManager : MonoBehaviour
         {
             // 랜덤한 위치로 플레이어 생성. 초기 HealthHUD 세팅.
             Player = Instantiate(PlayerPrefab, mapGenerator.RandomPos(false), Quaternion.identity);
-
             // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
             CVC.m_Follow = Player.transform;
             // 아이템 생성
-            for (int i = 0; i < ItemCount; i++)
-            {
-                int index = Random.Range(0, ItemPrefab.Count());
-                // Item 가치 누적
-                TotalItemValue += ItemPrefab[index].GetComponent<Item>().GetItemValue();
-                Instantiate(ItemPrefab[index], mapGenerator.RandomPos(false), Quaternion.identity);
-            }
-            // ItemValueText 세팅
-            SetItemValue(0);
+            ItemDB.Instance.GenerateItemsOnField();
         }
     }
 }
