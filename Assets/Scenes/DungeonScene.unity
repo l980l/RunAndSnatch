@@ -430,7 +430,7 @@ MonoBehaviour:
   mapGenerator: {fileID: 2026649829}
   PlayerPrefab: {fileID: 914428289684503498, guid: 743b081792d90744ea21a7acb93a8afb, type: 3}
   ItemPrefab:
-  - {fileID: 7232637101562408888, guid: 1a57e47e5f48ec242962e18a4bb17711, type: 3}
+  - {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
   ItemCount: 10
   MonsterPrefabs: []
   ExitPrefab: {fileID: 0}
@@ -1569,7 +1569,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.821429
+  orthographic size: 5.075
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
