@@ -1,24 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemType
 {
-    BlueShell,
-    DamageTest
+    BlueBall,
+    MouseToy,
+    FishToy,
+    FoxTail,
+    Salmon,
+    PaperBox,
+    Necklace,
+    CatBell,
+    Max
 }
 
-public class Item : MonoBehaviour
+// 원본 아이템 클래스
+[System.Serializable]
+public class Item
 {
-    [SerializeField] public ItemType ItemType;
-    [SerializeField] private int Value;
+    public ItemType ItemType;
+    // Type을 기반으로 자동 세팅할거라 숨김
+    [HideInInspector] public string ItemName;   
+    public Sprite ItemImage;
+    public int Value;
+    public List<ItemEffect> Effects;
 
-    private Rigidbody2D Rigidbody2D;
-
-    public int GetItemValue() {  return Value; }
-
-    private void Awake()
+    public bool Use()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        bool isUsed  = false;
+        foreach(ItemEffect effect in Effects)
+        {
+            isUsed = effect.ExecuteRole();
+        }
+        isUsed = true;
+
+        return isUsed;
     }
 }
