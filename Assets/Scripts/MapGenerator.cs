@@ -157,12 +157,11 @@ public class MapGenerator : MonoBehaviour
     {
         // 탈출구 위치 정하기. 맵 중앙에서 상 하 좌 우 4 방향 중 하나에 탈출구를 두자.
         int Dir = UnityEngine.Random.Range(0, 4);
-        Vector3Int tempClearTilePos = new Vector3Int(0, 0, 0);
-        Vector3Int MoveUnit = new Vector3Int(0, 0, 0);
+        Vector3Int tempClearTilePos = new Vector3Int(-width / 2, 0, 0);
+        Vector3Int MoveUnit = new Vector3Int(1, 0, 0);
 
-        //Vector3Int tempClearTilePos = new Vector3Int(-width / 2, 0, 0);
-        //Vector3Int MoveUnit = new Vector3Int(1, 0, 0);
-
+        // Width나 Height가 짝수인 경우, 중심이 0이 아니라 -1과 0 사이의 경계가 됨. 그래서, Width가 50이라고 치면, 왼쪽 끝 좌표는 -25지만 오른쪽 끝 좌표는 25가 아니라 0부터 시작해서  24임. 
+        // 하지만 홀수인 경우는 양쪽 끝 좌표의 절대값이 같음. 그래서 + width % 2를 해줌.
         switch (Dir)
         {
             case 0:
@@ -170,7 +169,7 @@ public class MapGenerator : MonoBehaviour
                 MoveUnit.Set(1, 0, 0);
                 break;
             case 1:
-                tempClearTilePos.Set(width / 2, 0, 0);
+                tempClearTilePos.Set(width / 2 - 1 + width % 2, 0, 0);
                 MoveUnit.Set(-1, 0, 0);
                 break;
             case 2:
@@ -178,7 +177,7 @@ public class MapGenerator : MonoBehaviour
                 MoveUnit.Set(0, 1, 0);
                 break;
             case 3:
-                tempClearTilePos.Set(0, width / 2, 0);
+                tempClearTilePos.Set(0, width / 2 - 1 + width % 2, 0);
                 MoveUnit.Set(0, -1, 0);
                 break;
         }
