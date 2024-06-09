@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     private float Stamina;
     private Vector2 inputVec;
     private bool bIsDodging;
-    private int AcquiredItemValue;
     private Rigidbody2D rigidBody;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -82,26 +81,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Item")
-        {
-            Item item = collision.gameObject.GetComponent<Item>();
-            switch (item.ItemType)
-            {
-                case (ItemType.BlueShell):
-                    AcquiredItemValue += item.GetItemValue();
-                    GameManager.Instance.SetItemValue(AcquiredItemValue);
-                    break;
-                case (ItemType.DamageTest):
-                    Vector2 AttackPos = new Vector2(collision.transform.position.x, collision.transform.position.y);
-                    OnDamage(50, AttackPos);
-                    break;
-            }
-            Destroy(item.gameObject);
-        }
-    }
-
     private void GetInput()
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
@@ -134,10 +113,7 @@ public class Player : MonoBehaviour
     }
     private void OnDamage(int Damage, Vector2 AttackPos)
     {
-        HP -= Damage;
-        // HealthHUD ¼¼ÆÃ
-        float amount = (float)HP / (float)MaxHP;
-        GameManager.Instance.GetHeatlhHUD().UpdateHP(amount);
+        AddHP(-Damage);
 
         if (HP <= 0)
             Die();
@@ -177,5 +153,16 @@ public class Player : MonoBehaviour
         bIsDodging = false;
         animator.SetBool("Dodge", false);
         motionTrail.MotionTrailEnd();
+    }
+
+    public void AddHP(int _amount)
+    {
+        HP += _amount;
+        if (HP > MaxHP)
+        {
+            HP = MaxHP;
+        }
+        float amount = (float)HP / (float)MaxHP;
+        GameManager.Instance.GetHeatlhHUD().UpdateHP(amount);
     }
 }
