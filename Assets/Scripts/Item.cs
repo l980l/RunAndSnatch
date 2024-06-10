@@ -26,6 +26,7 @@ public class Item
     public Sprite ItemImage;
     public int Value;
     public List<ItemEffect> Effects;
+    public string ItemTip;
 
     public bool Use()
     {
