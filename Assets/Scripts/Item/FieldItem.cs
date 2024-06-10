@@ -4,28 +4,20 @@ using UnityEngine;
 
 public class FieldItem : MonoBehaviour
 {
-    public Item Item;
+    private ItemType itemType;
 
-    public void SetItem(Item _item)
+    public void SetItem(ItemType _itemType)
     {
-        // 원본 아이템 값 복사
-        Item.ItemType = _item.ItemType;
-        Item.ItemNameKr = _item.ItemNameKr;  // 영어 이름은 ItemType을 사용
-        Item.ItemNameEn = _item.ItemNameEn;  // 영어 이름은 ItemType을 사용
-        Item.ItemTipKr = _item.ItemTipKr;  // 영어 이름은 ItemType을 사용
-        Item.ItemTipEn = _item.ItemTipEn;  // 영어 이름은 ItemType을 사용
-        Item.Value = _item.Value;
-        Item.Effects = _item.Effects;
-        Item.ItemImage = _item.ItemImage;
+        itemType = _itemType;
 
         // 스프라이트 변경
-        GetComponent<SpriteRenderer>().sprite = _item.ItemImage;
+        GetComponent<SpriteRenderer>().sprite = ItemDB.Instance.itemDBSO.items[(int)itemType].ItemImage;
     }
     
     // 아이템 획득시 사용할 함수
-    public Item GetItem()
+    public ItemType GetItemType()
     {
-        return Item;
+        return itemType;
     }
 
     public void DestoryItem()
