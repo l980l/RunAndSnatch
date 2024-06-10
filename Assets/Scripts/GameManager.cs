@@ -8,7 +8,19 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
+    // ΩÃ±€≈Ê¿∏∑Œ ¡ˆ¡§.
+    #region Singleton
     public static GameManager Instance;
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+    #endregion
 
     [SerializeField] private CinemachineVirtualCamera CVC;
 
@@ -31,11 +43,6 @@ public class GameManager : MonoBehaviour
     public void SetItemValue(int Value, int TotalItemValue)
     {
         ItemValueText.text = Value.ToString() + " / " + TotalItemValue.ToString();
-    }
-
-    private void Awake()
-    {
-        Instance = this;
     }
 
     private void Start()
