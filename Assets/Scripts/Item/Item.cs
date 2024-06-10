@@ -20,14 +20,14 @@ public enum ItemType
 [System.Serializable]
 public class Item
 {
-    public ItemType ItemType;
-    public string ItemNameKr;
-    public string ItemNameEn;
+    /*[HideInInspector] */public ItemType ItemType;
+    /*[HideInInspector] */public string ItemNameKr;
+    /*[HideInInspector] */public string ItemNameEn;
+    /*[HideInInspector] */public string ItemTipKr;
+    /*[HideInInspector] */public string ItemTipEn;
+    /*[HideInInspector] */public int Value;
+    /*[HideInInspector] */public List<ItemEffect> Effects;
     public Sprite ItemImage;
-    public int Value;
-    public List<ItemEffect> Effects;
-    public string ItemTipKr;
-    public string ItemTipEn;
 
     public bool Use()
     {

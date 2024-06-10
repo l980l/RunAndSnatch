@@ -19,6 +19,21 @@ public class InventoryUI : MonoBehaviour
         Inventory.Instance.onChangeItem += RedrawSlotUI;
         ToolTip.Instance.gameObject.SetActive(false);   // 초기 툴팁 비활성화
     }
+    private void OnDestroy()
+    {
+        if (Inventory.Instance != null)
+        {
+            Inventory.Instance.onChangeItem -= RedrawSlotUI;
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            ActiveInventory = !ActiveInventory;
+            inventoryPanel.SetActive(ActiveInventory);
+        }
+    }
 
     private void RedrawSlotUI()
     {
@@ -30,15 +45,6 @@ public class InventoryUI : MonoBehaviour
         {
             itemSlots[i].item = Inventory.Instance.Items[i];
             itemSlots[i].UpdateSlotUI();
-        }
-    }
-
-    private void Update()
-    {
-        if(Input.GetButtonDown("Cancel"))
-        {
-            ActiveInventory = !ActiveInventory;
-            inventoryPanel.SetActive(ActiveInventory);
         }
     }
 }

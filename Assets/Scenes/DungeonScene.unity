@@ -3309,74 +3309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8360dd8d7e35b14580f8f0fa100b4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDB:
-  - ItemType: 0
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: c7578218ce3a87d4681edec66a6519c4, type: 3}
-    Value: 30
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 1
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: c719fe14a9860eb4781a4fe26c6cde5a, type: 3}
-    Value: 50
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 2
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: cf6f48b62183cb2469ebff8231f6bd3d, type: 3}
-    Value: 70
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 3
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: edf7ce760f15fcb4b9baca7a6cb5e726, type: 3}
-    Value: 10
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 4
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: 6f07e4da7c7a5ce49aa05f517fbb063f, type: 3}
-    Value: 60
-    Effects:
-    - {fileID: 11400000, guid: 1016971e15044e5408e6911c0d0e67cf, type: 2}
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 5
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: 38de1bb66b4656741816d88b5434d7bc, type: 3}
-    Value: 100
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 6
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: f20d6bcb432eeb249a84a4da12c36f93, type: 3}
-    Value: 200
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  - ItemType: 7
-    ItemNameKr: 
-    ItemNameEn: 
-    ItemImage: {fileID: 21300000, guid: 1a46301220abcd24eb8b65d69ef469c0, type: 3}
-    Value: 80
-    Effects: []
-    ItemTipKr: 
-    ItemTipEn: 
-  FieldObjectPrefab: {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
+  FieldItemPrefab: {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
   ItemCount: 10
+  itemDBSO: {fileID: 11400000, guid: 2073330e1b00a3446af07be2e0e449fb, type: 2}
 --- !u!4 &1077725164
 Transform:
   m_ObjectHideFlags: 0
