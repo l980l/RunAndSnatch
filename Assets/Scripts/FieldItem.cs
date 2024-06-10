@@ -10,7 +10,8 @@ public class FieldItem : MonoBehaviour
     {
         // 원본 아이템 값 복사
         Item.ItemType = _item.ItemType;
-        Item.ItemName = _item.ItemType.ToString();  // 이름은 ItemType을 사용
+        Item.ItemNameKr = _item.ItemNameKr;  // 영어 이름은 ItemType을 사용
+        //Item.ItemNameEn = _item.ItemNameEn;  // 영어 이름은 ItemType을 사용
         Item.ItemImage = _item.ItemImage;
         Item.Value = _item.Value;
         Item.Effects = _item.Effects;
