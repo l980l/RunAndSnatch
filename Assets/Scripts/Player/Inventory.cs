@@ -54,14 +54,17 @@ public class Inventory : MonoBehaviour
         {
             FieldItem fieldItem = collision.transform.GetComponent<FieldItem>();
 
+            // ItemType으로 Item 가져오기.
+            Item NowItem = ItemDB.Instance.itemDBSO.items[(int)fieldItem.GetItemType()];
+
             // 아이템 획득시 효과 사용
-            fieldItem.Item.Use();
+            NowItem.Use();
 
             // 획득 가치 적용
-            AcquiredItemValue += fieldItem.Item.Value;
+            AcquiredItemValue += NowItem.Value;
             GameManager.Instance.SetItemValue(AcquiredItemValue, ItemDB.Instance.GetTotalItemValue());
 
-            if (AddItem(fieldItem.GetItem()))
+            if (AddItem(NowItem))
                 fieldItem.DestoryItem();
         }
     }

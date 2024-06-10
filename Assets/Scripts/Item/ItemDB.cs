@@ -12,7 +12,6 @@ public class ItemDB : MonoBehaviour
         Instance = this;
     }
 
-    private List<Item> itemDB = new List<Item>();
     [SerializeField] private GameObject FieldItemPrefab;
     [SerializeField] private int ItemCount;
     private int TotalItemValue;
@@ -26,17 +25,16 @@ public class ItemDB : MonoBehaviour
             // 랜덤한 벽 근처 위치에 아이템 생성
             GameObject NewFieldItem = Instantiate(FieldItemPrefab, GameManager.Instance.GetMapGenerator().RandomPos(true), Quaternion.identity);
             // 랜덤한 아이템으로 세팅
-            NewFieldItem.GetComponent<FieldItem>().SetItem(itemDBSO.items[UnityEngine.Random.Range(0, (int)ItemType.Max)]);
-            //NewFieldItem.GetComponent<FieldItem>().SetItem(itemDB[UnityEngine.Random.Range(0, (int)ItemType.Max)]);
+            NewFieldItem.GetComponent<FieldItem>().SetItem((ItemType)UnityEngine.Random.Range(0, (int)ItemType.Max));
             // Item 가치 누적
-            TotalItemValue += NewFieldItem.GetComponent<FieldItem>().Item.Value;
+            TotalItemValue += itemDBSO.items[(int)NewFieldItem.GetComponent<FieldItem>().GetItemType()].Value;
         }
         // ItemValueText 세팅
         GameManager.Instance.SetItemValue(0, TotalItemValue);
     }
 
     #region ItemDBSO
-    [SerializeField] private ItemDBSO itemDBSO;
+    public ItemDBSO itemDBSO;
 
     const string URL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=311763605&range=A2:G";
     private void Start()
@@ -76,9 +74,6 @@ public class ItemDB : MonoBehaviour
                 int index = (int)Enum.Parse<ItemEffectType>(effect);
                 itemDBSO.items[i].Effects.Add(ItemEffectManager.Instance.ItemEffects[index]);
             }
-
-            // itemDB에 원본 아이템 추가
-            itemDB.Add(itemDBSO.items[i]);
         }
     }
 
