@@ -165,4 +165,25 @@ public class Player : MonoBehaviour
         float amount = (float)HP / (float)MaxHP;
         GameManager.Instance.GetHeatlhHUD().UpdateHP(amount);
     }
+
+    public void AddStemina(float _amount)
+    {
+        Stamina += _amount;
+        if (Stamina > MaxStamina)
+        {
+            Stamina = MaxStamina;
+        }
+        float Amount = (float)Stamina / (float)MaxStamina;
+        GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
+    }
+
+    public void StaminaRegenSpeedUp(float _amount)
+    {
+        StaminaRegenSpeed += _amount;
+    }
+
+    public void MoveSpeedUp(float _amount)
+    {
+        speed += _amount;
+    }
 }

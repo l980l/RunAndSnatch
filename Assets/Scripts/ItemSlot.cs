@@ -29,8 +29,10 @@ public class ItemSlot : MonoBehaviour
             if (!toolTip.gameObject.activeSelf)
             {
                 toolTip.gameObject.SetActive(true);
-                toolTip.ItemName.text = item.ItemName;
-                toolTip.ItemTip.text = item.ItemTip;
+                toolTip.ItemName.text = item.ItemNameKr;
+                // 언어 선택에 따라 갈리게. toolTip.ItemName.text = item.ItemNameEn;
+                toolTip.ItemTip.text = item.ItemTipKr;
+                //toolTip.ItemTip.text = item.ItemTipEn;
                 toolTip.ItemImage.sprite = item.ItemImage;
             }
         }

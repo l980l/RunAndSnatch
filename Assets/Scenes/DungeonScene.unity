@@ -2431,7 +2431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &906805791
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3311,54 +3311,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDB:
   - ItemType: 0
-    ItemName: BlueBall
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: c7578218ce3a87d4681edec66a6519c4, type: 3}
     Value: 30
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 1
-    ItemName: MouseToy
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: c719fe14a9860eb4781a4fe26c6cde5a, type: 3}
     Value: 50
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 2
-    ItemName: FishToy
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: cf6f48b62183cb2469ebff8231f6bd3d, type: 3}
     Value: 70
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 3
-    ItemName: Foxtail
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: edf7ce760f15fcb4b9baca7a6cb5e726, type: 3}
     Value: 10
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 4
-    ItemName: Salmon
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: 6f07e4da7c7a5ce49aa05f517fbb063f, type: 3}
     Value: 60
     Effects:
     - {fileID: 11400000, guid: 1016971e15044e5408e6911c0d0e67cf, type: 2}
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 5
-    ItemName: PaperBox
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: 38de1bb66b4656741816d88b5434d7bc, type: 3}
     Value: 100
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 6
-    ItemName: Necklace
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: f20d6bcb432eeb249a84a4da12c36f93, type: 3}
     Value: 200
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   - ItemType: 7
-    ItemName: CatBell
+    ItemNameKr: 
+    ItemNameEn: 
     ItemImage: {fileID: 21300000, guid: 1a46301220abcd24eb8b65d69ef469c0, type: 3}
     Value: 80
     Effects: []
-    ItemTip: 
+    ItemTipKr: 
+    ItemTipEn: 
   FieldObjectPrefab: {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
   ItemCount: 10
 --- !u!4 &1077725164
@@ -4882,6 +4898,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47c8dac512e8ebd4da772a03ba22fd3a, type: 3}
+--- !u!1 &1695062603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1695062605}
+  - component: {fileID: 1695062604}
+  m_Layer: 0
+  m_Name: ItemEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1695062604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695062603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7433b60f90e573446b534ac3d6e8cba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemEffects:
+  - {fileID: 11400000, guid: f4a92442a23b8fd4f9b302ffb23e3537, type: 2}
+  - {fileID: 11400000, guid: d69908b5f2e3a9b4086d957909cecf41, type: 2}
+  - {fileID: 11400000, guid: 8941d9182ca84ec42b76af1c8738cd68, type: 2}
+  - {fileID: 11400000, guid: ad18e8b70b0dda342bb1359b47ee1a4a, type: 2}
+  - {fileID: 11400000, guid: 0274e483b218e844c99975dc785b48e2, type: 2}
+  - {fileID: 11400000, guid: 2b837482059eab746bf8cfd1122b6d68, type: 2}
+  - {fileID: 11400000, guid: c798d441b81df9b4dbadd3d657723c21, type: 2}
+  - {fileID: 11400000, guid: 2106d914c2b1b6f4cbaf1e61df0cc388, type: 2}
+--- !u!4 &1695062605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695062603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 888.20825, y: 552.5491, z: -0.81665444}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1723025647 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4434865282248396352, guid: 47c8dac512e8ebd4da772a03ba22fd3a, type: 3}
@@ -6145,3 +6214,4 @@ SceneRoots:
   - {fileID: 747869933}
   - {fileID: 1272745581}
   - {fileID: 1077725164}
+  - {fileID: 1695062605}
