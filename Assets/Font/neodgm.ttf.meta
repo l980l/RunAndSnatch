@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 42a1e7d1e29980743ba0bb71ea6fc537
+guid: cc0fdafd004e4f840b5b822d1ca46579
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,10 +9,10 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - BM JUA_OTF
+  - NeoDunggeunmo
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 2
+  fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
