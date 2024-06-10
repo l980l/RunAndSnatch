@@ -28,6 +28,7 @@ public class Inventory : MonoBehaviour
     [HideInInspector] public List<Item> Items = new List<Item>();
     [SerializeField] private int slotCount;
     private int AcquiredItemValue;
+    private int AcquiredItemCount;
 
     public bool AddItem(Item _item)
     {
@@ -61,8 +62,9 @@ public class Inventory : MonoBehaviour
             NowItem.Use();
 
             // È¹µæ °¡Ä¡ Àû¿ë
+            AcquiredItemCount++;
             AcquiredItemValue += NowItem.Value;
-            GameManager.Instance.SetItemValue(AcquiredItemValue, ItemDB.Instance.GetTotalItemValue());
+            GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
 
             if (AddItem(NowItem))
                 fieldItem.DestoryItem();
