@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+public enum ItemEffectType
+{
+    SmallHealingEft, 
+    StaminaFullRecoverEft,
+    StaminaRegenUpEft, 
+    BigHealingEft,
+    SpeedUpEft,
+    BrightenEft, 
+    StealthEft, 
+    BellEft,
+    Max
+}
+
 public class ItemEffectManager : MonoBehaviour
 {
     public static ItemEffectManager Instance;
@@ -12,7 +25,7 @@ public class ItemEffectManager : MonoBehaviour
     }
 
     [Tooltip("SmallHealingEft, StaminaFullRecoverEft, StaminaRegenUpEft, BigHealingEft, SpeedUpEft, BrightenEft, StealthEft, BellEft")]
-    [SerializeField] private ItemEffect[] ItemEffects;
+    public ItemEffect[] ItemEffects;
     private void Start()
     {
         StartCoroutine(DownloadItemEffectSO());
@@ -36,7 +49,7 @@ public class ItemEffectManager : MonoBehaviour
         for(int i = 0; i < rowSize; i++)
         {
             string[] column = row[i].Split("\t");
-            // column[0]에는 이름 들어있어서 필요 없음.
+            ItemEffects[i].effectName = column[0];
             ItemEffects[i].value1 = float.Parse(column[1]);
             ItemEffects[i].value2 = float.Parse(column[2]);
         }

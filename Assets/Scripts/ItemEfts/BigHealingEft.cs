@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-[CreateAssetMenu(menuName = "ItemEftSO/BigHealingEft")]
+[CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/BigHealingEft")]
 public class BigHealingEft : ItemEffect
 {
     public override bool ExecuteRole()
