@@ -311,6 +311,7 @@ public class MapGenerator : MonoBehaviour
         var (x, y) = RandomRoad(CheckWall);
         Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
         Vector3 result = RoadTilemap.GetComponentInParent<Grid>().CellToWorld(temp);
+        result += RoadTilemap.GetLayoutCellCenter();
 
         return result;
     }
