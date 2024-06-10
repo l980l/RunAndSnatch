@@ -20,4 +20,11 @@ public class ItemSlot : MonoBehaviour
         itemIcon.color = new Color(148, 95, 63, 255);   
         itemIcon.gameObject.SetActive(false);
     }
+    public void Clicked()
+    {
+        if (item != null)
+        {
+
+        }
+    }
 }

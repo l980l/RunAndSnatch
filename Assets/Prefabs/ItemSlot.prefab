@@ -216,4 +216,5 @@ MonoBehaviour:
     ItemImage: {fileID: 0}
     Value: 0
     Effects: []
+    ItemTip: 
   itemIcon: {fileID: 1053793392455211246}
