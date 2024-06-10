@@ -14,8 +14,7 @@ public class ItemDB : MonoBehaviour
 
     [SerializeField] private GameObject FieldItemPrefab;
     [SerializeField] private int ItemCount;
-    private int TotalItemValue;
-    public int GetTotalItemValue(){ return TotalItemValue; }
+    public int GetTotalItemCount(){ return ItemCount; }
 
     public void GenerateItemsOnField()
     {
@@ -26,11 +25,9 @@ public class ItemDB : MonoBehaviour
             GameObject NewFieldItem = Instantiate(FieldItemPrefab, GameManager.Instance.GetMapGenerator().RandomPos(true), Quaternion.identity);
             // 랜덤한 아이템으로 세팅
             NewFieldItem.GetComponent<FieldItem>().SetItem((ItemType)UnityEngine.Random.Range(0, (int)ItemType.Max));
-            // Item 가치 누적
-            TotalItemValue += itemDBSO.items[(int)NewFieldItem.GetComponent<FieldItem>().GetItemType()].Value;
         }
         // ItemValueText 세팅
-        GameManager.Instance.SetItemValue(0, TotalItemValue);
+        GameManager.Instance.SetItemValue(0, ItemCount);
     }
 
     #region ItemDBSO
