@@ -17,6 +17,7 @@ public class InventoryUI : MonoBehaviour
         itemSlots = itemSlotHolder.GetComponentsInChildren<ItemSlot>();
         inventoryPanel.SetActive(ActiveInventory);
         Inventory.Instance.onChangeItem += RedrawSlotUI;
+        ToolTip.Instance.gameObject.SetActive(false);   // 초기 툴팁 비활성화
     }
 
     private void RedrawSlotUI()

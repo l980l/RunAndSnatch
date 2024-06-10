@@ -31,7 +31,6 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item _item)
     {
-        Debug.Log(slotCount);
         // 최대 Slot 수를 정하고, 그 이상은 인벤토리 용량 초과인 것.
         if (Items.Count < slotCount)
         {

@@ -24,7 +24,15 @@ public class ItemSlot : MonoBehaviour
     {
         if (item != null)
         {
-
+            ToolTip toolTip = ToolTip.Instance;
+            // 꺼져있던 경우 클릭되면
+            if (!toolTip.gameObject.activeSelf)
+            {
+                toolTip.gameObject.SetActive(true);
+                toolTip.ItemName.text = item.ItemName;
+                toolTip.ItemTip.text = item.ItemTip;
+                toolTip.ItemImage.sprite = item.ItemImage;
+            }
         }
     }
 }
