@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-[CreateAssetMenu(menuName = "ItemEftSO/StaminaFullRecoverEft")]
+[CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/StaminaFullRecoverEft")]
 public class StaminaFullRecoverEft : ItemEffect
 {
     public override bool ExecuteRole()
