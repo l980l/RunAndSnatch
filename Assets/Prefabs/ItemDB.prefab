@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldItemPrefab: {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
-  ItemCount: 10
+  ItemCount: 50
   itemDBSO: {fileID: 11400000, guid: 2073330e1b00a3446af07be2e0e449fb, type: 2}

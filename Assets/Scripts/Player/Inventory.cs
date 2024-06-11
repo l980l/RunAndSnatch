@@ -49,6 +49,11 @@ public class Inventory : MonoBehaviour
         onChangeItem.Invoke();
     }
 
+    public void SortItems()
+    {
+        Items.Sort((item1, item2) => item1.ItemType.CompareTo(item2.ItemType));
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Item")
