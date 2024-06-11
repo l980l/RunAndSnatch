@@ -58,16 +58,18 @@ public class Inventory : MonoBehaviour
             // ItemType으로 Item 가져오기.
             Item NowItem = ItemDB.Instance.itemDBSO.items[(int)fieldItem.GetItemType()];
 
-            // 아이템 획득시 효과 사용
-            NowItem.Use();
-
-            // 획득 가치 적용
-            AcquiredItemCount++;
-            AcquiredItemValue += NowItem.Value;
-            GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
-
             if (AddItem(NowItem))
+            {
                 fieldItem.DestoryItem();
+
+                // 아이템 획득시 효과 사용
+                NowItem.Use();
+
+                // 획득 가치 적용
+                AcquiredItemCount++;
+                AcquiredItemValue += NowItem.Value;
+                GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
+            }
         }
     }
 }

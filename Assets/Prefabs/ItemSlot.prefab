@@ -224,9 +224,11 @@ MonoBehaviour:
   slotNum: 0
   item:
     ItemType: 0
-    ItemName: 
-    ItemImage: {fileID: 0}
+    ItemNameKr: 
+    ItemNameEn: 
+    ItemTipKr: 
+    ItemTipEn: 
     Value: 0
     Effects: []
-    ItemTip: 
+    ItemImage: {fileID: 0}
   itemIcon: {fileID: 1053793392455211246}
