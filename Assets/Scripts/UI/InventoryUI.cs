@@ -47,4 +47,10 @@ public class InventoryUI : MonoBehaviour
             itemSlots[i].UpdateSlotUI();
         }
     }
+
+    public void SortButtonClicked()
+    {
+        Inventory.Instance.SortItems();
+        RedrawSlotUI();
+    }
 }
