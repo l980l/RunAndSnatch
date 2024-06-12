@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -25,10 +27,23 @@ public class Inventory : MonoBehaviour
     public OnChangeItem onChangeItem;                   // 델리게이트 인스턴스화
 
     // 획득한 아이템을 모아두는 공간. 즉, 진짜 인벤토리
-    [HideInInspector] public List<Item> Items = new List<Item>();
+    [HideInInspector] public List<Item> Items;
     [SerializeField] private int slotCount;
-    private int AcquiredItemValue;
     private int AcquiredItemCount;
+
+    private void Start()
+    {
+        LoadInven();
+    }
+
+    private void LoadInven()
+    {
+        if (AccountDataManager.Instance.GetAccountInven() != null)
+            Items = new List<Item>(AccountDataManager.Instance.GetAccountInven());
+        else
+            Items = new List<Item>();
+        onChangeItem.Invoke();
+    }
 
     public bool AddItem(Item _item)
     {
@@ -38,6 +53,8 @@ public class Inventory : MonoBehaviour
             Items.Add(_item);
             if(onChangeItem != null)
                 onChangeItem.Invoke();
+
+            AccountDataManager.Instance.UpdateAccountItems(Items);
             return true;
         }
         return false;
@@ -47,11 +64,20 @@ public class Inventory : MonoBehaviour
     {
         Items.RemoveAt(index);
         onChangeItem.Invoke();
+        AccountDataManager.Instance.UpdateAccountItems(Items);
+    }
+
+    public void RemoveAllItem()
+    {
+        Items.Clear();
+        onChangeItem.Invoke();
+        AccountDataManager.Instance.UpdateAccountItems(Items);
     }
 
     public void SortItems()
     {
         Items.Sort((item1, item2) => item1.ItemType.CompareTo(item2.ItemType));
+        AccountDataManager.Instance.UpdateAccountItems(Items);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -72,9 +98,28 @@ public class Inventory : MonoBehaviour
 
                 // 획득 가치 적용
                 AcquiredItemCount++;
-                AcquiredItemValue += NowItem.Value;
                 GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
+
+                // 계정 정보에 추가
+                AccountDataManager.Instance.UpdateAccountItems(Items);
             }
         }
+    }
+
+    public void Sell()
+    {
+        AccountDataManager.Instance.AccountGold += Items[ToolTip.Instance.ClickedSlotIndex].Value;
+        RemoveItem(ToolTip.Instance.ClickedSlotIndex);
+    }
+
+    public void AllSell()
+    {
+        int amount = 0;
+        foreach (var item in Items)
+        {
+            amount += item.Value;
+        }
+        AccountDataManager.Instance.AccountGold += amount;
+        RemoveAllItem();
     }
 }
