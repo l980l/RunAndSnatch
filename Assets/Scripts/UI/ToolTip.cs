@@ -22,6 +22,7 @@ public class ToolTip : MonoBehaviour
     public Text ItemName;
     public Text ItemTip;
     public Image ItemImage;
+    public int ClickedSlotIndex;
 
     private void Update()
     {

@@ -222,6 +222,7 @@ MonoBehaviour:
   ItemName: {fileID: 5977370345446294843}
   ItemTip: {fileID: 4629795034020007207}
   ItemImage: {fileID: 6008082238228433157}
+  ClickedSlotIndex: 0
 --- !u!1 &2524408558439112338
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +302,85 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Sell
+--- !u!1 &2527565611425655096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2488510249261231447}
+  - component: {fileID: 3293036552723551979}
+  - component: {fileID: 4660103325430351583}
+  m_Layer: 5
+  m_Name: GoldText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2488510249261231447
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527565611425655096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 895299614487271649}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -33}
+  m_SizeDelta: {x: 323.091, y: 30}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &3293036552723551979
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527565611425655096}
+  m_CullTransparentMesh: 1
+--- !u!114 &4660103325430351583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527565611425655096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.97654533, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: cc0fdafd004e4f840b5b822d1ca46579, type: 3}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Gold 0
 --- !u!1 &2702789043708088809
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,8 +626,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: -260, y: -310}
+  m_AnchoredPosition: {x: 0, y: -70}
+  m_SizeDelta: {x: -260, y: -330}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3466596603470010269
 CanvasRenderer:
@@ -671,7 +751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7.4999695}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.0000114440945, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7904677202279242884
@@ -991,7 +1071,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6652947671162990645}
         m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
-        m_MethodName: SortButtonClicked
+        m_MethodName: SellButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1070,7 +1150,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: cc0fdafd004e4f840b5b822d1ca46579, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 3
     m_MaxSize: 50
     m_Alignment: 4
@@ -1200,8 +1280,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7410857350359553644}
   m_HandleRect: {fileID: 8610832115001890037}
   m_Direction: 2
-  m_Value: 0.999999
-  m_Size: 0.90909094
+  m_Value: 0.5
+  m_Size: 0.7878788
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1329,7 +1409,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6652947671162990645}
         m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
-        m_MethodName: SortButtonClicked
+        m_MethodName: AllSellButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1457,6 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 7003003830822602161}
   itemSlotHolder: {fileID: 2479765713633460162}
+  GoldText: {fileID: 4660103325430351583}
 --- !u!1 &6212416667220814671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1651,7 @@ RectTransform:
   - {fileID: 7325412295264540676}
   - {fileID: 3612368942907270188}
   - {fileID: 8239450564125395256}
+  - {fileID: 2488510249261231447}
   m_Father: {fileID: 4908806003306366035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1649,7 +1731,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: -50}
+  m_AnchoredPosition: {x: -20, y: -35}
   m_SizeDelta: {x: 440, y: 440}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &6285487896114105050
@@ -1682,9 +1764,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: cc0fdafd004e4f840b5b822d1ca46579, type: 3}
-    m_FontSize: 40
+    m_FontSize: 35
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
