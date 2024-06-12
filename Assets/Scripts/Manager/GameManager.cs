@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] MonsterPrefabs;
     [SerializeField] private GameObject ExitPrefab;
 
-    private GameObject Player;
+    [Tooltip("OnlySetInCatTown")] [SerializeField] private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
     public HeatlhHUD GetHeatlhHUD() { return heatlhHUD; }
