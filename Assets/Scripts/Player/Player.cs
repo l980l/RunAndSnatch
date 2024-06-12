@@ -185,5 +185,7 @@ public class Player : MonoBehaviour
     public void MoveSpeedUp(float _amount)
     {
         speed += _amount;
+        // 이동 속도만 오르면 이상하니까 달리기 속도도 같이 올려주자
+        DodgeSpeed += _amount;
     }
 }
