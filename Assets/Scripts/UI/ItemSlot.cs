@@ -21,7 +21,7 @@ public class ItemSlot : MonoBehaviour
         itemIcon.gameObject.SetActive(false);
     }
     public void Clicked()
-    {
+    { 
         if (item != null)
         {
             ToolTip toolTip = ToolTip.Instance;

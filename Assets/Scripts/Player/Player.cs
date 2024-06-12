@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private int HP;
     private float Stamina;
     private Vector2 inputVec;
-    private bool bIsDodging;
+    private bool bIsDodging; 
     private Rigidbody2D rigidBody;
     private Animator animator;
     private SpriteRenderer spriteRenderer;

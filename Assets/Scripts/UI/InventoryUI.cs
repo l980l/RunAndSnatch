@@ -14,9 +14,10 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform itemSlotHolder;
     private ItemSlot[] itemSlots;
     [SerializeField] private Text GoldText;
+    [SerializeField] private Button SortButton;
 
     Inventory inventory;
-
+     
     private void Start()
     {
         itemSlots = itemSlotHolder.GetComponentsInChildren<ItemSlot>();
@@ -64,11 +65,18 @@ public class InventoryUI : MonoBehaviour
         // GoldText 업데이트
         GoldText.text = "Gold " + AccountDataManager.Instance.AccountGold.ToString();
     }
+    private IEnumerator ButtonCooldownRoutine()
+    {
+        SortButton.interactable = false; // 버튼 비활성화
+        yield return new WaitForSeconds(3); // 3초 대기
+        SortButton.interactable = true; // 버튼 다시 활성화
+    }
 
     public void SortButtonClicked()
     {
         inventory.SortItems();
         RedrawSlotUI();
+        StartCoroutine(ButtonCooldownRoutine());
     }
     public void AllSellButtonClicked()
     {

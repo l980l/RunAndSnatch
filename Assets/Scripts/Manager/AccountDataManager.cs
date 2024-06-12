@@ -3,11 +3,14 @@ using UnityEngine;
 using System.IO;
 using System;
 using System.Threading.Tasks;
+using Unity.Services.CloudSave;
+using System.Text;
+using Unity.Services.CloudSave.Models;
 
 [System.Serializable]
 public class AccountData    // 캐릭터 해금 정보, 캐릭터 별 선물 정보도 추가해야 한다.
 {
-    public ItemType[] Items;
+    public ItemType[] Items; 
     public int gold;
 }
 
@@ -15,6 +18,7 @@ public class AccountDataManager : MonoBehaviour
 {
     #region Singleton
     public static AccountDataManager Instance;
+    private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,11 +30,7 @@ public class AccountDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     #endregion
-
-    private string filePath;
-    private string keyWord = "341#@sdf^&gr$w&bk`9";
     private AccountData accountData;
-    private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체
 
     public int AccountGold
     {
@@ -38,15 +38,14 @@ public class AccountDataManager : MonoBehaviour
         set
         {
             accountData.gold = value;
-            SaveJsonAsync();
+            SaveJsonToCloud();
         }
     }
     public ItemType[] GetAccountInven() { return accountData.Items; }
 
     private void Start()
     {
-        filePath = Path.Combine(Application.persistentDataPath, "AccountData.json");
-        LoadJson();
+        LoadJsonFromCloud();
     }
 
     public void UpdateAccountItems(List<Item> _items)
@@ -57,34 +56,33 @@ public class AccountDataManager : MonoBehaviour
             temp.Add(item.ItemType);
         }
         accountData.Items = temp.ToArray();
-        SaveJsonAsync();
+        SaveJsonToCloud();
     }
 
-    private async void SaveJsonAsync()
-    {
-        await Task.Run(() => SaveJson());
-    }
 
-    private void SaveJson()
+    #region UnityCloud 이용
+    private string DataKey = "PlayerData";
+
+    private async void SaveJsonToCloud()
     {
+        string jsonData;
         lock (fileLock)
         {
-            string jsonData = JsonUtility.ToJson(accountData);
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
-            string code = System.Convert.ToBase64String(bytes);
-            string encryptedData = EncryptAndDecript(code);
-            File.WriteAllText(filePath, encryptedData);
+            jsonData = JsonUtility.ToJson(accountData);
         }
+
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        await SaveFileBytes(DataKey, bytes);
     }
 
-    private void LoadJson()
+    private async void LoadJsonFromCloud()
     {
-        if (File.Exists(filePath))
+        byte[] bytes = await LoadFileBytes(DataKey);
+        if (bytes != null)
         {
-            string code = File.ReadAllText(filePath);
-            byte[] bytes = System.Convert.FromBase64String(EncryptAndDecript(code));
             string jsonData = System.Text.Encoding.UTF8.GetString(bytes);
             accountData = JsonUtility.FromJson<AccountData>(jsonData);
+            Debug.Log(jsonData);
         }
         else
         {
@@ -92,15 +90,49 @@ public class AccountDataManager : MonoBehaviour
         }
     }
 
-    private string EncryptAndDecript(string data)
+    private async Task SaveFileBytes(string key, byte[] bytes)
     {
-        string result = "";
-
-        for (int i = 0; i < data.Length; ++i)
+        try
         {
-            result += (char)(data[i] ^ keyWord[i % keyWord.Length]);
+            await CloudSaveService.Instance.Files.Player.SaveAsync(key, bytes);
+            Debug.Log("File saved!");
+        }
+        catch (CloudSaveValidationException e)
+        {
+            Debug.LogError(e);
+        }
+        catch (CloudSaveRateLimitedException e)
+        {
+            Debug.LogError(e);
+        }
+        catch (CloudSaveException e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
+    private async Task<byte[]> LoadFileBytes(string key)
+    {
+        try
+        {
+            var results = await CloudSaveService.Instance.Files.Player.LoadBytesAsync(key);
+            Debug.Log("File loaded!");
+            return results;
+        }
+        catch (CloudSaveValidationException e)
+        {
+            Debug.LogError(e);
+        }
+        catch (CloudSaveRateLimitedException e)
+        {
+            Debug.LogError(e);
+        }
+        catch (CloudSaveException e)
+        {
+            Debug.LogError(e);
         }
 
-        return result;
+        return null;
     }
+    #endregion
 }

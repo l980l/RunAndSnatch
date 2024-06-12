@@ -37,7 +37,7 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         GenerateShadowCasters();    // ShadowCaster2D »ý¼º.
-    }
+    } 
 
     private void Update()
     {

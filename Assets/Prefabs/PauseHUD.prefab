@@ -1538,6 +1538,7 @@ MonoBehaviour:
   inventoryPanel: {fileID: 7003003830822602161}
   itemSlotHolder: {fileID: 2479765713633460162}
   GoldText: {fileID: 4660103325430351583}
+  SortButton: {fileID: 3661486235331085910}
 --- !u!1 &6212416667220814671
 GameObject:
   m_ObjectHideFlags: 0
