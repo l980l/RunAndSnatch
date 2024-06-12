@@ -38,7 +38,6 @@ public class ItemSlot : MonoBehaviour
 
                 toolTip.ItemImage.sprite = item.ItemImage;
                 toolTip.ClickedSlotIndex = slotNum;
-                Debug.Log(toolTip.ClickedSlotIndex);
             }
         }
     }

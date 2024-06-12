@@ -27,7 +27,7 @@ public class Inventory : MonoBehaviour
     public OnChangeItem onChangeItem;                   // 델리게이트 인스턴스화
 
     // 획득한 아이템을 모아두는 공간. 즉, 진짜 인벤토리
-    [HideInInspector] public List<Item> Items;
+    [HideInInspector] public List<Item> Items = new List<Item>();
     [SerializeField] private int slotCount;
     private int AcquiredItemCount;
 
@@ -39,9 +39,13 @@ public class Inventory : MonoBehaviour
     private void LoadInven()
     {
         if (AccountDataManager.Instance.GetAccountInven() != null)
-            Items = new List<Item>(AccountDataManager.Instance.GetAccountInven());
-        else
-            Items = new List<Item>();
+        {
+            ItemType[] temp = AccountDataManager.Instance.GetAccountInven();
+            foreach(ItemType item in temp)
+            {
+                Items.Add(ItemDB.Instance.itemDBSO.items[(int)item]);
+            }
+        }
         onChangeItem.Invoke();
     }
 
