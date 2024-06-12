@@ -35,7 +35,7 @@ public class Inventory : MonoBehaviour
     {
         LoadInven();
     }
-
+     
     private void LoadInven()
     {
         if (AccountDataManager.Instance.GetAccountInven() != null)
@@ -68,14 +68,12 @@ public class Inventory : MonoBehaviour
     {
         Items.RemoveAt(index);
         onChangeItem.Invoke();
-        AccountDataManager.Instance.UpdateAccountItems(Items);
     }
 
     public void RemoveAllItem()
     {
         Items.Clear();
         onChangeItem.Invoke();
-        AccountDataManager.Instance.UpdateAccountItems(Items);
     }
 
     public void SortItems()
@@ -103,9 +101,6 @@ public class Inventory : MonoBehaviour
                 // 획득 가치 적용
                 AcquiredItemCount++;
                 GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
-
-                // 계정 정보에 추가
-                AccountDataManager.Instance.UpdateAccountItems(Items);
             }
         }
     }

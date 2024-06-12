@@ -1,7 +1,6 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -30,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Text ItemValueText;
     [SerializeField] private GameObject PlayerPrefab;
-    [SerializeField] private GameObject[] ItemPrefab;
     [SerializeField] private GameObject[] MonsterPrefabs;
     [SerializeField] private GameObject ExitPrefab;
 

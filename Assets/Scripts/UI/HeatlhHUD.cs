@@ -9,7 +9,7 @@ public class HeatlhHUD : MonoBehaviour
 
     private void Awake()
     {
-        HPBar = GetComponent<Image>();
+        HPBar = GetComponent<Image>(); 
     }
 
     public void UpdateHP(float amount)  // Player에서 데미지를 받으면 호출.

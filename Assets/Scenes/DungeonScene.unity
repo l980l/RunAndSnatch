@@ -537,7 +537,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.821429
+  orthographic size: 5.15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1247,6 +1247,10 @@ PrefabInstance:
       propertyPath: GoldText
       value: 
       objectReference: {fileID: 1063217425}
+    - target: {fileID: 6652947671162990645, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
+      propertyPath: SortButton
+      value: 
+      objectReference: {fileID: 1618113755703742893}
     - target: {fileID: 6978597254406612921, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1444,6 +1448,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
+--- !u!114 &1618113755703742893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3661486235331085910, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
+  m_PrefabInstance: {fileID: 1618113755703742892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2954720727708071734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1529,6 +1544,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4776584685745166903, guid: 591f0825ec07edc45b810d13b6c248f4, type: 3}
+      propertyPath: ItemCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5163086555512873118, guid: 591f0825ec07edc45b810d13b6c248f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 996.6634
@@ -1727,7 +1746,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharcterHUD
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4071953436366654343, guid: 1254269d44cb0d641abb9ec6b42f47d4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -17,7 +17,7 @@ public class ItemDB : MonoBehaviour
     public int GetTotalItemCount(){ return ItemCount; }
 
     public void GenerateItemsOnField()
-    {
+    { 
         // 아이템 생성
         for (int i = 0; i < ItemCount; i++)
         {

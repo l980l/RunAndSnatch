@@ -8,7 +8,7 @@ public enum ItemEffectType
     SmallHealingEft, 
     StaminaFullRecoverEft,
     StaminaRegenUpEft, 
-    BigHealingEft,
+    BigHealingEft, 
     SpeedUpEft,
     BrightenEft, 
     StealthEft, 

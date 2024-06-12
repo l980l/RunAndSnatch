@@ -9,14 +9,14 @@ public class LoadingSceneController : MonoBehaviour
     static int nextSceneIndex;  // 다음 씬 번호
 
     [SerializeField]
-    Image progressbar;
+    Image progressbar; 
 
     public static void LoadScene(int SceneIndex)
     {
         nextSceneIndex = SceneIndex;              // 로딩씬에서 로딩할 씬.
         SceneManager.LoadScene("LoadingScene");   // 로딩씬은 작으니까 그냥 동기로 로딩.
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
