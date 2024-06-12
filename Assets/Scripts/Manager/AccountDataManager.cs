@@ -18,6 +18,7 @@ public class AccountDataManager : MonoBehaviour
 {
     #region Singleton
     public static AccountDataManager Instance;
+    private string keyWord = "341#@sdf^&gr$w&bk`9";
     private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체
     private void Awake()
     {
@@ -58,7 +59,17 @@ public class AccountDataManager : MonoBehaviour
         accountData.Items = temp.ToArray();
         SaveJsonToCloud();
     }
+    private string EncryptAndDecript(string data)
+    {
+        string result = "";
 
+        for (int i = 0; i < data.Length; ++i)
+        {
+            result += (char)(data[i] ^ keyWord[i % keyWord.Length]);
+        }
+
+        return result;
+    }
 
     #region UnityCloud 이용
     private string DataKey = "PlayerData";
@@ -70,17 +81,17 @@ public class AccountDataManager : MonoBehaviour
         {
             jsonData = JsonUtility.ToJson(accountData);
         }
-
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
-        await SaveFileBytes(DataKey, bytes);
+        // XOR 암호화만 해주자
+        string encryptedData = EncryptAndDecript(jsonData);
+        await SaveFileBytes(DataKey, encryptedData);
     }
 
     private async void LoadJsonFromCloud()
     {
-        byte[] bytes = await LoadFileBytes(DataKey);
-        if (bytes != null)
+        string encryptedData = await LoadFileBytes(DataKey);
+        if (encryptedData != null)
         {
-            string jsonData = System.Text.Encoding.UTF8.GetString(bytes);
+            string jsonData = EncryptAndDecript(encryptedData);
             accountData = JsonUtility.FromJson<AccountData>(jsonData);
             Debug.Log(jsonData);
         }
@@ -90,11 +101,13 @@ public class AccountDataManager : MonoBehaviour
         }
     }
 
-    private async Task SaveFileBytes(string key, byte[] bytes)
+    private async Task SaveFileBytes(string key, string Data)
     {
         try
         {
-            await CloudSaveService.Instance.Files.Player.SaveAsync(key, bytes);
+            var data = new Dictionary<string, object> { { key, Data } };
+            await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+
             Debug.Log("File saved!");
         }
         catch (CloudSaveValidationException e)
@@ -111,13 +124,20 @@ public class AccountDataManager : MonoBehaviour
         }
     }
 
-    private async Task<byte[]> LoadFileBytes(string key)
+    private async Task<string> LoadFileBytes(string key)
     {
         try
         {
-            var results = await CloudSaveService.Instance.Files.Player.LoadBytesAsync(key);
-            Debug.Log("File loaded!");
-            return results;
+            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key });
+            if (playerData.TryGetValue(key, out var keyName))
+            {
+                Debug.Log($"keyName: {keyName.Value.GetAs<string>()}");
+                return keyName.Value.GetAs<string>();
+            }
+            else
+            {
+                Debug.LogWarning($"Key '{key}' not found in player data.");
+            }
         }
         catch (CloudSaveValidationException e)
         {
