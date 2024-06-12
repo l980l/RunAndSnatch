@@ -4,7 +4,7 @@ using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
 [CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/BigHealingEft")]
-public class BigHealingEft : ItemEffect
+public class BigHealingEft : ItemEffect 
 {
     public override bool ExecuteRole()
     {

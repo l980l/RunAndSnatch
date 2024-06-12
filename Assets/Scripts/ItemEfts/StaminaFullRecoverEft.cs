@@ -5,7 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 [CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/StaminaFullRecoverEft")]
 public class StaminaFullRecoverEft : ItemEffect
-{
+{ 
     public override bool ExecuteRole()
     {
         GameManager.Instance.GetPlayer().GetComponent<Player>().AddStemina(value1);

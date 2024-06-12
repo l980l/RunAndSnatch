@@ -5,7 +5,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Rendering.Universal;
 
 [CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/BrightenEft")]
-public class BrightenEft : ItemEffect
+public class BrightenEft : ItemEffect 
 {
     public override bool ExecuteRole()
     {

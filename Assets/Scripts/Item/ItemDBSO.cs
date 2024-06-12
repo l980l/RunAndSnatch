@@ -6,5 +6,5 @@ using UnityEngine;
 public class ItemDBSO : ScriptableObject
 {
     [Tooltip("BlueBall, MouseToy, FishToy, FoxTail, Salmon, PaperBox, Necklace, CatBell")]
-    public Item[] items;
+    public Item[] items; 
 }

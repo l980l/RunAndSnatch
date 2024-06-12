@@ -12,7 +12,7 @@ public class MotionTrail : MonoBehaviour
     private int TrailPoolCount;
     private SpriteRenderer spriteRenderer;
     private List<GameObject> Trails;
-    private List<float> TrailStartTimes;
+    private List<float> TrailStartTimes; 
     private float FlownTime;
     private bool isMotionTrail;
     private int TrailIndex;

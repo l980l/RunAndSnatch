@@ -432,7 +432,6 @@ GameObject:
   - component: {fileID: 245226288559688459}
   - component: {fileID: 2120585210215714458}
   - component: {fileID: 5820705619018280363}
-  - component: {fileID: 4071953436366654343}
   - component: {fileID: 7987819940015738543}
   m_Layer: 5
   m_Name: StaminaBar
@@ -498,18 +497,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4071953436366654343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7272283125374494844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a863e826e3b6a449c1cb51bedfde81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7987819940015738543
 MonoBehaviour:
   m_ObjectHideFlags: 0

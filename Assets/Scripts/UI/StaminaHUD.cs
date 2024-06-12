@@ -11,7 +11,7 @@ public class StaminaHUD : MonoBehaviour
     {
         StaminaBar = GetComponent<Image>();
     }
-
+     
     public void UpdateStamina(float amount)  // Player FixedUpdate에서 호출
     {
         StaminaBar.fillAmount = amount;

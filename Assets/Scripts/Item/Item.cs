@@ -17,7 +17,7 @@ public enum ItemType
 }
 
 // 원본 아이템 클래스
-[System.Serializable]
+[System.Serializable] 
 public class Item
 {
     [HideInInspector] public ItemType ItemType;
