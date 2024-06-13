@@ -38,8 +38,6 @@ public class MonsterManager : MonoBehaviour
             // 몬스터 종류별로 for문
             for (int j = 0; j < (int)MonsterType.Max; j++)
             {
-                Debug.Log(j);
-                Debug.Log(MonsterRatio.monsterRatio);
                 cumulativeRatio += MonsterRatio.monsterRatio[(int)difficulty][j];
                 if (randomValue < cumulativeRatio)
                 {
