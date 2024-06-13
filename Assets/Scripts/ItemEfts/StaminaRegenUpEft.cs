@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/StaminaRegenUpEft")]
+[CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/StaminaRegenUpEft")]
 public class StaminaRegenUpEft : ItemEffect
 {
     public override bool ExecuteRole() 
