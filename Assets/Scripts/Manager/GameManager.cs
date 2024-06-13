@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
             CVC.m_Follow = Player.transform;
             // 아이템 생성
             ItemDB.Instance.GenerateItemsOnField();
+            // 몬스터 생성
+            MonsterManager.Instance.GenerateMonstersOnField();
         }
     }
 }

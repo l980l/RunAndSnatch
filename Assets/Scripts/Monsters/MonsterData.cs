@@ -7,7 +7,8 @@ public enum MonsterType
     FlyingEye,
     Goblin,
     MushRoom,
-    Skeleton
+    Skeleton,
+    Max
 }
 
 [CreateAssetMenu(menuName = "ScriptableObject/MonsterData")] 
