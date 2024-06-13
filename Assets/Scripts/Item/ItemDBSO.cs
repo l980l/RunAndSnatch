@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ScrittableObject/ItemDBSO")]
+[CreateAssetMenu(menuName = "ScriptableObject/ItemDBSO")]
 public class ItemDBSO : ScriptableObject
 {
     [Tooltip("BlueBall, MouseToy, FishToy, FoxTail, Salmon, PaperBox, Necklace, CatBell")]

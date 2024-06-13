@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/SmallHealingEft")] 
+[CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/SmallHealingEft")] 
 public class SmallHealingEft : ItemEffect
 {
     public override bool ExecuteRole()

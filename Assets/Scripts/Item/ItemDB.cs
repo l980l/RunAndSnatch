@@ -46,7 +46,7 @@ public class ItemDB : MonoBehaviour
         SetItemDBSO(www.downloadHandler.text);
     }
 
-    void SetItemDBSO(string tsv)
+    private void SetItemDBSO(string tsv)
     {
         string[] row = tsv.Split('\n');
         int rowSize = row.Length;

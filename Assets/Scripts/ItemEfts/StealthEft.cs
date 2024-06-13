@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/StealthEft")]
+[CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/StealthEft")]
 public class StealthEft : ItemEffect
 {
     public override bool ExecuteRole()

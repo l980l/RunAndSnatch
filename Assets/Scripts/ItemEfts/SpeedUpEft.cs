@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScrittableObject/ItemEftSO/SpeedUpEft")]
+[CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/SpeedUpEft")]
 public class SpeedUpEft : ItemEffect
 {
     public override bool ExecuteRole() 
