@@ -18,8 +18,6 @@ public class AccountDataManager : MonoBehaviour
 {
     #region Singleton
     public static AccountDataManager Instance;
-    private string keyWord = "341#@sdf^&gr$w&bk`9";
-    private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,6 +30,8 @@ public class AccountDataManager : MonoBehaviour
     }
     #endregion
     private AccountData accountData;
+    private string keyWord = "1fh3ji9-re #@sdf^&gr$w&bk`9";
+    private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체
 
     public int AccountGold
     {
