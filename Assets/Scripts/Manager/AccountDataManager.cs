@@ -39,7 +39,6 @@ public class AccountDataManager : MonoBehaviour
         set
         {
             accountData.gold = value;
-            SaveJsonToCloud();
         }
     }
     public ItemType[] GetAccountInven() { return accountData.Items; }
@@ -57,7 +56,6 @@ public class AccountDataManager : MonoBehaviour
             temp.Add(item.ItemType);
         }
         accountData.Items = temp.ToArray();
-        SaveJsonToCloud();
     }
     private string EncryptAndDecript(string data)
     {
@@ -71,10 +69,10 @@ public class AccountDataManager : MonoBehaviour
         return result;
     }
 
-    #region UnityCloud 이용
+    #region UnityCloud로 Save & Load
     private string DataKey = "PlayerData";
 
-    private async void SaveJsonToCloud()
+    public async void SaveJsonToCloud()
     {
         string jsonData;
         lock (fileLock)
@@ -83,12 +81,12 @@ public class AccountDataManager : MonoBehaviour
         }
         // XOR 암호화만 해주자
         string encryptedData = EncryptAndDecript(jsonData);
-        await SaveFileBytes(DataKey, encryptedData);
+        await SavePlayerData(DataKey, encryptedData);
     }
 
     private async void LoadJsonFromCloud()
     {
-        string encryptedData = await LoadFileBytes(DataKey);
+        string encryptedData = await LoadPlayerData(DataKey);
         if (encryptedData != null)
         {
             string jsonData = EncryptAndDecript(encryptedData);
@@ -101,7 +99,7 @@ public class AccountDataManager : MonoBehaviour
         }
     }
 
-    private async Task SaveFileBytes(string key, string Data)
+    private async Task SavePlayerData(string key, string Data)
     {
         try
         {
@@ -124,7 +122,7 @@ public class AccountDataManager : MonoBehaviour
         }
     }
 
-    private async Task<string> LoadFileBytes(string key)
+    private async Task<string> LoadPlayerData(string key)
     {
         try
         {
