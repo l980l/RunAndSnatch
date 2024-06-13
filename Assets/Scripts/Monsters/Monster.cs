@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    public MonsterData monsterData;
-    [HideInInspector] public bool trace;
-    [HideInInspector] public bool stunned;
+    protected MonsterData monsterData;
+    protected bool trace;
+    protected bool stunned;
+
+
+    protected GameObject player = GameManager.Instance.GetPlayer();
+    private Transform transform;
+
+    protected void Awake()
+    {
+        transform = GetComponent<Transform>();
+    }
+    protected float DistanceToPlayer()
+    {
+        return Vector2.Distance(transform.position, player.transform.position);
+    }
 }

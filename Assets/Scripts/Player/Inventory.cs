@@ -104,6 +104,7 @@ public class Inventory : MonoBehaviour
                 // 획득 가치 적용
                 AcquiredItemCount++;
                 GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
+                AccountDataManager.Instance.SaveJsonToCloud();
             }
         }
     }
@@ -115,16 +116,16 @@ public class Inventory : MonoBehaviour
         {
             amount += item.Value;
         }
-        RemoveAllItem();
         AccountDataManager.Instance.AccountGold += amount;
+        RemoveAllItem();
         // 세이브
         AccountDataManager.Instance.SaveJsonToCloud();
     }
 
     public void Sell()
     {
-        RemoveItem(ToolTip.Instance.ClickedSlotIndex);
         AccountDataManager.Instance.AccountGold += Items[ToolTip.Instance.ClickedSlotIndex].Value;
+        RemoveItem(ToolTip.Instance.ClickedSlotIndex);
         // 세이브
         AccountDataManager.Instance.SaveJsonToCloud();
     }
