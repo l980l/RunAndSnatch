@@ -26,12 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HeatlhHUD heatlhHUD;
     [SerializeField] private StaminaHUD StaminaHUD;
     [SerializeField] private MapGenerator mapGenerator;
-
     [SerializeField] private Text ItemValueText;
     [SerializeField] private GameObject PlayerPrefab;
-    [SerializeField] private GameObject[] MonsterPrefabs;
     [SerializeField] private GameObject ExitPrefab;
-
     [Tooltip("OnlySetInCatTown")] [SerializeField] private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
