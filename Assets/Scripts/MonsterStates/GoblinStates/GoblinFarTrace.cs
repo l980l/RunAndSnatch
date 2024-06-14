@@ -8,7 +8,10 @@ public class GoblinFarTrace : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        goblin.monsterState = MonsterState.FarTrace;
         goblin = animator.GetComponent<MonGoblin>();
+        // 애니메이션 재생 속도
+        animator.speed = goblin.monsterData.FTSCoef;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -30,5 +33,7 @@ public class GoblinFarTrace : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // 애니메이션 재생 속도
+        animator.speed = 1;
     }
 }
