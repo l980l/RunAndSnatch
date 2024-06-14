@@ -20,4 +20,10 @@ public class MonsterData : ScriptableObject
     public int attackRange;
     public int speed;
     public int damage;
+    public float idleTime;
+    public float patrolTime;
+    public float nearTraceTime;
+    public float restTime;
+    public float FTSCoef;
+    public float NTSCoef;
 }

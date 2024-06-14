@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d64b2f94ccf8364480c4a670aafcc67, type: 3}
   m_Name: BellEft
   m_EditorClassIdentifier: 
-  value1: 9999
+  effectName: BellEft
+  value1: 1
   value2: 0
