@@ -8,8 +8,9 @@ public class GoblinAttack : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin.monsterState = MonsterState.Attack;
         goblin = animator.GetComponent<MonGoblin>();
+
+        goblin.monsterState = MonsterState.Attack;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

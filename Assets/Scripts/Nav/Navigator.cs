@@ -56,11 +56,11 @@ public class PriorityQueue<T>
 }
 
 public class Navigator : MonoBehaviour
-{ 
-    public Tilemap wallTilemap;
+{
+    private Tilemap wallTilemap;
     private Vector3Int nowTilePos;
     private Vector3Int desTilePos;
-    public List<Vector3> totalWorldPath;
+    [HideInInspector] public List<Vector3> totalWorldPath;
     private void SetNowTilePos()
     {
         nowTilePos = wallTilemap.GetComponentInParent<Grid>().WorldToCell(transform.position);
@@ -77,6 +77,7 @@ public class Navigator : MonoBehaviour
     private void Awake()
     {
         totalWorldPath = new List<Vector3>();
+        wallTilemap = GameManager.Instance.GetMapGenerator().GetTilemap();
     }
 
     public bool FindPath()

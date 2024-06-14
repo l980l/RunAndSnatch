@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public enum MonsterState
@@ -18,17 +17,19 @@ public enum MonsterState
 public class Monster : MonoBehaviour
 {
     public MonsterData monsterData;
-    public MonsterState monsterState;
+    [HideInInspector] public MonsterState monsterState;
 
-    public GameObject player;
-    public Rigidbody2D rigidbody;
-    public Navigator Nav;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public Rigidbody2D rigidbody;
+    [HideInInspector] public Navigator Nav;
 
     private Vector3 prevPathDest;   // 마지막 길찾기 당시 목표 위치
+    public int curPathIndex;
 
     protected void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        Nav = GetComponent<Navigator>();
         player = GameManager.Instance.GetPlayer();
     }
 
@@ -53,6 +54,7 @@ public class Monster : MonoBehaviour
                         prevPathDest = player.transform.position;
                         Nav.SetDesTilePos(prevPathDest);
                         Nav.FindPath();
+                        curPathIndex = 0;
                     }
                 }
                 TracePath(monsterData.speed * monsterData.FTSCoef);
@@ -64,6 +66,7 @@ public class Monster : MonoBehaviour
                     prevPathDest = player.transform.position;
                     Nav.SetDesTilePos(prevPathDest);
                     Nav.FindPath();
+                    curPathIndex = 0;
                 }
                 TracePath(monsterData.speed * monsterData.NTSCoef);
                 break;
@@ -74,6 +77,12 @@ public class Monster : MonoBehaviour
             case MonsterState.Stunned:
                 break;
         }
+    }
+
+    private void LateUpdate()
+    {
+        // 방향 전환
+        FaceToDir(rigidbody.velocity);
     }
 
     public void FaceToDir(Vector3 _dir)
@@ -112,6 +121,34 @@ public class Monster : MonoBehaviour
     // prevPathDest로의 길로 이동하는 함수
     private void TracePath(float _speed)
     {
+        if (Nav.totalWorldPath == null || Nav.totalWorldPath.Count == 0)
+        {
+            return;
+        }
 
+        if (curPathIndex >= Nav.totalWorldPath.Count)
+        {
+            UnityEngine.Debug.Log("경로를 모두 따라갔습니다.");
+            return;
+        }
+
+        Vector3 targetPosition = Nav.totalWorldPath[curPathIndex];
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        float distanceToMove = _speed * Time.fixedDeltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, distanceToMove);
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            curPathIndex++;
+        }
+
+        Vector2 newPosition = Vector2.MoveTowards(rigidbody.position, targetPosition, distanceToMove);
+
+        rigidbody.MovePosition(newPosition);
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            curPathIndex++;
+        }
     }
 }
