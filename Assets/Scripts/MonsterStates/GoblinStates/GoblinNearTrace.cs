@@ -9,19 +9,16 @@ public class GoblinNearTrace : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        goblin.monsterState = MonsterState.NearTrace;
         goblin = animator.GetComponent<MonGoblin>();
         nearTraceTime = goblin.monsterData.nearTraceTime;
+        // 애니메이션 재생 속도
+        animator.speed = goblin.monsterData.NTSCoef;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         float distance = goblin.DistanceToPlayer();
-
-        // 플레이어와의 거리 < attackRange
-        if (distance < goblin.monsterData.attackRange)
-        {
-            animator.SetTrigger("Attack");
-        }
 
         // nearTraceRange < 플레이어와의 거리 < farTraceRange
         if (distance > goblin.monsterData.nearTraceRange && distance < goblin.monsterData.farTraceRange)
@@ -35,9 +32,22 @@ public class GoblinNearTrace : StateMachineBehaviour
         {
             animator.SetTrigger("Rest");
         }
+
+        // 플레이어와의 거리 < attackRange
+        if (distance < goblin.monsterData.attackRange)
+        {
+            // 사이에 벽이 없어야 함.
+            if (goblin.PlayerInSight())
+            {
+                animator.SetTrigger("Attack");
+            }
+        }
+
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // 애니메이션 재생 속도
+        animator.speed = 1;
     }
 }
