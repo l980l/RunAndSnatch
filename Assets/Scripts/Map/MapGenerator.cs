@@ -29,6 +29,8 @@ public class MapGenerator : MonoBehaviour
     private List<(int, int)> MaxRoomList;
     private List<bool> MaskRoomList;
 
+    public Tilemap GetTilemap() { return RoadTilemap; }
+
     private void Awake()
     {
         GenerateMap();

@@ -9,8 +9,9 @@ public class GoblinStunned : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin.monsterState = MonsterState.Stunned;
         goblin = animator.GetComponent<MonGoblin>();
+
+        goblin.monsterState = MonsterState.Stunned;
         stunTime = 2f;
     }
 
