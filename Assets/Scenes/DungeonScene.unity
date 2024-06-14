@@ -334,8 +334,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 0}
-  trace: 0
+  patrol: 0
+  nearTrace: 0
+  farTrace: 0
   stunned: 0
+  player: {fileID: 0}
+  transform: {fileID: 0}
+  rigidbody: {fileID: 0}
+  bottomLeft: {x: 0, y: 0}
+  topRight: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  targetPos: {x: 0, y: 0}
+  FinalNodeList: []
+  allowDiagonal: 0
+  dontCrossCorner: 0
 --- !u!1 &1800002235
 GameObject:
   m_ObjectHideFlags: 3
