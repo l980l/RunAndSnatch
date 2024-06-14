@@ -316,28 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1591183998 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
-  m_PrefabInstance: {fileID: 2152098132823737450}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1591184004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591183998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fba9b8389cb8f4439b1a71706968839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 0}
-  monsterState: 0
-  player: {fileID: 0}
-  rigidbody: {fileID: 0}
-  Nav: {fileID: 0}
 --- !u!1 &1800002235
 GameObject:
   m_ObjectHideFlags: 3
@@ -1447,74 +1425,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
---- !u!1001 &2152098132823737450
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2177446723008168250, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_Name
-      value: Goblin
-      objectReference: {fileID: 0}
-    - target: {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      propertyPath: m_TagString
-      value: Monster
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1591184004}
-  m_SourcePrefab: {fileID: 100100000, guid: c67028c90157e15419db311dbc231a21, type: 3}
 --- !u!1001 &2954720727708071734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1905,4 +1815,3 @@ SceneRoots:
   - {fileID: 2954720727708071734}
   - {fileID: 1618113755703742892}
   - {fileID: 82104455476848266}
-  - {fileID: 2152098132823737450}

@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 7937869674417132231}
   - component: {fileID: 3937140887910300673}
   - component: {fileID: 4565936488020031117}
-  m_Layer: 0
+  - component: {fileID: 8191435739382598329}
+  - component: {fileID: 2839943441413321956}
+  m_Layer: 7
   m_Name: Goblin
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,3 +172,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8191435739382598329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142179666870621984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba9b8389cb8f4439b1a71706968839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: c131bda8e84aaae40843a227639e5dac, type: 2}
+  monsterState: 0
+  player: {fileID: 0}
+  rigidbody: {fileID: 0}
+  Nav: {fileID: 0}
+  curPathIndex: 0
+--- !u!114 &2839943441413321956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142179666870621984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9f0ec2ad3a26f44b3436c1de30f452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalWorldPath: []

@@ -9,8 +9,9 @@ public class GoblinNearTrace : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin.monsterState = MonsterState.NearTrace;
         goblin = animator.GetComponent<MonGoblin>();
+
+        goblin.monsterState = MonsterState.NearTrace;
         nearTraceTime = goblin.monsterData.nearTraceTime;
         // 애니메이션 재생 속도
         animator.speed = goblin.monsterData.NTSCoef;

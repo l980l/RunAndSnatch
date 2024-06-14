@@ -9,8 +9,9 @@ public class GoblinIdle : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin.monsterState = MonsterState.Idle;
         goblin = animator.GetComponent<MonGoblin>();
+
+        goblin.monsterState = MonsterState.Idle;
         idleTime = goblin.monsterData.idleTime;
     }
 

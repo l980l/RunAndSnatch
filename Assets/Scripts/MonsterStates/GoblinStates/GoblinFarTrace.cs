@@ -8,8 +8,9 @@ public class GoblinFarTrace : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin.monsterState = MonsterState.FarTrace;
         goblin = animator.GetComponent<MonGoblin>();
+
+        goblin.monsterState = MonsterState.FarTrace;
         // 애니메이션 재생 속도
         animator.speed = goblin.monsterData.FTSCoef;
     }
