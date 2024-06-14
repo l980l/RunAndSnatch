@@ -100,7 +100,7 @@ public class DownloadManager : MonoBehaviour
 
     #region MonsterData
 
-    const string MonsterDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1598314971&range=A2:F";
+    const string MonsterDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1598314971&range=A2:L";
 
     IEnumerator DownloadMonsterDB()
     {
@@ -124,6 +124,12 @@ public class DownloadManager : MonoBehaviour
             monsterDB[i].attackRange = int.Parse(column[3]);
             monsterDB[i].speed = int.Parse(column[4]);
             monsterDB[i].damage = int.Parse(column[5]);
+            monsterDB[i].idleTime = float.Parse(column[6]);
+            monsterDB[i].patrolTime = float.Parse(column[7]);
+            monsterDB[i].nearTraceTime = float.Parse(column[8]);
+            monsterDB[i].restTime = float.Parse(column[9]);
+            monsterDB[i].FTSCoef = float.Parse(column[10]);
+            monsterDB[i].NTSCoef = float.Parse(column[11]);
         }
     }
     #endregion
