@@ -50,5 +50,6 @@ public class GoblinNearTrace : StateMachineBehaviour
     {
         // 애니메이션 재생 속도
         animator.speed = 1;
+        goblin.rigidBody.velocity = Vector3.zero;
     }
 }

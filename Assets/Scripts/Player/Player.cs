@@ -79,6 +79,11 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.flipX = inputVec.x < 0;
         }
+
+        // zÁÂÇ¥¸¦ yÁÂÇ¥dml 0.01ÇÁ·Î·Î ¼³Á¤
+        Vector3 position = transform.position;
+        position.z = position.y * 0.01f;
+        transform.position = position;
     }
 
     private void GetInput()

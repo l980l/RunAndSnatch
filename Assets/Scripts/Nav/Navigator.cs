@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-// 우선순위 큐 구현
 public class PriorityQueue<T>
 {
     private List<KeyValuePair<T, float>> elements = new List<KeyValuePair<T, float>>();
@@ -61,14 +61,19 @@ public class Navigator : MonoBehaviour
     private Vector3Int nowTilePos;
     private Vector3Int desTilePos;
     [HideInInspector] public List<Vector3> totalWorldPath;
+    public int curPathIndex;
+
     private void SetNowTilePos()
     {
         nowTilePos = wallTilemap.GetComponentInParent<Grid>().WorldToCell(transform.position);
     }
+
     public void SetDesTilePos(Vector3 _WorldVec3)
     {
+        _WorldVec3 += wallTilemap.GetComponentInParent<Grid>().GetLayoutCellCenter();
         desTilePos = wallTilemap.GetComponentInParent<Grid>().WorldToCell(_WorldVec3);
     }
+
     public void SetDesTilePos(Vector3Int _TilePosVec3)
     {
         desTilePos = _TilePosVec3;
@@ -80,10 +85,23 @@ public class Navigator : MonoBehaviour
         wallTilemap = GameManager.Instance.GetMapGenerator().GetTilemap();
     }
 
-    public bool FindPath()
+    public async void FindPath()
     {
         SetNowTilePos();
 
+        bool pathFound = await Task.Run(() => AStarAlgorithm());
+
+        if (pathFound)
+        {
+            Debug.Log("경로를 찾았습니다!");
+        }
+        else
+        {
+            Debug.Log("경로를 찾을 수 없습니다.");
+        }
+    }
+    private bool AStarAlgorithm()
+    {
         // A* 알고리즘을 위한 우선순위 큐
         PriorityQueue<Vector3Int> openSet = new PriorityQueue<Vector3Int>();
         HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>();
@@ -101,7 +119,6 @@ public class Navigator : MonoBehaviour
 
             if (current == desTilePos)
             {
-                Debug.Log("경로를 찾았습니다!");
                 ReconstructPath(cameFrom, current);
                 return true;
             }
@@ -113,6 +130,12 @@ public class Navigator : MonoBehaviour
                 Vector3Int neighbor = current + direction;
 
                 if (closedSet.Contains(neighbor) || !CanMoveToTile(neighbor))
+                {
+                    continue;
+                }
+
+                // 대각선 이동 시 인접한 타일 체크
+                if (Mathf.Abs(direction.x) == 1 && Mathf.Abs(direction.y) == 1 && !CanMoveDiagonally(current, direction))
                 {
                     continue;
                 }
@@ -135,15 +158,19 @@ public class Navigator : MonoBehaviour
             }
         }
 
-        Debug.Log("경로를 찾을 수 없습니다.");
         return false;
+    }
+    private bool CanMoveDiagonally(Vector3Int current, Vector3Int direction)
+    {
+        Vector3Int check1 = new Vector3Int(current.x + direction.x, current.y, 0);
+        Vector3Int check2 = new Vector3Int(current.x, current.y + direction.y, 0);
+
+        return CanMoveToTile(check1) && CanMoveToTile(check2);
     }
 
     private bool CanMoveToTile(Vector3Int position)
     {
-        // 벽인지 아닌지를 확인
-        TileBase tile = wallTilemap.GetTile(position);
-        return tile == null;
+        return !GameManager.Instance.GetMapGenerator().isWallAtPos(position.x, position.y);
     }
 
     private List<Vector3Int> GetDirections()
@@ -167,7 +194,7 @@ public class Navigator : MonoBehaviour
         return Vector3Int.Distance(a, b);
     }
 
-    private bool ReconstructPath(Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int current)
+    private void ReconstructPath(Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int current)
     {
         List<Vector3Int> Path = new List<Vector3Int> { current };
         List<Vector3> WorldPath = new List<Vector3>();
@@ -175,13 +202,19 @@ public class Navigator : MonoBehaviour
         {
             current = cameFrom[current];
 
-            Vector3 temp = wallTilemap.CellToWorld(current);
-            temp += wallTilemap.GetLayoutCellCenter();
+            Vector3 temp = GameManager.Instance.GetMapGenerator().CustomCellToWorld(current);
 
             WorldPath.Add(temp);
         }
         WorldPath.Reverse();
         totalWorldPath = WorldPath;
-        return true;
+        curPathIndex = 2;
+    }
+    public void DrawPath()
+    {
+        for (int i = 1; i < totalWorldPath.Count; i++)
+        {
+            Debug.DrawLine(totalWorldPath[i - 1], totalWorldPath[i], Color.red, 1f);
+        }
     }
 }
