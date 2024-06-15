@@ -23,14 +23,14 @@ public class GoblinPatrol : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // 패트롤 함수 사용
-
         patrolTime -= Time.deltaTime;
         if (patrolTime < 0)
         {
             animator.SetTrigger("Idle");
         }
 
-        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange)
+        // 보이는 경우에만 트레이스 해
+        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight())
         {
             animator.SetTrigger("FarTrace");
         }
