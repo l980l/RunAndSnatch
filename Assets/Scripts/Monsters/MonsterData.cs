@@ -17,7 +17,7 @@ public class MonsterData : ScriptableObject
     public MonsterType Type;
     public int nearTraceRange;
     public int farTraceRange;
-    public int attackRange;
+    public float attackRange;
     public int speed;
     public int damage;
     public float idleTime;

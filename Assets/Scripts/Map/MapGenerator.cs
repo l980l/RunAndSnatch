@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
@@ -29,7 +30,39 @@ public class MapGenerator : MonoBehaviour
     private List<(int, int)> MaxRoomList;
     private List<bool> MaskRoomList;
 
+    private BitArray arrWallData;
+    private Vector2 cellSize;
+
     public Tilemap GetTilemap() { return RoadTilemap; }
+
+    // 나는 주로 x를 세로축, y를 가로축으로 썼지만, 타일맵 좌표와 혼동하지 않도록 x가 가로축, y가 세로축이다. 
+    public bool isWallAtPos(int x, int y)
+    {
+        x = width / 2 + x;
+        y = height / 2 + y;
+        int index = x + y * width;
+
+        return arrWallData[index];
+    }
+
+    public Vector3 CustomCellToWorld(Vector3Int cellPosition)
+    {
+        cellPosition.x = width / 2 + cellPosition.x;
+        cellPosition.y = height / 2 + cellPosition.y;
+
+        // 타일맵의 중심을 기준으로 셀 좌표를 월드 좌표로 변환
+        float offsetX = (width * cellSize.x) / 2.0f;
+        float offsetY = (height * cellSize.y) / 2.0f;
+
+        // 셀 좌표를 월드 좌표로 변환
+        Vector3 worldPosition = new Vector3(
+        cellPosition.x * cellSize.x - offsetX + cellSize.x / 2.0f,
+        cellPosition.y * cellSize.y - offsetY + cellSize.y / 2.0f,
+        0
+        );
+
+        return worldPosition;
+    }
 
     private void Awake()
     {
@@ -131,6 +164,9 @@ public class MapGenerator : MonoBehaviour
 
     private void DrawTile()
     {
+        arrWallData = new BitArray(width * height);
+        cellSize = WallTilemap.cellSize;
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -147,11 +183,13 @@ public class MapGenerator : MonoBehaviour
         {
             RoadTilemap.SetTile(pos, RoadTile);
             WallTilemap.SetTile(pos, null);
+            arrWallData[x + y * width] = false;
         }
         else
         {
             WallTilemap.SetTile(pos, WallTile);
             RoadTilemap.SetTile(pos, null);
+            arrWallData[x + y * width] = true;
         }
     }
 
