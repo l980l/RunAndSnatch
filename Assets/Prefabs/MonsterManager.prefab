@@ -44,15 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc3297c78d3324896fe2cde9c0c3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterDB:
-  - {fileID: 11400000, guid: 273f855ca78c59349a4889db62065af3, type: 2}
-  - {fileID: 11400000, guid: c131bda8e84aaae40843a227639e5dac, type: 2}
-  - {fileID: 11400000, guid: 577a4214f2296cd44baf3e83679f30f6, type: 2}
-  - {fileID: 11400000, guid: 405cbba3b58e58e41bfd66491c777af1, type: 2}
   monsterPrefab:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  monsterCount: 10
+  - {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
+  - {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
+  - {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
+  - {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
+  monsterCount: 5
   difficulty: 0
+  MonsterRatio: {fileID: 11400000, guid: c6f35532d8499dc48b64f0443101cc66, type: 2}

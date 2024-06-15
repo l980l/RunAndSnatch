@@ -121,7 +121,7 @@ public class DownloadManager : MonoBehaviour
             monsterDB[i].Type = Enum.Parse<MonsterType>(column[0]);
             monsterDB[i].nearTraceRange = int.Parse(column[1]);
             monsterDB[i].farTraceRange = int.Parse(column[2]);
-            monsterDB[i].attackRange = int.Parse(column[3]);
+            monsterDB[i].attackRange = float.Parse(column[3]);
             monsterDB[i].speed = int.Parse(column[4]);
             monsterDB[i].damage = int.Parse(column[5]);
             monsterDB[i].idleTime = float.Parse(column[6]);

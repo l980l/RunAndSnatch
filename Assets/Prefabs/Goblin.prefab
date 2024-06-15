@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2177446723008168250}
   - component: {fileID: 1856877722467159612}
   - component: {fileID: 7937869674417132231}
-  - component: {fileID: 3937140887910300673}
+  - component: {fileID: 6462303137642920934}
   - component: {fileID: 4565936488020031117}
   - component: {fileID: 8191435739382598329}
   - component: {fileID: 2839943441413321956}
@@ -85,8 +85,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &3937140887910300673
-CapsuleCollider2D:
+--- !u!58 &6462303137642920934
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,9 +117,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.32}
-  m_Size: {x: 0.6, y: 1}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!212 &4565936488020031117
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -187,9 +187,8 @@ MonoBehaviour:
   monsterData: {fileID: 11400000, guid: c131bda8e84aaae40843a227639e5dac, type: 2}
   monsterState: 0
   player: {fileID: 0}
-  rigidbody: {fileID: 0}
+  rigidBody: {fileID: 0}
   Nav: {fileID: 0}
-  curPathIndex: 0
 --- !u!114 &2839943441413321956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +202,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalWorldPath: []
+  curPathIndex: 0
