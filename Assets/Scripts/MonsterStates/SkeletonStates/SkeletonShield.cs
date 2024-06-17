@@ -2,23 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinStunned : StateMachineBehaviour
+public class SkeletonShield : StateMachineBehaviour
 {
-    private MonGoblin goblin;
-    private float stunTime;
+    private MonSkeleton skeleton;
+    private float shieldTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin = animator.GetComponent<MonGoblin>();
+        skeleton = animator.GetComponent<MonSkeleton>();
 
-        goblin.monsterState = MonsterState.Stunned;
-        stunTime = 2f;
+        skeleton.monsterState = MonsterState.Rest;
+        shieldTime = 0.5f;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        stunTime -= Time.deltaTime;
-        if (stunTime < 0)
+        shieldTime -= Time.deltaTime;
+        if (shieldTime < 0)
         {
             animator.SetTrigger("Idle");
         }
