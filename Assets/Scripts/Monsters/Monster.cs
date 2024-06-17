@@ -21,15 +21,15 @@ public class Monster : MonoBehaviour
 
     [HideInInspector] public GameObject player;
     [HideInInspector] public Rigidbody2D rigidBody;
-    [HideInInspector] public Navigator Nav;
+    [HideInInspector] public Navigator nav;
 
     private float pathUpdateTimer = 0f;
     private float pathUpdateInterval = 1f; // 1초마다 경로 갱신
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        Nav = GetComponent<Navigator>();
+        nav = GetComponent<Navigator>();
         player = GameManager.Instance.GetPlayer();
     }
 
@@ -43,10 +43,10 @@ public class Monster : MonoBehaviour
                 break;
             case MonsterState.Patrol:
                 // 목표 설정은 Patrol 초기에 한번만 세팅하면 되니까 각 몬스터의 PatrolState에서 Enter시에 하자
-                // Patrol은 전부 0.7배속으로 통일하자
-                TracePath(monsterData.speed * 0.7f);
+                // Patrol은 전부 0.5배속으로 통일하자
+                TracePath(monsterData.speed * 0.5f);
                 // 목적지에 도착했는데, Patrol라면 Idle로 돌아가자
-                if (Nav.curPathIndex >= Nav.totalWorldPath.Count)
+                if (nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
                     GetComponent<Animator>().SetTrigger("Idle");
                 }
@@ -55,13 +55,13 @@ public class Monster : MonoBehaviour
                 // 시야에 들어오고, 1초가 지났으면 탐색.
                 if (PlayerInSight() && pathUpdateTimer >= pathUpdateInterval)
                 {
-                    Nav.SetDesTilePos(player.transform.position);
-                    Nav.FindPath();
+                    nav.SetDesTilePos(player.transform.position);
+                    nav.FindPath();
                     pathUpdateTimer = 0f; // 타이머 리셋
                 }
                 TracePath(monsterData.speed * monsterData.FTSCoef);
                 // 목적지에 도착했는데, FarTrace라면 Idle로 돌아가자
-                if (Nav.curPathIndex >= Nav.totalWorldPath.Count)
+                if (nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
                     GetComponent<Animator>().SetTrigger("Idle");
                 }
@@ -70,13 +70,13 @@ public class Monster : MonoBehaviour
                 // 시야에 들어오고, 1초가 지났으면 탐색.
                 if (PlayerInSight() && pathUpdateTimer >= pathUpdateInterval)
                 {
-                    Nav.SetDesTilePos(player.transform.position);
-                    Nav.FindPath();
+                    nav.SetDesTilePos(player.transform.position);
+                    nav.FindPath();
                     pathUpdateTimer = 0f; // 타이머 리셋
                 }
                 TracePath(monsterData.speed * monsterData.NTSCoef);
                 // 목적지에 도착했는데, NearTrace라면 플레이어로 A* 없이 그냥 이동한다. 
-                if (Nav.curPathIndex >= Nav.totalWorldPath.Count)
+                if (nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
                     MoveToPlayer(monsterData.speed * monsterData.NTSCoef);
                 }
@@ -97,6 +97,8 @@ public class Monster : MonoBehaviour
         position.z = position.y * 0.01f;
         transform.position = position;
     }
+
+    virtual protected void Attack() { }
 
     public float DistanceToPlayer()
     {
@@ -122,19 +124,19 @@ public class Monster : MonoBehaviour
     //prevPathDest로의 길로 이동하는 함수
     private void TracePath(float _speed)
     {
-        if (Nav.totalWorldPath == null || Nav.totalWorldPath.Count == 0)
+        if (nav.totalWorldPath == null || nav.totalWorldPath.Count == 0)
         {
             UnityEngine.Debug.Log("경로 없음");
             return;
         }
 
-        if (Nav.curPathIndex >= Nav.totalWorldPath.Count)
+        if (nav.curPathIndex >= nav.totalWorldPath.Count)
         {
             UnityEngine.Debug.Log("경로를 모두 따라갔습니다.");
             return;
         }
 
-        Vector3 targetPosition = Nav.totalWorldPath[Nav.curPathIndex];
+        Vector3 targetPosition = nav.totalWorldPath[nav.curPathIndex];
         float distanceToMove = _speed * Time.fixedDeltaTime;
 
 
@@ -145,7 +147,7 @@ public class Monster : MonoBehaviour
 
         if (Vector3.Distance(rigidBody.position, targetPosition) < 0.1f)
         {
-            Nav.curPathIndex++;
+            nav.curPathIndex++;
         }
     }
 

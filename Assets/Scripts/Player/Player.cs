@@ -86,6 +86,17 @@ public class Player : MonoBehaviour
         transform.position = position;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision == null) return;
+        if(collision.gameObject.layer==9)   // MonsterAttack Layer
+        {
+            int Damage = collision.gameObject.GetComponentInParent<MonGoblin>().monsterData.damage;
+            OnDamage(0);
+            //OnDamage(Damage);
+        }
+    }
+
     private void GetInput()
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
@@ -116,9 +127,9 @@ public class Player : MonoBehaviour
         else
             gameObject.layer = 6;
     }
-    private void OnDamage(int Damage, Vector2 AttackPos)
+    private void OnDamage(int damage)
     {
-        AddHP(-Damage);
+        AddHP(-damage);
 
         if (HP <= 0)
             Die();
@@ -126,11 +137,12 @@ public class Player : MonoBehaviour
         SetInvincible(true);
         spriteRenderer.color = new Color(1, 0f, 0f, 1f);
 
-        Invoke("OffDamage", 1);
+        StartCoroutine(OffDamageAfterDelay(0.5f)); // 1초 후 OffDamage 실행
     }
 
-    private void OffDamage()
+    private IEnumerator OffDamageAfterDelay(float delay)
     {
+        yield return new WaitForSeconds(delay);
         SetInvincible(false);
         spriteRenderer.color = new Color(1, 1, 1, 1);
     }
