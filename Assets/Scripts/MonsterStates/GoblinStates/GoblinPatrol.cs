@@ -14,7 +14,7 @@ public class GoblinPatrol : StateMachineBehaviour
         goblin.monsterState = MonsterState.Patrol;
         patrolTime = goblin.monsterData.patrolTime;
         // 애니메이션 재생 속도
-        animator.speed = 0.7f;
+        animator.speed = 0.5f;
         // 랜덤한 위치로 Patrol 목표 지점 설정
         animator.GetComponent<Navigator>().SetDesTilePos(GameManager.Instance.GetMapGenerator().RandomPos(false));
         animator.GetComponent<Navigator>().FindPath();
