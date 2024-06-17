@@ -33,7 +33,7 @@ public class Monster : MonoBehaviour
         player = GameManager.Instance.GetPlayer();
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         pathUpdateTimer += Time.fixedDeltaTime;
 
@@ -157,14 +157,15 @@ public class Monster : MonoBehaviour
         if (player != null)
         {
             // 플레이어의 위치로 이동
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            transform.position += direction * _speed * Time.deltaTime;
+            Vector2 direction = (player.transform.position - transform.position).normalized;
+            Vector2 newPosition = rigidBody.position + direction * _speed * Time.deltaTime;
+            rigidBody.MovePosition(newPosition);
 
             StareAtPos(player.transform.position);
         }
     }
 
-    private void StareAtPos(Vector3 _pos)
+    protected void StareAtPos(Vector3 _pos)
     {
         // 이동 방향에 따라 spriteRenderer의 FlipX 설정
         if (_pos.x < transform.position.x)

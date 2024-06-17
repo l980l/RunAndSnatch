@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision == null) return;
-        if(collision.gameObject.layer==9)   // MonsterAttack Layer
+        if(collision.gameObject.layer == 9)   // MonsterAttack Layer
         {
             int Damage = collision.gameObject.GetComponentInParent<Monster>().monsterData.damage;
             OnDamage(0);
