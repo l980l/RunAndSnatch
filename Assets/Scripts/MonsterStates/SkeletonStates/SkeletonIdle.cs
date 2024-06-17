@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinIdle : StateMachineBehaviour
+public class SkeletonIdle : StateMachineBehaviour
 {
-    private MonGoblin goblin;
+    private MonSkeleton skeleton;
     private float idleTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin = animator.GetComponent<MonGoblin>();
+        skeleton = animator.GetComponent<MonSkeleton>();
 
-        goblin.monsterState = MonsterState.Idle;
-        idleTime = goblin.monsterData.idleTime;
+        skeleton.monsterState = MonsterState.Idle;
+        idleTime = skeleton.monsterData.idleTime;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,7 +23,7 @@ public class GoblinIdle : StateMachineBehaviour
             animator.SetTrigger("Patrol");
         }
         // 보이는 경우에만 트레이스 해
-        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight())
+        if (skeleton.DistanceToPlayer() < skeleton.monsterData.farTraceRange && skeleton.PlayerInSight())
         {
             animator.SetTrigger("FarTrace");
         }

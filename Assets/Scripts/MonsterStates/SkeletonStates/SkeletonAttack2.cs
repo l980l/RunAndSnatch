@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinAttack : StateMachineBehaviour
+public class SkeletonAttack2 : StateMachineBehaviour
 {
-    private MonGoblin goblin;
+    private MonSkeleton skeleton;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin = animator.GetComponent<MonGoblin>();
+        skeleton = animator.GetComponent<MonSkeleton>();
 
-        goblin.monsterState = MonsterState.Attack;
+        skeleton.monsterState = MonsterState.Attack;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterState
+public enum MonsterState    // 공통으로 사용하는 상태만 
 {
     Idle,
     Patrol,
@@ -98,7 +98,8 @@ public class Monster : MonoBehaviour
         transform.position = position;
     }
 
-    virtual protected void Attack() { }
+    virtual protected void Attack() {}
+    virtual public void OnStunSkill() {}
 
     public float DistanceToPlayer()
     {
