@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         if (collision == null) return;
         if(collision.gameObject.layer==9)   // MonsterAttack Layer
         {
-            int Damage = collision.gameObject.GetComponentInParent<MonGoblin>().monsterData.damage;
+            int Damage = collision.gameObject.GetComponentInParent<Monster>().monsterData.damage;
             OnDamage(0);
             //OnDamage(Damage);
         }

@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinStunned : StateMachineBehaviour
+public class SkeletonStunned : StateMachineBehaviour
 {
-    private MonGoblin goblin;
+    private MonSkeleton skeleton;
     private float stunTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin = animator.GetComponent<MonGoblin>();
+        skeleton = animator.GetComponent<MonSkeleton>();
 
-        goblin.monsterState = MonsterState.Stunned;
+        skeleton.monsterState = MonsterState.Stunned;
         stunTime = 2f;
     }
 
