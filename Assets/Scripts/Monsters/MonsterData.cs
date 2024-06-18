@@ -6,7 +6,7 @@ public enum MonsterType
 {
     FlyingEye,
     Goblin,
-    MushRoom,
+    EvilWizard,
     Skeleton,
     Max
 }
@@ -26,4 +26,5 @@ public class MonsterData : ScriptableObject
     public float restTime;
     public float FTSCoef;
     public float NTSCoef;
+    public float projectileSpeed;
 }

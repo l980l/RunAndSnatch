@@ -107,7 +107,7 @@ public class Monster : MonoBehaviour
     }
 
     // 플레이어와 몬스터 사이에 벽이 없는지 확인하는 함수.이 함수는 FarTrace에서 목표 지점 세팅에 쓰일 수 있고, 몬스터가 공격 가능한지 판단하는데에도 사용할 수 있다.
-    public bool PlayerInSight()
+    virtual public bool PlayerInSight()
     {
         // 플레이어까지의 방향 벡터를 계산
         Vector3 directionToPlayer = player.transform.position - transform.position;
