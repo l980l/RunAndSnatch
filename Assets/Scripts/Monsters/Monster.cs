@@ -11,6 +11,7 @@ public enum MonsterState    // 공통으로 사용하는 상태만
     Attack,
     Rest,
     Stunned,
+    Miss,
     Max
 }
 
@@ -23,6 +24,8 @@ public class Monster : MonoBehaviour
     [HideInInspector] public Rigidbody2D rigidBody;
     [HideInInspector] public Navigator nav;
 
+    [SerializeField] private GameObject questionMark;
+
     private float pathUpdateTimer = 0f;
     private float pathUpdateInterval = 1f; // 1초마다 경로 갱신
 
@@ -31,6 +34,7 @@ public class Monster : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         nav = GetComponent<Navigator>();
         player = GameManager.Instance.GetPlayer();
+        questionMark.SetActive(false);
     }
 
     protected virtual void FixedUpdate()
@@ -99,7 +103,22 @@ public class Monster : MonoBehaviour
     }
 
     virtual protected void Attack() {}
+
+    // Player가 스턴 스킬을 사용하면 호출될 함수
     virtual public void OnStunSkill() {}
+
+    // Player가 은신 스킬을 사용하면 호출될 함수
+    public void Miss()
+    {
+        // FarTrace, NearTrace, Attack, Rest에만 Transition을 걸어두었기 때문에, 다른 상태에서는 넘어가지지 않는다.
+        GetComponent<Animator>().SetTrigger("Miss");
+    }
+
+    // 은신 State에서 호출될 함수
+    public void ShowQuestionMark(bool _show)
+    {
+        questionMark.SetActive(_show);
+    }
 
     public float DistanceToPlayer()
     {

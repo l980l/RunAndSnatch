@@ -23,7 +23,7 @@ public class GoblinIdle : StateMachineBehaviour
             animator.SetTrigger("Patrol");
         }
         // 보이는 경우에만 트레이스 해
-        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight())
+        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight() && !goblin.player.GetComponent<Player>().Stealth)
         {
             animator.SetTrigger("FarTrace");
         }

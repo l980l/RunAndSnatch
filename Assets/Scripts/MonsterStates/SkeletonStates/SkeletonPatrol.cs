@@ -30,7 +30,7 @@ public class SkeletonPatrol : StateMachineBehaviour
         }
 
         // 보이는 경우에만 트레이스 해
-        if (skeleton.DistanceToPlayer() < skeleton.monsterData.farTraceRange && skeleton.PlayerInSight())
+        if (skeleton.DistanceToPlayer() < skeleton.monsterData.farTraceRange && skeleton.PlayerInSight() && !skeleton.player.GetComponent<Player>().Stealth)
         {
             animator.SetTrigger("FarTrace");
         }
