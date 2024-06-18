@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72f9b9bc2bf40a24dbd3ccbf3cbdff2f, type: 3}
-  m_Name: MD_MushRoom
+  m_Name: MD_EvilWizard
   m_EditorClassIdentifier: 
   Type: 0
   nearTraceRange: 0
@@ -18,3 +18,9 @@ MonoBehaviour:
   attackRange: 0
   speed: 0
   damage: 0
+  idleTime: 0
+  patrolTime: 0
+  nearTraceTime: 0
+  restTime: 0
+  FTSCoef: 0
+  NTSCoef: 0
