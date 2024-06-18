@@ -23,7 +23,7 @@ public class EvilWizardIdle : StateMachineBehaviour
             animator.SetTrigger("Patrol");
         }
         // 보이는 경우에만 트레이스 해
-        if (wizard.DistanceToPlayer() < wizard.monsterData.farTraceRange && wizard.PlayerInSight())
+        if (wizard.DistanceToPlayer() < wizard.monsterData.farTraceRange && wizard.PlayerInSight() && !wizard.player.GetComponent<Player>().Stealth)
         {
             animator.SetTrigger("FarTrace");
         }

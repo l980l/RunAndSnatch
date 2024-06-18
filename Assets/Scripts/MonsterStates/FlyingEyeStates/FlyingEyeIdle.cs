@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlyingEyeIdle : StateMachineBehaviour
@@ -23,7 +24,7 @@ public class FlyingEyeIdle : StateMachineBehaviour
             animator.SetTrigger("Patrol");
         }
         // 보이는 경우에만 트레이스 해
-        if (flyingEye.DistanceToPlayer() < flyingEye.monsterData.farTraceRange && flyingEye.PlayerInSight())
+        if (flyingEye.DistanceToPlayer() < flyingEye.monsterData.farTraceRange && flyingEye.PlayerInSight() && !flyingEye.player.GetComponent<Player>().Stealth)
         {
             animator.SetTrigger("FarTrace");
         }
