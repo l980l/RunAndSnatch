@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private MotionTrail motionTrail;
+    private bool stealth;
+
+    public bool Stealth { get { return stealth; } set { stealth = value; } }
 
     private void Awake()
     {
@@ -33,6 +37,8 @@ public class Player : MonoBehaviour
     {
         if(HP > 0)
             GetInput();
+        if (Input.GetMouseButtonDown(0))
+            Stealth = !Stealth;
     }
 
     private void FixedUpdate()

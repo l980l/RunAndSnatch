@@ -1616,6 +1616,10 @@ PrefabInstance:
       value: MonsterManager
       objectReference: {fileID: 0}
     - target: {fileID: 8707835699104102592, guid: 0ca328c47d7c5244a8f932eb8a6b2b12, type: 3}
+      propertyPath: difficulty
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707835699104102592, guid: 0ca328c47d7c5244a8f932eb8a6b2b12, type: 3}
       propertyPath: MonsterRatio
       value: 
       objectReference: {fileID: 11400000, guid: c6f35532d8499dc48b64f0443101cc66, type: 2}
@@ -1626,11 +1630,11 @@ PrefabInstance:
     - target: {fileID: 8707835699104102592, guid: 0ca328c47d7c5244a8f932eb8a6b2b12, type: 3}
       propertyPath: monsterPrefab.Array.data[0]
       value: 
-      objectReference: {fileID: 3080977946489624215, guid: 8eb8080009603d64696e126f8d6d26ab, type: 3}
+      objectReference: {fileID: 6812517098120029122, guid: 984254fadd64ee04bb6db064b6460f28, type: 3}
     - target: {fileID: 8707835699104102592, guid: 0ca328c47d7c5244a8f932eb8a6b2b12, type: 3}
       propertyPath: monsterPrefab.Array.data[1]
       value: 
-      objectReference: {fileID: 3080977946489624215, guid: 8eb8080009603d64696e126f8d6d26ab, type: 3}
+      objectReference: {fileID: 7142179666870621984, guid: c67028c90157e15419db311dbc231a21, type: 3}
     - target: {fileID: 8707835699104102592, guid: 0ca328c47d7c5244a8f932eb8a6b2b12, type: 3}
       propertyPath: monsterPrefab.Array.data[2]
       value: 
@@ -1638,7 +1642,7 @@ PrefabInstance:
     - target: {fileID: 8707835699104102592, guid: 0ca328c47d7c5244a8f932eb8a6b2b12, type: 3}
       propertyPath: monsterPrefab.Array.data[3]
       value: 
-      objectReference: {fileID: 3080977946489624215, guid: 8eb8080009603d64696e126f8d6d26ab, type: 3}
+      objectReference: {fileID: 6007281075308830867, guid: 084518810b54e124389e79d15e8318d1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
