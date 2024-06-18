@@ -11,7 +11,7 @@ public class DownloadManager : MonoBehaviour
 
     [SerializeField] private ItemDBSO itemDBSO;
 
-    [Tooltip("FlyingEye, Goblin, MushRoom, Skeleton")]
+    [Tooltip("FlyingEye, Goblin, EvilWizard, Skeleton")]
     [SerializeField] private MonsterData[] monsterDB;
 
     [SerializeField] private MonsterSpawnRatio MonsterRatio;
@@ -100,7 +100,7 @@ public class DownloadManager : MonoBehaviour
 
     #region MonsterData
 
-    const string MonsterDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1598314971&range=A2:L";
+    const string MonsterDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1598314971&range=A2:M";
 
     IEnumerator DownloadMonsterDB()
     {
@@ -130,6 +130,7 @@ public class DownloadManager : MonoBehaviour
             monsterDB[i].restTime = float.Parse(column[9]);
             monsterDB[i].FTSCoef = float.Parse(column[10]);
             monsterDB[i].NTSCoef = float.Parse(column[11]);
+            monsterDB[i].projectileSpeed = float.Parse(column[12]);
         }
     }
     #endregion

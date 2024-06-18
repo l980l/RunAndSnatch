@@ -22,7 +22,7 @@ public class MonsterManager : MonoBehaviour
         Instance = this;
     }
 
-    [Tooltip("FlyingEye, Goblin, MushRoom, Skeleton")]
+    [Tooltip("FlyingEye, Goblin, EvilWizard, Skeleton")]
     [SerializeField] private GameObject[] monsterPrefab;
     [SerializeField] private int monsterCount;
     [SerializeField] private DifLevel difficulty;
