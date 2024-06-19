@@ -537,7 +537,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.4166665
+  orthographic size: 4.678571
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -839,6 +839,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 20869158876683951, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572371881949861047, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2981852762294608055, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -923,33 +931,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 742422585}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Click
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SkillUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167362703361676616, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+    - target: {fileID: 6885124038479009991, guid: 501e65df52ac6f64894b3029670cd93c, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1597,6 +1581,34 @@ PrefabInstance:
       propertyPath: ItemValueText
       value: 
       objectReference: {fileID: 2068913703}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 914428289684503498, guid: 743b081792d90744ea21a7acb93a8afb, type: 3}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 7572643604053708832, guid: a340eeb2f02b7434d891d99797e87844, type: 3}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 691176355820406740, guid: 0907ebfb87a2a924a916599d4e167691, type: 3}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 8805928141825943504, guid: 97112ce1b3e6a6f4a9c43e9f7e1be76f, type: 3}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.data[4]
+      value: 
+      objectReference: {fileID: 5758820627953287101, guid: 6f2c88c604e99004eaea0e5d73707111, type: 3}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: PlayerPrefab.Array.data[5]
+      value: 
+      objectReference: {fileID: 1042099217566777607, guid: 37f6bbe5da59cfb4b97bdda8329f3332, type: 3}
     - target: {fileID: 7299360796780723744, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 833.71936

@@ -22,7 +22,7 @@ public abstract class SkillEffect : ScriptableObject
     public float skillRange;
     public Sprite UIImage;
 
-    public float lastExecutionTime = -Mathf.Infinity;
+    public float lastExecutionTime;
 
     protected bool IsCooltimeReady()
     {
