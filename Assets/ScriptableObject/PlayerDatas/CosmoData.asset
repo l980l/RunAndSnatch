@@ -19,3 +19,4 @@ MonoBehaviour:
   speed: 0
   dodgeSpeed: 0
   skill: {fileID: 0}
+  portraitImage: {fileID: -1064045995, guid: 5a7b7a2372c9d36468409b34488877d9, type: 3}

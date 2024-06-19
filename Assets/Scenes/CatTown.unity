@@ -1085,6 +1085,14 @@ PrefabInstance:
       propertyPath: StaminaHUD
       value: 
       objectReference: {fileID: 2139450170}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: portraitUI
+      value: 
+      objectReference: {fileID: 2139450172}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: staminaHUD
+      value: 
+      objectReference: {fileID: 2139450170}
     - target: {fileID: 7299360796780723744, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 833.71936
@@ -29730,6 +29738,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3a863e826e3b6a449c1cb51bedfde81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2139450172 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4578202067767238013, guid: 1254269d44cb0d641abb9ec6b42f47d4, type: 3}
+  m_PrefabInstance: {fileID: 2139450169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808e9811bbb91204ba9eee1887295b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
