@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum SkillType
 {
+    None = -1,
     ShadowVeil,
     FerociousHowl,
     SpatialWarp,
