@@ -22,4 +22,5 @@ public class PlayerData : ScriptableObject
     public float speed;
     public float dodgeSpeed;
     public SkillEffect skill;
+    public Sprite portraitImage;
 }
