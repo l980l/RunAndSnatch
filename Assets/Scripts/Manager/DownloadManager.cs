@@ -15,6 +15,13 @@ public class DownloadManager : MonoBehaviour
     [SerializeField] private MonsterData[] monsterDB;
 
     [SerializeField] private MonsterSpawnRatio MonsterRatio;
+
+    [Tooltip("ShadowVeilSO, FerociousHowlSO, SpatialWarpSO, ChronoTwistSO, FerociousHowlSO")]
+    [SerializeField] private SkillEffect[] SkillEffects;
+
+    [Tooltip("Miya, Bambi, Leo, Cosmo, Chrono, Misty")]
+    [SerializeField] private PlayerData[] PlayerDB;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -22,7 +29,8 @@ public class DownloadManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DownloadItemEffectSO());
+        StartCoroutine(DownloadItemEffectSO()); // ItemDBSO까지 다운
+        StartCoroutine(DownloadSkillEffects()); // PlayerDB까지 다운
         StartCoroutine(DownloadMonsterDB());
         StartCoroutine(DownloadSpawnRatio());
     }
@@ -164,6 +172,74 @@ public class DownloadManager : MonoBehaviour
             temp.Add(int.Parse(column[3]));
 
             MonsterRatio.monsterRatio.Add(temp);
+        }
+    }
+    #endregion
+
+    #region SkillEffects
+
+    const string SkillEffectURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1112831032&range=A2:D";
+
+    // 난이도별 생성 비율을 스프레드 시트로부터 가져오는 함수
+    IEnumerator DownloadSkillEffects()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(SkillEffectURL);
+        yield return www.SendWebRequest();
+        SetSkillEffects(www.downloadHandler.text);
+
+        // Skill 세팅이 완료되면 플레이어 데이터 세팅
+        yield return StartCoroutine(DownloadPlayerDB());
+    }
+
+    private void SetSkillEffects(string tsv)
+    {
+        string[] row = tsv.Split('\n');
+        int rowSize = row.Length;
+        int columnSize = row[0].Split('\t').Length;
+
+        for (int i = 0; i < rowSize; i++)
+        {
+            string[] column = row[i].Split("\t");
+            SkillEffects[i].skillType = Enum.Parse<SkillType>(column[0]);
+            SkillEffects[i].coolTime = float.Parse(column[1]);
+            SkillEffects[i].effectLastTime = float.Parse(column[2]);
+            SkillEffects[i].skillRange = float.Parse(column[3]);
+        }
+    }
+    #endregion
+
+    #region PlayerData
+
+    const string PlayerDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1361663794&range=A2:G";
+
+    IEnumerator DownloadPlayerDB()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(PlayerDataURL);
+        yield return www.SendWebRequest();
+        SetPlayerDB(www.downloadHandler.text);
+    }
+
+    private void SetPlayerDB(string tsv)
+    {
+        string[] row = tsv.Split('\n');
+        int rowSize = row.Length;
+        int columnSize = row[0].Split('\t').Length;
+
+        for (int i = 0; i < rowSize; i++)
+        {
+            string[] column = row[i].Split("\t");
+            PlayerDB[i].characterType = Enum.Parse<CharacterType>(column[0]);
+            PlayerDB[i].maxHP = int.Parse(column[1]);
+            PlayerDB[i].maxStamina = int.Parse(column[2]);
+            PlayerDB[i].staminaRegenSpeed = float.Parse(column[3]);
+            PlayerDB[i].speed = int.Parse(column[4]);
+            PlayerDB[i].dodgeSpeed = int.Parse(column[5]);
+
+            if(column[6].Length != 0)
+            {
+                int index = (int)Enum.Parse<SkillType>(column[6]);
+                PlayerDB[i].skill = SkillEffects[index];
+            }
         }
     }
     #endregion
