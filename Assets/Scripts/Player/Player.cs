@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
         // 회피 상태가 아니고, 회피가 가능한 상태.
         if (!bIsDodging && Stamina > 0)
         {
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Fire3"))
             {
                 DodgeStart();
             }
@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
 
         if(bIsDodging)
         {
-            if (Input.GetButtonUp("Jump") || Stamina <= 0)
+            if (Input.GetButtonUp("Fire3") || Stamina <= 0)
             {
                 DodgeEnd();
             }
