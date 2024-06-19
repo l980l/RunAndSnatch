@@ -178,9 +178,8 @@ public class DownloadManager : MonoBehaviour
 
     #region SkillEffects
 
-    const string SkillEffectURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1112831032&range=A2:D";
+    const string SkillEffectURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1112831032&range=A2:E";
 
-    // 난이도별 생성 비율을 스프레드 시트로부터 가져오는 함수
     IEnumerator DownloadSkillEffects()
     {
         UnityWebRequest www = UnityWebRequest.Get(SkillEffectURL);
@@ -204,6 +203,7 @@ public class DownloadManager : MonoBehaviour
             SkillEffects[i].coolTime = float.Parse(column[1]);
             SkillEffects[i].effectLastTime = float.Parse(column[2]);
             SkillEffects[i].skillRange = float.Parse(column[3]);
+            SkillEffects[i].lastExecutionTime = float.Parse(column[4]);
         }
     }
     #endregion
