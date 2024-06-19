@@ -235,9 +235,9 @@ public class DownloadManager : MonoBehaviour
             PlayerDB[i].speed = int.Parse(column[4]);
             PlayerDB[i].dodgeSpeed = int.Parse(column[5]);
 
-            if(column[6].Length != 0)
+            int index = (int)Enum.Parse<SkillType>(column[6]);
+            if (index != -1) // -1인 경우 None임.
             {
-                int index = (int)Enum.Parse<SkillType>(column[6]);
                 PlayerDB[i].skill = SkillEffects[index];
             }
         }
