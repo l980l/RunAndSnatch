@@ -16,3 +16,4 @@ MonoBehaviour:
   coolTime: 0
   effectLastTime: 0
   skillRange: 0
+  UIImage: {fileID: 21300000, guid: 881818e315c2fae4a931c4890540825b, type: 3}

@@ -20,4 +20,17 @@ public abstract class SkillEffect : ScriptableObject
     public float coolTime;
     public float effectLastTime;
     public float skillRange;
+    public Sprite UIImage;
+
+    public float lastExecutionTime = -Mathf.Infinity;
+
+    protected bool IsCooltimeReady()
+    {
+        return Time.time >= lastExecutionTime + coolTime;
+    }
+
+    protected void UpdateLastExecutionTime()
+    {
+        lastExecutionTime = Time.time;
+    }
 }

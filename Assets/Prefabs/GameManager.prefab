@@ -50,7 +50,6 @@ MonoBehaviour:
   mapGenerator: {fileID: 0}
   ItemValueText: {fileID: 0}
   PlayerPrefab: {fileID: 914428289684503498, guid: 743b081792d90744ea21a7acb93a8afb, type: 3}
-  ItemPrefab:
-  - {fileID: 956538255310231373, guid: a88fea5daffb29d40a79829ce52f7e10, type: 3}
-  MonsterPrefabs: []
   ExitPrefab: {fileID: 0}
+  skillUI: {fileID: 0}
+  Player: {fileID: 0}

@@ -7,7 +7,15 @@ public class SpatialWarpSkill : SkillEffect
 {
     public override bool ExecuteRole()
     {
-
-        return true;
+        if (IsCooltimeReady())
+        {
+            // 스킬 실행 로직
+            UpdateLastExecutionTime();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
