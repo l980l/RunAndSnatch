@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text ItemValueText;
     [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject ExitPrefab;
+    [SerializeField] private SkillUI skillUI;
     [Tooltip("OnlySetInCatTown")] [SerializeField] private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
         {
             // 랜덤한 위치로 플레이어 생성. 초기 HealthHUD 세팅.
             Player = Instantiate(PlayerPrefab, mapGenerator.RandomPos(false), Quaternion.identity);
+            // SkillUI에 플레이어 세팅
+            skillUI.SetPlayer(Player.GetComponent<Player>());
             // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
             CVC.m_Follow = Player.transform;
             // 아이템 생성

@@ -104,11 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9afe72e8fef360f4490f9cbda81daf1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  DodgeSpeed: 8
-  MaxHP: 100
-  MaxStamina: 3
-  StaminaRegenSpeed: 0.3
+  playerData: {fileID: 11400000, guid: 391f8bb28babd1a4599356c9be2bc326, type: 2}
 --- !u!114 &6896424215679525566
 MonoBehaviour:
   m_ObjectHideFlags: 0
