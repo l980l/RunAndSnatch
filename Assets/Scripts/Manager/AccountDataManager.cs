@@ -10,6 +10,7 @@ using Unity.Services.CloudSave.Models;
 [System.Serializable]
 public class AccountData    // 캐릭터 해금 정보, 캐릭터 별 선물 정보도 추가해야 한다.
 {
+    public CharacterType selectedCharacter;
     public ItemType[] Items; 
     public int gold;
 }
@@ -29,19 +30,15 @@ public class AccountDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     #endregion
-    private AccountData accountData;
+    public AccountData accountData;
+    //private AccountData accountData;
     private string keyWord = "1fh3ji9-re #@sdf^&gr$w&bk`9";
     private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체
 
-    public int AccountGold
-    {
-        get { return accountData.gold; }
-        set
-        {
-            accountData.gold = value;
-        }
-    }
+    public int AccountGold { get { return accountData.gold; } set { accountData.gold = value; } }
+    public CharacterType SelectedCharacter { get { return accountData.selectedCharacter; } set { accountData.selectedCharacter = value; } }
     public ItemType[] GetAccountInven() { return accountData.Items; }
+
 
     private void Start()
     {

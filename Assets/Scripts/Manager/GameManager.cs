@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private StaminaHUD StaminaHUD;
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private Text ItemValueText;
-    [SerializeField] private GameObject PlayerPrefab;
+    [Tooltip ("Miya, Bambi, Leo, Cosmo, Chrono, Misty")]
+    [SerializeField] private GameObject[] PlayerPrefab;
     [SerializeField] private GameObject ExitPrefab;
     [SerializeField] private SkillUI skillUI;
     [Tooltip("OnlySetInCatTown")] [SerializeField] private GameObject Player;
@@ -43,10 +44,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // 던전인 것임.
         if(mapGenerator)
         {
             // 랜덤한 위치로 플레이어 생성. 초기 HealthHUD 세팅.
-            Player = Instantiate(PlayerPrefab, mapGenerator.RandomPos(false), Quaternion.identity);
+            Player = Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity);
             // SkillUI에 플레이어 세팅
             skillUI.SetPlayer(Player.GetComponent<Player>());
             // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
@@ -55,6 +57,13 @@ public class GameManager : MonoBehaviour
             ItemDB.Instance.GenerateItemsOnField();
             // 몬스터 생성
             MonsterManager.Instance.GenerateMonstersOnField();
+        }
+
+        // 마을인 것임.
+        else
+        {
+            Player = Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], new Vector3(-10, 0.8f, 0), Quaternion.identity);
+            CVC.m_Follow = Player.transform;
         }
     }
 }
