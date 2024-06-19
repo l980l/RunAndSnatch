@@ -6,11 +6,13 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float DodgeSpeed;
-    [SerializeField] private int MaxHP;
-    [SerializeField] private float MaxStamina;
-    [SerializeField] private float StaminaRegenSpeed;
+    //[SerializeField] private float speed;
+    //[SerializeField] private float DodgeSpeed;
+    //[SerializeField] private int maxHP;
+    //[SerializeField] private float maxStamina;
+    //[SerializeField] private float StaminaRegenSpeed;
+    public PlayerData playerData;
+
     private int HP;
     private float Stamina;
     private Vector2 inputVec;
@@ -29,8 +31,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         motionTrail= GetComponent<MotionTrail>();
-        HP = MaxHP;
-        Stamina = MaxStamina;
+        HP = playerData.maxHP;
+        Stamina = playerData.maxStamina;
     }
 
     void Update()
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
             if (bIsDodging)
             {
                 // 이동
-                Vector2 nextVec = inputVec.normalized * DodgeSpeed * Time.fixedDeltaTime;
+                Vector2 nextVec = inputVec.normalized * playerData.dodgeSpeed * Time.fixedDeltaTime;
                 rigidBody.MovePosition(rigidBody.position + nextVec);
 
                 // 스테미나 소모
@@ -62,18 +64,18 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+                Vector2 nextVec = inputVec.normalized * playerData.speed * Time.fixedDeltaTime;
                 rigidBody.MovePosition(rigidBody.position + nextVec);
 
                 // 스테미나 회복
-                if (Stamina < MaxStamina)
-                    Stamina += Time.fixedDeltaTime * StaminaRegenSpeed;
+                if (Stamina < playerData.maxStamina)
+                    Stamina += Time.fixedDeltaTime * playerData.staminaRegenSpeed;
                 else
-                    Stamina = MaxStamina;
+                    Stamina = playerData.maxStamina;
 
             }
             // StaminaHUD 세팅
-            float Amount = (float)Stamina / (float)MaxStamina;
+            float Amount = (float)Stamina / (float)playerData.maxStamina;
             GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
         }
     }
@@ -184,34 +186,34 @@ public class Player : MonoBehaviour
     public void AddHP(int _amount)
     {
         HP += _amount;
-        if (HP > MaxHP)
+        if (HP > playerData.maxHP)
         {
-            HP = MaxHP;
+            HP = playerData.maxHP;
         }
-        float amount = (float)HP / (float)MaxHP;
+        float amount = (float)HP / (float)playerData.maxHP;
         GameManager.Instance.GetHeatlhHUD().UpdateHP(amount);
     }
 
     public void AddStemina(float _amount)
     {
         Stamina += _amount;
-        if (Stamina > MaxStamina)
+        if (Stamina > playerData.maxStamina)
         {
-            Stamina = MaxStamina;
+            Stamina = playerData.maxStamina;
         }
-        float Amount = (float)Stamina / (float)MaxStamina;
+        float Amount = (float)Stamina / (float)playerData.maxStamina;
         GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
     }
 
     public void StaminaRegenSpeedUp(float _amount)
     {
-        StaminaRegenSpeed += _amount;
+        playerData.staminaRegenSpeed += _amount;
     }
 
     public void MoveSpeedUp(float _amount)
     {
-        speed += _amount;
+        playerData.speed += _amount;
         // 이동 속도만 오르면 이상하니까 달리기 속도도 같이 올려주자
-        DodgeSpeed += _amount;
+        playerData.dodgeSpeed += _amount;
     }
 }
