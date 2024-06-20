@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
     private MotionTrail motionTrail;
     private bool stealth;
 
-    // 몬스터에 Miss를 호출시키는 충돌체
     [SerializeField] private GameObject StealthArea;
+    [SerializeField] private GameObject stunArea;
 
     public bool Stealth { get { return stealth; } set { stealth = value; } }
 
@@ -233,7 +233,6 @@ public class Player : MonoBehaviour
         StartCoroutine(StealthCoroutine(duration, radius));
     }
 
-    // Coroutine 함수
     private IEnumerator StealthCoroutine(float duration, float radius = -1)
     {
         // stealth 활성화
@@ -250,5 +249,23 @@ public class Player : MonoBehaviour
         stealth = false;
         spriteRenderer.color = Color.white;
         StealthArea.SetActive(false);
+    }
+
+    public void SetStunAreaForDuration(float duration, float radius = -1)
+    {
+        StartCoroutine(StunAreaCoroutine(duration, radius));
+    }
+
+    private IEnumerator StunAreaCoroutine(float duration, float radius = -1)
+    {
+        stunArea.GetComponent<StunArea>().StunTime = duration;
+        if (radius > 0)
+            StealthArea.GetComponent<CircleCollider2D>().radius = radius;
+        stunArea.SetActive(true);
+
+        // 0.1초 동안 충돌체 유지
+        yield return new WaitForSeconds(0.1f);
+
+        stunArea.SetActive(false);
     }
 }

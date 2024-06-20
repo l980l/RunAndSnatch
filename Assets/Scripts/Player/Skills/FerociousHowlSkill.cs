@@ -9,7 +9,13 @@ public class FerociousHowlSkill : SkillEffect
     {
         if (IsCooltimeReady())
         {
-            // 스킬 실행 로직
+            Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+            float skillRange = player.playerData.skill.skillRange;
+            float lastTime = player.playerData.skill.effectLastTime;
+            Debug.Log(skillRange);
+            Debug.Log(lastTime);
+            player.SetStunAreaForDuration(lastTime, skillRange);
+
             UpdateLastExecutionTime();
             return true;
         }
