@@ -12,7 +12,7 @@ public class GoblinStunned : StateMachineBehaviour
         goblin = animator.GetComponent<MonGoblin>();
 
         goblin.monsterState = MonsterState.Stunned;
-        stunTime = 2f;
+        stunTime = goblin.StunTime;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

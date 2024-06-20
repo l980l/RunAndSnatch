@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8596282531613857122
+--- !u!1 &8487944180916282550
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 663879199471563314}
-  - component: {fileID: 4905772812053353924}
+  - component: {fileID: 4833943156414403048}
+  - component: {fileID: 5946962997482519524}
+  - component: {fileID: 1351521769389035458}
   m_Layer: 10
-  m_Name: StunAndStealthRange
+  m_Name: StealthArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &663879199471563314
+  m_IsActive: 0
+--- !u!4 &4833943156414403048
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596282531613857122}
+  m_GameObject: {fileID: 8487944180916282550}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3690060336634662094}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &4905772812053353924
+--- !u!58 &5946962997482519524
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8596282531613857122}
+  m_GameObject: {fileID: 8487944180916282550}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -66,7 +67,19 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 13
+  m_Radius: 10
+--- !u!114 &1351521769389035458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8487944180916282550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0afe9226e065edc4eb1bea6907c3b6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8795784843015810310
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,8 +198,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4833943156414403048}
   - {fileID: 4674676932264403392}
-  - {fileID: 663879199471563314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1274710768161817457
@@ -254,6 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 4d2290a0da0b3a64bbf7b4aabcdcafe2, type: 2}
+  StealthArea: {fileID: 8487944180916282550}
 --- !u!114 &2993325129256984083
 MonoBehaviour:
   m_ObjectHideFlags: 0

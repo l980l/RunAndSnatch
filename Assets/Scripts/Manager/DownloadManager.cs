@@ -201,8 +201,8 @@ public class DownloadManager : MonoBehaviour
             string[] column = row[i].Split("\t");
             SkillEffects[i].skillType = Enum.Parse<SkillType>(column[0]);
             SkillEffects[i].coolTime = float.Parse(column[1]);
-            SkillEffects[i].effectLastTime = float.Parse(column[2]);
-            SkillEffects[i].skillRange = float.Parse(column[3]);
+            SkillEffects[i].skillRange = float.Parse(column[2]);
+            SkillEffects[i].effectLastTime = float.Parse(column[3]);
             SkillEffects[i].lastExecutionTime = float.Parse(column[4]);
         }
     }

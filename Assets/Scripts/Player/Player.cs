@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
-    //[SerializeField] private float speed;
-    //[SerializeField] private float DodgeSpeed;
-    //[SerializeField] private int maxHP;
-    //[SerializeField] private float maxStamina;
-    //[SerializeField] private float StaminaRegenSpeed;
+    private int maxHP;
+    private float maxStamina;
+    private float staminaRegenSpeed;
+    private float speed;
+    private float dodgeSpeed;
+
     public PlayerData playerData;
 
     private int HP;
@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     private MotionTrail motionTrail;
     private bool stealth;
 
+    // 몬스터에 Miss를 호출시키는 충돌체
+    [SerializeField] private GameObject StealthArea;
+
     public bool Stealth { get { return stealth; } set { stealth = value; } }
 
     private void Awake()
@@ -31,6 +34,14 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         motionTrail= GetComponent<MotionTrail>();
+
+        // 던전에서만 능력치 향상이 적용되고, 마을로 가면 사라지게 하기 위해, SO에 직접 적용하지 않고, 값을 복사해서 적용.
+        maxHP = playerData.maxHP;
+        maxStamina = playerData.maxStamina;
+        staminaRegenSpeed = playerData.staminaRegenSpeed;
+        speed = playerData.speed;
+        dodgeSpeed = playerData.dodgeSpeed;
+
         HP = playerData.maxHP;
         Stamina = playerData.maxStamina;
     }
@@ -39,8 +50,6 @@ public class Player : MonoBehaviour
     {
         if(HP > 0)
             GetInput();
-        if (Input.GetMouseButtonDown(0))
-            Stealth = !Stealth;
     }
 
     private void FixedUpdate()
@@ -155,7 +164,8 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SetInvincible(false);
-        spriteRenderer.color = new Color(1, 1, 1, 1);
+        
+        spriteRenderer.color = (Stealth == true) ? new Color(1, 1, 1, 0.5f) : Color.white;
     }
 
     private void Die()  
@@ -186,34 +196,59 @@ public class Player : MonoBehaviour
     public void AddHP(int _amount)
     {
         HP += _amount;
-        if (HP > playerData.maxHP)
+        if (HP > maxHP)
         {
-            HP = playerData.maxHP;
+            HP = maxHP;
         }
-        float amount = (float)HP / (float)playerData.maxHP;
+        float amount = (float)HP / (float)maxHP;
         GameManager.Instance.GetHeatlhHUD().UpdateHP(amount);
     }
 
     public void AddStemina(float _amount)
     {
         Stamina += _amount;
-        if (Stamina > playerData.maxStamina)
+        if (Stamina > maxStamina)
         {
-            Stamina = playerData.maxStamina;
+            Stamina = maxStamina;
         }
-        float Amount = (float)Stamina / (float)playerData.maxStamina;
+        float Amount = (float)Stamina / (float)maxStamina;
         GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
     }
 
     public void StaminaRegenSpeedUp(float _amount)
     {
-        playerData.staminaRegenSpeed += _amount;
+        staminaRegenSpeed += _amount;
     }
 
     public void MoveSpeedUp(float _amount)
     {
-        playerData.speed += _amount;
+        speed += _amount;
         // 이동 속도만 오르면 이상하니까 달리기 속도도 같이 올려주자
-        playerData.dodgeSpeed += _amount;
+        dodgeSpeed += _amount;
+    }
+
+    // 일정 시간 동안 stealth 변수를 true로 설정하는 함수
+    public void SetStealthForDuration(float duration, float radius = -1)
+    {
+        StartCoroutine(StealthCoroutine(duration, radius));
+    }
+
+    // Coroutine 함수
+    private IEnumerator StealthCoroutine(float duration, float radius = -1)
+    {
+        // stealth 활성화
+        stealth = true;
+        spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
+        if(radius > 0) 
+            StealthArea.GetComponent<CircleCollider2D>().radius = radius;
+        StealthArea.SetActive(true);
+
+        // duration 동안 대기
+        yield return new WaitForSeconds(duration);
+
+        // stealth 비활성화
+        stealth = false;
+        spriteRenderer.color = Color.white;
+        StealthArea.SetActive(false);
     }
 }
