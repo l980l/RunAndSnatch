@@ -18,8 +18,8 @@ public abstract class SkillEffect : ScriptableObject
     public abstract bool ExecuteRole();
     public SkillType skillType;
     public float coolTime;
-    public float effectLastTime;
     public float skillRange;
+    public float effectLastTime;
     public Sprite UIImage;
 
     public float lastExecutionTime;

@@ -59,8 +59,9 @@ public class MonEvilWizard : Monster
         }
     }
 
-    public override void OnStunSkill()   // 플레이어가 스턴 스킬을 사용하면 호출
+    public override void OnStunSkill(float _stunTime)   // 플레이어가 스턴 스킬을 사용하면 호출
     {
+        base.OnStunSkill(_stunTime);
         GetComponent<Animator>().SetTrigger("Stunned");
     }
     

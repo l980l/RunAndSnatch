@@ -68,7 +68,7 @@ public class SkillUI : MonoBehaviour
             float leftTime = coolTime - flownTime;
             // 0 이상인 경우에만 숫자 출력.
             if (leftTime > 0)
-                coolTimeText.text = leftTime.ToString("F2");
+                coolTimeText.text = leftTime.ToString("F1");
             else
             {
                 coolTimeText.text = "";

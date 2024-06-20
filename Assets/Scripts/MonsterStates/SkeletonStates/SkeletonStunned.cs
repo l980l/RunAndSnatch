@@ -12,7 +12,7 @@ public class SkeletonStunned : StateMachineBehaviour
         skeleton = animator.GetComponent<MonSkeleton>();
 
         skeleton.monsterState = MonsterState.Stunned;
-        stunTime = 2f;
+        stunTime = skeleton.StunTime;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

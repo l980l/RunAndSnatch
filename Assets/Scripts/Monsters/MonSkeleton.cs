@@ -21,8 +21,10 @@ public class MonSkeleton : Monster
         }
     }
 
-    public override void OnStunSkill()   // 플레이어가 스턴 스킬을 사용하면 호출
+    public override void OnStunSkill(float _stunTime)   // 플레이어가 스턴 스킬을 사용하면 호출
     {
+        base.OnStunSkill(_stunTime);
+       
         // 플레이어가 스켈레톤의 좌측에 있는지.
         bool LeftSidePlayer = true;
         if(player.transform.position.x - transform.position.x >0)
