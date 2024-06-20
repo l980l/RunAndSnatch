@@ -13,8 +13,6 @@ public class ShadowVeilSkill : SkillEffect
             Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
             float skillRange = player.playerData.skill.skillRange;
             float lastTime = player.playerData.skill.effectLastTime;
-            // 은신. 내부적으로 충돌체 OnOff
-            Debug.Log(lastTime);
             player.SetStealthForDuration(lastTime, skillRange);
 
             UpdateLastExecutionTime();
