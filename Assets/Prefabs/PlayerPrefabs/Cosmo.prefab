@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 98892224315228525}
   - component: {fileID: 2993325129256984083}
   - component: {fileID: 8725666283500498407}
+  - component: {fileID: -8467296233108219012}
   - component: {fileID: 7078571223100425492}
   - component: {fileID: 4701348238527832005}
   - component: {fileID: 7600710076386607381}
@@ -379,6 +380,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Items: []
   slotCount: 20
+--- !u!114 &-8467296233108219012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6802c04b6bfb4459cd5762253c5f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &7078571223100425492
 Rigidbody2D:
   serializedVersion: 4
