@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private float dodgeSpeed;
 
     public PlayerData playerData;
+    public bool onMovingSkill; // 이동 관련 스킬을 사용 중인지
 
     private int HP;
     private float Stamina;
@@ -71,7 +72,8 @@ public class Player : MonoBehaviour
                 else
                     Stamina -= Time.fixedDeltaTime;
             }
-            else
+            // 이동 관련 스킬을 사용 중이지 않은 경우
+            else if (!onMovingSkill)
             {
                 Vector2 nextVec = inputVec.normalized * playerData.speed * Time.fixedDeltaTime;
                 rigidBody.MovePosition(rigidBody.position + nextVec);
