@@ -9,7 +9,10 @@ public class ChronoTwistSkill : SkillEffect
     {
         if (IsCooltimeReady())
         {
-            // 스킬 실행 로직
+            Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+            float lastTime = player.playerData.skill.effectLastTime;
+            player.GetComponent<ChronoTwistAbility>().UseChronoTwist(lastTime);
+            
             UpdateLastExecutionTime();
             return true;
         }
