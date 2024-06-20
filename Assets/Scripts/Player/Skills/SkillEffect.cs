@@ -26,11 +26,13 @@ public abstract class SkillEffect : ScriptableObject
 
     protected bool IsCooltimeReady()
     {
-        return Time.time >= lastExecutionTime + coolTime;
+        // Time.realtimeSinceStartup을 사용하여 실제 시간 기준으로 쿨타임을 체크합니다.
+        return Time.realtimeSinceStartup >= lastExecutionTime + coolTime;
     }
 
     protected void UpdateLastExecutionTime()
     {
-        lastExecutionTime = Time.time;
+        // Time.realtimeSinceStartup을 사용하여 실제 시간 기준으로 마지막 실행 시간을 업데이트합니다.
+        lastExecutionTime = Time.realtimeSinceStartup;
     }
 }

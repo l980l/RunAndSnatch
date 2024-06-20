@@ -56,7 +56,7 @@ public class SkillUI : MonoBehaviour
     {
         if(player != null)
         {
-            float flownTime = Time.time - skillEffect.lastExecutionTime;
+            float flownTime = Time.realtimeSinceStartup - skillEffect.lastExecutionTime;
 
             // MaskImage FillAmount ¼¼ÆÃ
             float percent = flownTime / coolTime;

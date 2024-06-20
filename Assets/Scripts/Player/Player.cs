@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private float dodgeSpeed;
 
     public PlayerData playerData;
-    public bool onMovingSkill; // 이동 관련 스킬을 사용 중인지
+    [HideInInspector] public bool onMovingSkill; // 이동 관련 스킬을 사용 중인지
 
     private int HP;
     private float Stamina;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject stunArea;
 
     public bool Stealth { get { return stealth; } set { stealth = value; } }
+    public float Speed { get { return speed; } }
 
     private void Awake()
     {
@@ -63,30 +64,24 @@ public class Player : MonoBehaviour
             if (bIsDodging)
             {
                 // 이동
-                Vector2 nextVec = inputVec.normalized * playerData.dodgeSpeed * Time.fixedDeltaTime;
+                Vector2 nextVec = inputVec.normalized * dodgeSpeed * Time.fixedDeltaTime;
                 rigidBody.MovePosition(rigidBody.position + nextVec);
 
                 // 스테미나 소모
-                if (Stamina < 0)
-                    Stamina = 0;
-                else
-                    Stamina -= Time.fixedDeltaTime;
+                Stamina = Mathf.Max(0, Stamina - Time.fixedDeltaTime);
             }
             // 이동 관련 스킬을 사용 중이지 않은 경우
             else if (!onMovingSkill)
             {
-                Vector2 nextVec = inputVec.normalized * playerData.speed * Time.fixedDeltaTime;
+                Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
                 rigidBody.MovePosition(rigidBody.position + nextVec);
 
                 // 스테미나 회복
-                if (Stamina < playerData.maxStamina)
-                    Stamina += Time.fixedDeltaTime * playerData.staminaRegenSpeed;
-                else
-                    Stamina = playerData.maxStamina;
+                Stamina = Mathf.Min(maxStamina, Stamina + Time.fixedDeltaTime * staminaRegenSpeed);
 
             }
             // StaminaHUD 세팅
-            float Amount = (float)Stamina / (float)playerData.maxStamina;
+            float Amount = (float)Stamina / (float)maxStamina;
             GameManager.Instance.GetStaminaHUD().UpdateStamina(Amount);
         }
     }
@@ -225,8 +220,10 @@ public class Player : MonoBehaviour
     public void MoveSpeedUp(float _amount)
     {
         speed += _amount;
-        // 이동 속도만 오르면 이상하니까 달리기 속도도 같이 올려주자
-        dodgeSpeed += _amount;
+        // 이동 속도만 오르면 이상하니까 달리기 속도도 같이 올려주자. 기본 속도에 비한 현재 속도를 구해서 적용.
+        dodgeSpeed = playerData.dodgeSpeed * (speed / playerData.speed);
+        // 애니메이터 재생 속도를 기본 속도일때를 1로 잡고 세팅.
+        animator.speed = speed / playerData.speed;
     }
 
     // 일정 시간 동안 stealth 변수를 true로 설정하는 함수

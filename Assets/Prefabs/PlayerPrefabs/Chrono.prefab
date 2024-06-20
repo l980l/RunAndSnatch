@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 8225574545930325620}
   - component: {fileID: 2912200263012496766}
   - component: {fileID: 7288724533122084134}
+  - component: {fileID: 5139822949115737939}
   - component: {fileID: 1138534123923940610}
   - component: {fileID: 3950393537772783007}
   - component: {fileID: 9025282938413352988}
@@ -348,6 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 9c2d5466550114b41b919715ba45cc13, type: 2}
+  onMovingSkill: 0
   StealthArea: {fileID: 5500499109613623432}
   stunArea: {fileID: 5187469337463864709}
 --- !u!114 &2912200263012496766
@@ -379,6 +381,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Items: []
   slotCount: 20
+--- !u!114 &5139822949115737939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5758820627953287101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67619bd56cb122141a49a61563f13653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1138534123923940610
 Rigidbody2D:
   serializedVersion: 4

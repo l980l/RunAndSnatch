@@ -10,8 +10,6 @@ public class SpatialWarpSkill : SkillEffect
         if (IsCooltimeReady())
         {
             GameManager.Instance.GetPlayer().GetComponent<SpatialWarpAbility>().Teleport();
-
-            // 스킬 실행 로직
             UpdateLastExecutionTime();
             return true;
         }
