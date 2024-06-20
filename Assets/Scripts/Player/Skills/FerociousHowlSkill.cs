@@ -12,8 +12,6 @@ public class FerociousHowlSkill : SkillEffect
             Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
             float skillRange = player.playerData.skill.skillRange;
             float lastTime = player.playerData.skill.effectLastTime;
-            Debug.Log(skillRange);
-            Debug.Log(lastTime);
             player.SetStunAreaForDuration(lastTime, skillRange);
 
             UpdateLastExecutionTime();
