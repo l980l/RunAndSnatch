@@ -12,7 +12,7 @@ public class EvilWizardStunned : StateMachineBehaviour
         wizard = animator.GetComponent<MonEvilWizard>();
 
         wizard.monsterState = MonsterState.Stunned;
-        stunTime = 2f;
+        stunTime = wizard.StunTime;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

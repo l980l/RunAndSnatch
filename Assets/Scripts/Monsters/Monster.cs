@@ -28,6 +28,8 @@ public class Monster : MonoBehaviour
 
     private float pathUpdateTimer = 0f;
     private float pathUpdateInterval = 1f; // 1초마다 경로 갱신
+    private float stunTime;
+    public float StunTime { get { return stunTime; } }
 
     protected virtual void Awake()
     {
@@ -105,7 +107,10 @@ public class Monster : MonoBehaviour
     virtual protected void Attack() {}
 
     // Player가 스턴 스킬을 사용하면 호출될 함수
-    virtual public void OnStunSkill() {}
+    virtual public void OnStunSkill(float _stunTime) 
+    {
+        stunTime = _stunTime;
+    }
 
     // Player가 은신 스킬을 사용하면 호출될 함수
     public void Miss()

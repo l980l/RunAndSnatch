@@ -12,7 +12,7 @@ public class FlyingEyeStunned : StateMachineBehaviour
         flyingEye = animator.GetComponent<MonFlyingEye>();
 
         flyingEye.monsterState = MonsterState.Stunned;
-        stunTime = 2f;
+        stunTime = flyingEye.StunTime;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
