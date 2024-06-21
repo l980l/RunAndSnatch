@@ -5,6 +5,7 @@ using UnityEngine;
 public class EWProjectile : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
+    private Animator animator;
     private Vector2 dir;
     private float speed;
     private bool isMove;
@@ -14,6 +15,7 @@ public class EWProjectile : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         speed = GetComponentInParent<Monster>().monsterData.projectileSpeed;
     }
 
@@ -32,13 +34,13 @@ public class EWProjectile : MonoBehaviour
         if(collision.gameObject.layer == 6 || collision.gameObject.layer == 12)
         {
             isMove = false;
-            GetComponent<Animator>().SetTrigger("Explode");
+            animator.SetTrigger("Explode");
         }
     }
 
     public void StareAtDirection(Vector2 direction)
     {
-       float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-    rigidBody.MoveRotation(angle);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rigidBody.MoveRotation(angle);
     }
 }

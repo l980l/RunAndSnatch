@@ -7,7 +7,9 @@ public class SmallHealingEft : ItemEffect
 {
     public override bool ExecuteRole()
     {
-        GameManager.Instance.GetPlayer().GetComponent<Player>().AddHP((int)value1);
+        if (player == null)
+            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+        player.AddHP((int)value1);
         return true;
     }
 }

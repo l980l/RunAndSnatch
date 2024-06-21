@@ -5,12 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/SkillSO/ShadowVeilSkill")]
 public class ShadowVeilSkill : SkillEffect
 {
+    private Player player;
+
     // 쿨타임은 SkillUI에서 처리하고, 이 함수가 실행되기 때문에, 따로 처리하지 않아도 된다. 
     public override bool ExecuteRole()
     {
         if (IsCooltimeReady())
         {
-            Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+            if (player == null)
+            {
+                player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+            }
             float skillRange = player.playerData.skill.skillRange;
             float lastTime = player.playerData.skill.effectLastTime;
             player.SetStealthForDuration(lastTime, skillRange);

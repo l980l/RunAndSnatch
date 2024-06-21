@@ -5,12 +5,14 @@ using UnityEngine;
 public class FlyingEyeRest : StateMachineBehaviour
 {
     private MonFlyingEye flyingEye;
+    private SpriteRenderer spriteRenderer;
     private float restTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         flyingEye = animator.GetComponent<MonFlyingEye>();
-        flyingEye.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 1f, 1);
+        spriteRenderer = flyingEye.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(0.5f, 0.5f, 1f, 1);
 
         flyingEye.monsterState = MonsterState.Rest;
         restTime = flyingEye.monsterData.restTime;
@@ -30,7 +32,7 @@ public class FlyingEyeRest : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        flyingEye.GetComponent<SpriteRenderer>().color = Color.white;
+        spriteRenderer.color = Color.white;
         animator.speed = 1;
     }
 }

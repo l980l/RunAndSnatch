@@ -5,11 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/SkillSO/SpatialWarpSkill")]
 public class SpatialWarpSkill : SkillEffect
 {
+    private SpatialWarpAbility spatialWarpAbility;
+
     public override bool ExecuteRole()
     {
         if (IsCooltimeReady())
         {
-            GameManager.Instance.GetPlayer().GetComponent<SpatialWarpAbility>().Teleport();
+            if (spatialWarpAbility == null)
+            {
+                spatialWarpAbility = GameManager.Instance.GetPlayer().GetComponent<Player>().GetComponent<SpatialWarpAbility>();
+            }
+            spatialWarpAbility.Teleport();
             UpdateLastExecutionTime();
             return true;
         }

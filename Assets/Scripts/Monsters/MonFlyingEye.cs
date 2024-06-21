@@ -36,14 +36,14 @@ public class MonFlyingEye : Monster
         if (atkCircle != null)
         {
             atkCircle.enabled = true;
-            StartCoroutine(DisableAtkCircle(0.4f));
+            StartCoroutine(DisableAtkCircle(0.5f));
         }
     }
 
     public override void OnStunSkill(float _stunTime)   // 플레이어가 스턴 스킬을 사용하면 호출
     {
         base.OnStunSkill(_stunTime);
-        GetComponent<Animator>().SetTrigger("Stunned");
+        animator.SetTrigger("Stunned");
     }
 
     private IEnumerator DisableAtkCircle(float _delay)

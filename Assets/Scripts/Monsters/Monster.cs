@@ -26,6 +26,8 @@ public class Monster : MonoBehaviour
 
     [SerializeField] private GameObject questionMark;
 
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
     private float pathUpdateTimer = 0f;
     private float pathUpdateInterval = 1f; // 1초마다 경로 갱신
     private float stunTime;
@@ -37,6 +39,8 @@ public class Monster : MonoBehaviour
         nav = GetComponent<Navigator>();
         player = GameManager.Instance.GetPlayer();
         questionMark.SetActive(false);
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void FixedUpdate()
@@ -194,11 +198,11 @@ public class Monster : MonoBehaviour
         // 이동 방향에 따라 spriteRenderer의 FlipX 설정
         if (_pos.x < transform.position.x)
         {
-            GetComponent<SpriteRenderer>().flipX = true; // 왼쪽을 바라봄
+            spriteRenderer.flipX = true; // 왼쪽을 바라봄
         }
         else if (_pos.x > transform.position.x)
         {
-            GetComponent<SpriteRenderer>().flipX = false; // 오른쪽을 바라봄
+            spriteRenderer.flipX = false; // 오른쪽을 바라봄
         }
     }
 }
