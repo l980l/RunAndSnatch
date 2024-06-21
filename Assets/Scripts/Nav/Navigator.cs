@@ -53,6 +53,11 @@ public class PriorityQueue<T>
             }
         }
     }
+
+    public void Clear()
+    {
+        elements.Clear();
+    }
 }
 
 public class Navigator : MonoBehaviour
@@ -60,18 +65,26 @@ public class Navigator : MonoBehaviour
     private Tilemap wallTilemap;
     private Vector3Int nowTilePos;
     private Vector3Int desTilePos;
+    private Grid grid;
     [HideInInspector] public List<Vector3> totalWorldPath;
     public int curPathIndex;
 
+    // A* 알고리즘을 위한 우선순위 큐
+    PriorityQueue<Vector3Int> openSet = new PriorityQueue<Vector3Int>();
+    HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>();
+    Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+    Dictionary<Vector3Int, float> gScore = new Dictionary<Vector3Int, float>();
+    Dictionary<Vector3Int, float> fScore = new Dictionary<Vector3Int, float>();
+
     private void SetNowTilePos()
     {
-        nowTilePos = wallTilemap.GetComponentInParent<Grid>().WorldToCell(transform.position);
+        nowTilePos = grid.WorldToCell(transform.position);
     }
 
     public void SetDesTilePos(Vector3 _WorldVec3)
     {
-        _WorldVec3 += wallTilemap.GetComponentInParent<Grid>().GetLayoutCellCenter();
-        desTilePos = wallTilemap.GetComponentInParent<Grid>().WorldToCell(_WorldVec3);
+        _WorldVec3 += grid.GetLayoutCellCenter();
+        desTilePos = grid.WorldToCell(_WorldVec3);
     }
 
     public void SetDesTilePos(Vector3Int _TilePosVec3)
@@ -83,6 +96,7 @@ public class Navigator : MonoBehaviour
     {
         totalWorldPath = new List<Vector3>();
         wallTilemap = GameManager.Instance.GetMapGenerator().GetTilemap();
+        grid = wallTilemap.GetComponentInParent<Grid>();
     }
 
     public async void FindPath()
@@ -102,12 +116,11 @@ public class Navigator : MonoBehaviour
     }
     private bool AStarAlgorithm()
     {
-        // A* 알고리즘을 위한 우선순위 큐
-        PriorityQueue<Vector3Int> openSet = new PriorityQueue<Vector3Int>();
-        HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>();
-        Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
-        Dictionary<Vector3Int, float> gScore = new Dictionary<Vector3Int, float>();
-        Dictionary<Vector3Int, float> fScore = new Dictionary<Vector3Int, float>();
+        openSet.Clear();
+        closedSet.Clear();
+        cameFrom.Clear();
+        gScore.Clear();
+        fScore.Clear();
 
         openSet.Enqueue(nowTilePos, 0);
         gScore[nowTilePos] = 0;
@@ -173,19 +186,21 @@ public class Navigator : MonoBehaviour
         return !GameManager.Instance.GetMapGenerator().isWallAtPos(position.x, position.y);
     }
 
+    private static readonly List<Vector3Int> directions = new List<Vector3Int>
+    {
+        new Vector3Int(1, 0, 0),    // 오른쪽
+        new Vector3Int(-1, 0, 0),   // 왼쪽
+        new Vector3Int(0, 1, 0),    // 위
+        new Vector3Int(0, -1, 0),   // 아래
+        new Vector3Int(1, 1, 0),    // 오른쪽 위 대각선
+        new Vector3Int(-1, 1, 0),   // 왼쪽 위 대각선
+        new Vector3Int(1, -1, 0),   // 오른쪽 아래 대각선
+        new Vector3Int(-1, -1, 0)   // 왼쪽 아래 대각선
+    };
+
     private List<Vector3Int> GetDirections()
     {
-        return new List<Vector3Int>
-        {
-            new Vector3Int(1, 0, 0),    // 오른쪽
-            new Vector3Int(-1, 0, 0),   // 왼쪽
-            new Vector3Int(0, 1, 0),    // 위
-            new Vector3Int(0, -1, 0),   // 아래
-            new Vector3Int(1, 1, 0),    // 오른쪽 위 대각선
-            new Vector3Int(-1, 1, 0),   // 왼쪽 위 대각선
-            new Vector3Int(1, -1, 0),   // 오른쪽 아래 대각선
-            new Vector3Int(-1, -1, 0)   // 왼쪽 아래 대각선
-        };
+        return directions;
     }
 
     private float HeuristicCostEstimate(Vector3Int a, Vector3Int b)

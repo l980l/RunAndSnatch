@@ -7,12 +7,14 @@ public class MonEvilWizard : Monster
 {
     [SerializeField] private GameObject projectilePrefab;
     private List<GameObject> projectiles;
+    private List<EWProjectile> EWProjectiles;
     [SerializeField] private Transform zapPosition;
 
     protected override void Awake()
     {
         base.Awake();
         projectiles = new List<GameObject>();
+        EWProjectiles = new List<EWProjectile>();
     }
 
     protected override void FixedUpdate()
@@ -29,19 +31,20 @@ public class MonEvilWizard : Monster
     {
         bool addNew = true;
 
-        foreach (GameObject p in projectiles)
+        int Length = projectiles.Count;
+        for (int i = 0; i < Length; ++i)
         {
             // 이미 만들어진 비사용중인 projectile이 있다면.
-            if(!p.activeSelf)
+            if (!projectiles[i].activeSelf)
             {
                 addNew = false;
 
-                p.SetActive(true);
-                p.transform.position = FirePos();
-                Vector2 dir = (player.transform.position - p.transform.position).normalized;
-                p.GetComponent<EWProjectile>().Dir = dir; 
-                p.GetComponent<EWProjectile>().StareAtDirection(dir);
-                p.GetComponent<EWProjectile>().IsMove = true;
+                projectiles[i].SetActive(true);
+                projectiles[i].transform.position = FirePos();
+                Vector2 dir = (player.transform.position - projectiles[i].transform.position).normalized;
+                EWProjectiles[i].Dir = dir;
+                EWProjectiles[i].StareAtDirection(dir);
+                EWProjectiles[i].IsMove = true;
                 break;
             }
         }
@@ -51,18 +54,22 @@ public class MonEvilWizard : Monster
         {
             GameObject newOne = Instantiate(projectilePrefab, transform);
             projectiles.Add(newOne);
+            EWProjectile NewEWProjectile = newOne.GetComponent<EWProjectile>();
+            EWProjectiles.Add(NewEWProjectile);
+
             newOne.transform.position = FirePos();
             Vector2 dir = (player.transform.position - newOne.transform.position).normalized;
-            newOne.GetComponent<EWProjectile>().Dir = dir;
-            newOne.GetComponent<EWProjectile>().StareAtDirection(dir);
-            newOne.GetComponent<EWProjectile>().IsMove = true;
+
+            NewEWProjectile.Dir = dir;
+            NewEWProjectile.StareAtDirection(dir);
+            NewEWProjectile.IsMove = true;
         }
     }
 
     public override void OnStunSkill(float _stunTime)   // 플레이어가 스턴 스킬을 사용하면 호출
     {
         base.OnStunSkill(_stunTime);
-        GetComponent<Animator>().SetTrigger("Stunned");
+        animator.SetTrigger("Stunned");
     }
     
     // EvilWizard는 Raycast를 지팡이 위치에서 시작해야 한다.
@@ -85,7 +92,7 @@ public class MonEvilWizard : Monster
     private Vector3 FirePos()
     {
         Vector3 zapLocation = zapPosition.localPosition;
-        zapLocation = GetComponent<SpriteRenderer>().flipX ? new Vector3(-zapLocation.x, zapLocation.y, zapLocation.z) : zapLocation;
+        zapLocation = spriteRenderer.flipX ? new Vector3(-zapLocation.x, zapLocation.y, zapLocation.z) : zapLocation;
 
         return transform.position + zapLocation;
     }

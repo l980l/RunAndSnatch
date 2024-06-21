@@ -7,7 +7,9 @@ public class StealthEft : ItemEffect
 {
     public override bool ExecuteRole()
     {
-        GameManager.Instance.GetPlayer().GetComponent<Player>().SetStealthForDuration(value1);
+        if (player == null)
+            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+        player.SetStealthForDuration(value1);
 
         return true;
     }

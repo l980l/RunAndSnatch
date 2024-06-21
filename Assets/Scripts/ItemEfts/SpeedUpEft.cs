@@ -7,7 +7,9 @@ public class SpeedUpEft : ItemEffect
 {
     public override bool ExecuteRole() 
     {
-        GameManager.Instance.GetPlayer().GetComponent<Player>().MoveSpeedUp(value1);
+        if (player == null)
+            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+        player.MoveSpeedUp(value1);
         return true;
     }
 }

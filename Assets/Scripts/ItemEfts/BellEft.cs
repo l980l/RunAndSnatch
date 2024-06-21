@@ -7,7 +7,9 @@ public class BellEft : ItemEffect
 {
     public override bool ExecuteRole()
     {
-        GameManager.Instance.GetPlayer().GetComponent<Player>().SetStunAreaForDuration(value1);
+        if (player == null)
+            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+        player.SetStunAreaForDuration(value1);
 
         return true;
     }
