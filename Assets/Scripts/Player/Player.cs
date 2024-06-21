@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private MotionTrail motionTrail;
     private bool stealth;
+    private bool invincible;
 
     [SerializeField] private GameObject StealthArea;
     [SerializeField] private GameObject stunArea;
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision == null) return;
-        if(collision.gameObject.layer == 9)   // MonsterAttack Layer
+        if(!invincible && collision.gameObject.layer == 9)   // MonsterAttack Layer
         {
             if(collision.gameObject.GetComponentInParent<Monster>() != null)
             {
@@ -139,11 +140,9 @@ public class Player : MonoBehaviour
 
     public void SetInvincible(bool bInvincible)
     {
-        if (bInvincible)
-            gameObject.layer = 11;
-        else
-            gameObject.layer = 6;
+        invincible = bInvincible; 
     }
+
     private void OnDamage(int damage)
     {
         AddHP(-damage);
