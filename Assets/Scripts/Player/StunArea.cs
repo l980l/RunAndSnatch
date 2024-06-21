@@ -14,8 +14,7 @@ public class StunArea : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<Monster>() != null)
             {
-                Monster monster = collision.gameObject.GetComponent<Monster>();
-                monster.OnStunSkill(stunTime);
+                collision.gameObject.GetComponent<Monster>().OnStunSkill(stunTime);
             }
         }
     }

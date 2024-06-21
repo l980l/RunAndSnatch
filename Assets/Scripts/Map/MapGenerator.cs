@@ -20,6 +20,7 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] private Tilemap RoadTilemap;
     [SerializeField] private Tilemap WallTilemap;
+    [SerializeField] private Tilemap BoarderTilemap;
     [SerializeField] private RuleTile WallTile;
     [SerializeField] private RuleTile RoadTile;
     [SerializeField] private ShadowCasterGenerator shadowCasterGenerator;
@@ -32,6 +33,7 @@ public class MapGenerator : MonoBehaviour
 
     private BitArray arrWallData;
     private Vector2 cellSize;
+    private Grid grid;
 
     public Tilemap GetTilemap() { return RoadTilemap; }
 
@@ -67,18 +69,13 @@ public class MapGenerator : MonoBehaviour
     private void Awake()
     {
         GenerateMap();
+        grid = GetComponentInParent<Grid>();   
     }
 
     private void Start()
     {
         GenerateShadowCasters();    // ShadowCaster2D 생성.
     } 
-
-    private void Update()
-    {
-        //if (Input.GetMouseButtonDown(0)) 
-        //    GenerateMap();
-    }
 
     private void GenerateMap()
     {
@@ -91,6 +88,7 @@ public class MapGenerator : MonoBehaviour
         RemoveSmallSpace(); // 큰 공간만 남기기.
 
         DrawTile(); // 타일 그리기.
+        SetBoarder(); // 경계 그리기.
     }
 
     private void MapRandomFill() //맵을 비율에 따라 벽 혹은 빈 공간으로 랜덤하게 채우는 메소드
@@ -103,8 +101,10 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)  //가장자리는 벽으로 채움
-                    map[x, y] = WALL;       
+                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)  
+                    // 가장자리는 벽으로 채움
+                    map[x, y] = WALL;
+
                 else
                     map[x, y] = (pseudoRandom.Next(0, 100) < chanceToStartAlive) ? ROAD : WALL; // chanceToStartAlive 이하의 값이 나오면 Road로.
             }
@@ -213,11 +213,11 @@ public class MapGenerator : MonoBehaviour
                 MoveUnit.Set(-1, 0, 0);
                 break;
             case 2:
-                tempClearTilePos.Set(0, -width / 2, 0);
+                tempClearTilePos.Set(0, -height / 2, 0);
                 MoveUnit.Set(0, 1, 0);
                 break;
             case 3:
-                tempClearTilePos.Set(0, width / 2 - 1 + width % 2, 0);
+                tempClearTilePos.Set(0, height / 2 - 1 + height % 2, 0);
                 MoveUnit.Set(0, -1, 0);
                 break;
         }
@@ -350,9 +350,30 @@ public class MapGenerator : MonoBehaviour
     {
         var (x, y) = RandomRoad(CheckWall);
         Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
-        Vector3 result = RoadTilemap.GetComponentInParent<Grid>().CellToWorld(temp);
+        Vector3 result = grid.CellToWorld(temp);
         result += RoadTilemap.GetLayoutCellCenter();
 
         return result;
+    }
+
+    private void SetBoarder()
+    {
+        // 위 아래 경계 설정
+        for (int x = 0; x < width; x++)
+        {
+            Vector3Int topPos = new Vector3Int(-width / 2 + x, height / 2 + height % 2, 0);
+            Vector3Int bottomPos = new Vector3Int(-width / 2 + x, -height / 2 - 1, 0);
+            BoarderTilemap.SetTile(topPos, RoadTile);
+            BoarderTilemap.SetTile(bottomPos, RoadTile);
+        }
+
+        // 좌우 경계 설정
+        for (int y = 0; y < height; y++)
+        {
+            Vector3Int leftPos = new Vector3Int(-width / 2 - 1, -height / 2 + y, 0);
+            Vector3Int rightPos = new Vector3Int(width / 2 + width % 2, -height / 2 + y, 0);
+            BoarderTilemap.SetTile(leftPos, RoadTile);
+            BoarderTilemap.SetTile(rightPos, RoadTile);
+        }
     }
 }

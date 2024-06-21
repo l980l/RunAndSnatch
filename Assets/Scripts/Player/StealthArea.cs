@@ -11,8 +11,7 @@ public class StealthArea : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<Monster>() != null)
             {
-                Monster monster = collision.gameObject.GetComponent<Monster>();
-                monster.Miss();
+                collision.gameObject.GetComponent<Monster>().Miss();
             }
         }
     }

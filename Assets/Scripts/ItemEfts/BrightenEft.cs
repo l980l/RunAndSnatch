@@ -7,9 +7,12 @@ using UnityEngine.Rendering.Universal;
 [CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/BrightenEft")]
 public class BrightenEft : ItemEffect 
 {
+    private Light2D light2D;
     public override bool ExecuteRole()
     {
-        GameManager.Instance.GetPlayer().GetComponent<Player>().gameObject.GetComponentInChildren<Light2D>().pointLightOuterRadius += value1;
+        if (light2D == null)
+            light2D = GameManager.Instance.GetPlayer().GetComponentInChildren<Light2D>();
+        light2D.pointLightOuterRadius += value1;
         return true;
     }
 }

@@ -5,12 +5,14 @@ using UnityEngine;
 public class GoblinRest : StateMachineBehaviour
 {
     private MonGoblin goblin;
+    private SpriteRenderer spriteRenderer;
     private float restTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         goblin = animator.GetComponent<MonGoblin>();
-        goblin.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 1f, 1);
+        spriteRenderer = goblin.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(0.5f, 0.5f, 1f, 1);
 
         goblin.monsterState = MonsterState.Rest;
         restTime = goblin.monsterData.restTime;
@@ -30,7 +32,7 @@ public class GoblinRest : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goblin.GetComponent<SpriteRenderer>().color = Color.white;
+        spriteRenderer.color = Color.white;
         animator.speed = 1;
     }
 }

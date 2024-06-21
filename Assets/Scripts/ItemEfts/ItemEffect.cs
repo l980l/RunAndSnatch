@@ -8,4 +8,5 @@ public abstract class ItemEffect : ScriptableObject
     public string effectName;
     public float value1;
     public float value2;
+    protected Player player;
 }

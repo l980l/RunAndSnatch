@@ -5,11 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/SkillSO/FerociousHowlSkill")]
 public class FerociousHowlSkill : SkillEffect
 {
+    private Player player;
+
     public override bool ExecuteRole()
     {
         if (IsCooltimeReady())
         {
-            Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+            if (player == null)
+            {
+                Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+            }
             float skillRange = player.playerData.skill.skillRange;
             float lastTime = player.playerData.skill.effectLastTime;
             player.SetStunAreaForDuration(lastTime, skillRange);

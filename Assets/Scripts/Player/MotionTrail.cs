@@ -12,6 +12,7 @@ public class MotionTrail : MonoBehaviour
     private int TrailPoolCount;
     private SpriteRenderer spriteRenderer;
     private List<GameObject> Trails;
+    private List<SpriteRenderer> SpriteRenderers;
     private List<float> TrailStartTimes; 
     private float FlownTime;
     private bool isMotionTrail;
@@ -23,11 +24,13 @@ public class MotionTrail : MonoBehaviour
         TrailPoolCount = Mathf.FloorToInt(TrailLifeTime / ScanTerm) + 2;    // 오브젝트 풀의 크기는 딱 맞게 만든다면 TrailLifeTime / ScanTerm 이다. 다만, 0으로 딱 떨어지지 않는 경우 1개가 더 필요하고, 넉넉히 2개 더해준다.
         spriteRenderer = GetComponent<SpriteRenderer>();
         Trails = new List<GameObject>();
+        SpriteRenderers = new List<SpriteRenderer>();
         TrailStartTimes = new List<float>();
         for (int i = 0; i < TrailPoolCount; i++)
         {
             GameObject Trail = new GameObject();
             SpriteRenderer SR = Trail.AddComponent<SpriteRenderer>();
+            SpriteRenderers.Add(SR);
             Trail.SetActive(false);
             Trails.Add(Trail);
             TrailStartTimes.Add(0f);
@@ -53,8 +56,8 @@ public class MotionTrail : MonoBehaviour
     {
         Trails[TrailIndex].SetActive(true);
         Trails[TrailIndex].transform.position = transform.position;
-        Trails[TrailIndex].GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
-        Trails[TrailIndex].GetComponent<SpriteRenderer>().flipX = spriteRenderer.flipX;
+        SpriteRenderers[TrailIndex].sprite = spriteRenderer.sprite;
+        SpriteRenderers[TrailIndex].flipX = spriteRenderer.flipX;
         TrailStartTimes[TrailIndex] = Time.realtimeSinceStartup;
 
         TrailIndex++;
@@ -84,13 +87,13 @@ public class MotionTrail : MonoBehaviour
                 if (AfterBeginTime > TrailLifeTime)
                 {
                     AfterBeginTime = 0f;
-                    Trails[i].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                    SpriteRenderers[i].color = new Color(1f, 1f, 1f, 1f);
                     Trails[i].SetActive(false);
                 }
                 else
                 {
                     float Alpha = (TrailLifeTime - AfterBeginTime) / TrailLifeTime;
-                    Trails[i].GetComponent<SpriteRenderer>().color = new Color(TrailColor.r, TrailColor.g, TrailColor.b, Alpha);
+                    SpriteRenderers[i].color = new Color(TrailColor.r, TrailColor.g, TrailColor.b, Alpha);
                 }
             }
         }
