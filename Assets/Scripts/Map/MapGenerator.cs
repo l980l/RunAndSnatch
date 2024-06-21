@@ -35,7 +35,13 @@ public class MapGenerator : MonoBehaviour
     private Vector2 cellSize;
     private Grid grid;
 
-    public Tilemap GetTilemap() { return RoadTilemap; }
+    // GetNearestRoad용도
+    private Queue<Vector2Int> queue;
+    private HashSet<Vector2Int> visited;
+    private Vector2Int[] directions;
+
+    public Tilemap GetRoadTilemap() { return RoadTilemap; }
+    public Grid GetGrid() { return grid; }
 
     // 나는 주로 x를 세로축, y를 가로축으로 썼지만, 타일맵 좌표와 혼동하지 않도록 x가 가로축, y가 세로축이다. 
     public bool isWallAtPos(int x, int y)
@@ -45,6 +51,51 @@ public class MapGenerator : MonoBehaviour
         int index = x + y * width;
 
         return arrWallData[index];
+    }
+
+    public Vector2Int GetNearestRoad(int x, int y)
+    {
+        int startX = width / 2 + x;
+        int startY = height / 2 + y;
+
+        if (!isWallAtPos(x, y))
+        {
+            return new Vector2Int(x, y);
+        }
+
+        queue.Clear();
+        visited.Clear();
+
+        queue.Enqueue(new Vector2Int(startX, startY));
+        visited.Add(new Vector2Int(startX, startY));
+
+        while (queue.Count > 0)
+        {
+            Vector2Int current = queue.Dequeue();
+
+            foreach (Vector2Int direction in directions)
+            {
+                Vector2Int neighbor = current + direction;
+
+                if (neighbor.x >= 0 && neighbor.x < width && neighbor.y >= 0 && neighbor.y < height)
+                {
+                    if (!visited.Contains(neighbor))
+                    {
+                        visited.Add(neighbor);
+
+                        if (!isWallAtPos(neighbor.x - width / 2, neighbor.y - height / 2))
+                        {
+                            return new Vector2Int(neighbor.x - width / 2, neighbor.y - height / 2);
+                        }
+
+                        queue.Enqueue(neighbor);
+                    }
+                }
+            }
+        }
+        // 모든 인접한 좌표를 탐색했음에도 벽이 아닌 공간을 찾지 못한 경우
+        // 이는 이론상 발생하지 않아야 함 (맵에 최소한 하나의 빈 공간이 있다고 가정)
+        return new Vector2Int(-1, -1); // 적절한 에러 처리
     }
 
     public Vector3 CustomCellToWorld(Vector3Int cellPosition)
@@ -69,7 +120,17 @@ public class MapGenerator : MonoBehaviour
     private void Awake()
     {
         GenerateMap();
-        grid = GetComponentInParent<Grid>();   
+        grid = GetComponentInParent<Grid>();
+
+        queue = new Queue<Vector2Int>();
+        visited = new HashSet<Vector2Int>();
+        directions = new Vector2Int[]
+        {
+            new Vector2Int(1, 0),
+            new Vector2Int(-1, 0),
+            new Vector2Int(0, 1),
+            new Vector2Int(0, -1)
+        };
     }
 
     private void Start()

@@ -58,28 +58,31 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         animator.SetFloat("Speed", inputVec.magnitude);
-        
-        if(HP > 0)
+
+        if (HP > 0)
         {
-            // 회피 중이면 
-            if (bIsDodging)
-            {
-                // 이동
-                Vector2 nextVec = inputVec.normalized * dodgeSpeed * Time.fixedDeltaTime;
-                rigidBody.MovePosition(rigidBody.position + nextVec);
-
-                // 스테미나 소모
-                Stamina = Mathf.Max(0, Stamina - Time.fixedDeltaTime);
-            }
             // 이동 관련 스킬을 사용 중이지 않은 경우
-            else if (!onMovingSkill)
+            if (!onMovingSkill)
             {
-                Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
-                rigidBody.MovePosition(rigidBody.position + nextVec);
+                // 회피 중이면 
+                if (bIsDodging)
+                {
+                    // 이동
+                    Vector2 nextVec = inputVec.normalized * dodgeSpeed * Time.fixedDeltaTime;
+                    rigidBody.MovePosition(rigidBody.position + nextVec);
 
-                // 스테미나 회복
-                Stamina = Mathf.Min(maxStamina, Stamina + Time.fixedDeltaTime * staminaRegenSpeed);
+                    // 스테미나 소모
+                    Stamina = Mathf.Max(0, Stamina - Time.fixedDeltaTime);
+                }
+                else
+                {
+                    Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+                    rigidBody.MovePosition(rigidBody.position + nextVec);
 
+                    // 스테미나 회복
+                    Stamina = Mathf.Min(maxStamina, Stamina + Time.fixedDeltaTime * staminaRegenSpeed);
+
+                }
             }
             // StaminaHUD 세팅
             float Amount = (float)Stamina / (float)maxStamina;
