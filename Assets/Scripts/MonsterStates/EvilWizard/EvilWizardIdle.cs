@@ -5,13 +5,13 @@ using UnityEngine;
 public class EvilWizardIdle : StateMachineBehaviour
 {
     private MonEvilWizard wizard;
-    private Player player;
+    private PlayerStealth playerStealth;
     private float idleTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         wizard = animator.GetComponent<MonEvilWizard>();
-        player = wizard.player.GetComponent<Player>();
+        playerStealth = wizard.player.GetComponent<PlayerStealth>();
 
         wizard.monsterState = MonsterState.Idle;
         idleTime = wizard.monsterData.idleTime;
@@ -25,7 +25,7 @@ public class EvilWizardIdle : StateMachineBehaviour
             animator.SetTrigger("Patrol");
         }
         // 보이는 경우에만 트레이스 해
-        if (wizard.DistanceToPlayer() < wizard.monsterData.farTraceRange && wizard.PlayerInSight() && !player.Stealth)
+        if (wizard.DistanceToPlayer() < wizard.monsterData.farTraceRange && wizard.PlayerInSight() && !playerStealth.Stealth)
         {
             animator.SetTrigger("FarTrace");
         }

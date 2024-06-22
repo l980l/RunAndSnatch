@@ -5,13 +5,13 @@ using UnityEngine;
 public class GoblinPatrol : StateMachineBehaviour
 {
     private MonGoblin goblin;
-    private Player player;
+    private PlayerStealth playerStealth;
     private float patrolTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         goblin = animator.GetComponent<MonGoblin>();
-        player = goblin.player.GetComponent<Player>();
+        playerStealth = goblin.player.GetComponent<PlayerStealth>();
 
         goblin.monsterState = MonsterState.Patrol;
         patrolTime = goblin.monsterData.patrolTime;
@@ -32,7 +32,7 @@ public class GoblinPatrol : StateMachineBehaviour
         }
 
         // 보이는 경우에만 트레이스 해
-        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight() && !player.Stealth)
+        if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight() && !playerStealth.Stealth)
         {
             animator.SetTrigger("FarTrace");
         }

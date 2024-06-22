@@ -5,11 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/BellEft")]
 public class BellEft : ItemEffect 
 {
+    private PlayerStun playerStun;
     public override bool ExecuteRole()
     {
-        if (player == null)
-            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
-        player.SetStunAreaForDuration(value1);
+        if (playerStun == null)
+            playerStun = GameManager.Instance.GetPlayer().GetComponent<PlayerStun>();
+        playerStun.SetStunAreaForDuration(value1);
 
         return true;
     }

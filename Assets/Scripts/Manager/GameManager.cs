@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,7 +51,7 @@ public class GameManager : MonoBehaviour
             ChangePlayer(Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity));
 
             // SkillUI에 플레이어 세팅
-            skillUI.SetPlayer(Player.GetComponent<Player>());
+            skillUI.SetPlayer(Player.GetComponent<PlayerMovement>());
             // 아이템 생성
             ItemDB.Instance.GenerateItemsOnField();
             // 몬스터 생성
@@ -73,6 +72,6 @@ public class GameManager : MonoBehaviour
         // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
         CVC.m_Follow = Player.transform;
         // 초상화UI 세팅
-        portraitUI.SetPortrait(Player.GetComponent<Player>().playerData.portraitImage);
+        portraitUI.SetPortrait(Player.GetComponent<PlayerMovement>().PlayerData.portraitImage);
     }
 }

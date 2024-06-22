@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PhantomPassageAbility : MonoBehaviour
 {
-    private Player player;
+    private PlayerMovement playerMovement;
     private Rigidbody2D rb;
     [SerializeField] private Light2D mistyLight;
     private MapGenerator mapGenerator;
@@ -13,7 +13,7 @@ public class PhantomPassageAbility : MonoBehaviour
 
     private void Start()
     {
-        player = GetComponent<Player>();
+        playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
         mapGenerator= GameManager.Instance.GetMapGenerator();
         if(mapGenerator)
@@ -46,7 +46,7 @@ public class PhantomPassageAbility : MonoBehaviour
     private IEnumerator TeleportCoroutine()
     {
         // 위치 이동
-        player.onMovingSkill = true;
+        playerMovement.onMovingSkill = true;
         Vector3Int nowPos = grid.WorldToCell(transform.position);
         // 현재 위치가 벽인 경우. 가장 가까운 Road 찾고, Cell 중간 길이 더해주고.
         if (mapGenerator.isWallAtPos(nowPos.x, nowPos.y) == true)
@@ -56,6 +56,6 @@ public class PhantomPassageAbility : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
 
-        player.onMovingSkill = false;
+        playerMovement.onMovingSkill = false;
     }
 }
