@@ -10,12 +10,16 @@ GameObject:
   m_Component:
   - component: {fileID: 2887011029404779316}
   - component: {fileID: 253660164358235280}
-  - component: {fileID: 8883893641590637900}
   - component: {fileID: 1407327888795187782}
   - component: {fileID: 1922889494928095538}
   - component: {fileID: 7639241061457657673}
   - component: {fileID: 4342204748039958501}
   - component: {fileID: 1651637011034490431}
+  - component: {fileID: 7416573155614586242}
+  - component: {fileID: 8650948429161872055}
+  - component: {fileID: 3712328723453489974}
+  - component: {fileID: 5800180527096467249}
+  - component: {fileID: 2608799102903933940}
   m_Layer: 6
   m_Name: Leo
   m_TagString: Player
@@ -93,21 +97,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8883893641590637900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691176355820406740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9afe72e8fef360f4490f9cbda81daf1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 744e97a960e90e64d8eb5d7c90b8bb89, type: 2}
-  StealthArea: {fileID: 4947840775180252510}
-  stunArea: {fileID: 1609947749017659503}
 --- !u!114 &1407327888795187782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +209,73 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7416573155614586242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691176355820406740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c508d29896b0f094dbed9d36a304b25f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 744e97a960e90e64d8eb5d7c90b8bb89, type: 2}
+--- !u!114 &8650948429161872055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691176355820406740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6051d19b9b5679e46a228a6085b0c003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 744e97a960e90e64d8eb5d7c90b8bb89, type: 2}
+  dodgeSpeed: 0
+  onMovingSkill: 0
+--- !u!114 &3712328723453489974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691176355820406740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ca3033dddb44d418d8b2f2541210b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 744e97a960e90e64d8eb5d7c90b8bb89, type: 2}
+--- !u!114 &5800180527096467249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691176355820406740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecac907d75c2b2a4fb8e53934f676103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stealthArea: {fileID: 4947840775180252510}
+--- !u!114 &2608799102903933940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691176355820406740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd42168a9c771a643a801dada45aeca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunAreaObj: {fileID: 1609947749017659503}
 --- !u!1 &1609947749017659503
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class PhantomPassageSkill : SkillEffect
         {
             if(phantomPassageAbility == null)
             {
-                lastTime = GameManager.Instance.GetPlayer().GetComponent<Player>().playerData.skill.effectLastTime;
+                lastTime = GameManager.Instance.GetPlayer().GetComponent<PlayerMovement>().PlayerData.skill.effectLastTime;
 
                 phantomPassageAbility = GameManager.Instance.GetPlayer().GetComponent<PhantomPassageAbility>();
             }

@@ -2,10 +2,6 @@ using UnityEngine;
 using System;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Unity.Services.CloudSave;
-using Unity.Services.CloudSave.Models;
 
 public class LoginManager : MonoBehaviour
 {
@@ -49,7 +45,6 @@ public class LoginManager : MonoBehaviour
 
             // Shows how to get an access token
             Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
-
         };
 
         AuthenticationService.Instance.SignInFailed += (err) => {

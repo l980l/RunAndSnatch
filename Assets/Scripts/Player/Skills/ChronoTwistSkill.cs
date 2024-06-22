@@ -5,18 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/SkillSO/ChronoTwistSkill")]
 public class ChronoTwistSkill : SkillEffect
 {
-    private Player player;
+    private PlayerMovement playerMovement;
 
     public override bool ExecuteRole()
     {
         if (IsCooltimeReady())
         {
-            if (player == null)
+            if (playerMovement == null)
             {
-                Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
+                playerMovement = GameManager.Instance.GetPlayer().GetComponent<PlayerMovement>();
             }
-            float lastTime = player.playerData.skill.effectLastTime;
-            player.GetComponent<ChronoTwistAbility>().UseChronoTwist(lastTime);
+
+            float lastTime = playerMovement.PlayerData.skill.effectLastTime;
+            playerMovement.GetComponent<ChronoTwistAbility>().UseChronoTwist(lastTime);
             
             UpdateLastExecutionTime();
             return true;

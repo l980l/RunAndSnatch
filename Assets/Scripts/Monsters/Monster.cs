@@ -58,7 +58,7 @@ public class Monster : MonoBehaviour
                 // 목적지에 도착했는데, Patrol라면 Idle로 돌아가자
                 if (nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
-                    GetComponent<Animator>().SetTrigger("Idle");
+                    animator.SetTrigger("Idle");
                 }
                 break;
             case MonsterState.FarTrace:
@@ -73,7 +73,7 @@ public class Monster : MonoBehaviour
                 // 목적지에 도착했는데, FarTrace라면 Idle로 돌아가자
                 if (nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
-                    GetComponent<Animator>().SetTrigger("Idle");
+                    animator.SetTrigger("Idle");
                 }
                 break;
             case MonsterState.NearTrace:

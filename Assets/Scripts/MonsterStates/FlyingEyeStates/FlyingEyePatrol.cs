@@ -5,13 +5,13 @@ using UnityEngine;
 public class FlyingEyePatrol : StateMachineBehaviour
 {
     private MonFlyingEye flyingEye;
-    private Player player;
+    private PlayerStealth playerStealth;
     private float patrolTime;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         flyingEye = animator.GetComponent<MonFlyingEye>();
-        player = flyingEye.player.GetComponent<Player>();
+        playerStealth = flyingEye.player.GetComponent<PlayerStealth>();
 
         flyingEye.monsterState = MonsterState.Patrol;
         patrolTime = flyingEye.monsterData.patrolTime;
@@ -32,7 +32,7 @@ public class FlyingEyePatrol : StateMachineBehaviour
         }
 
         // 보이는 경우에만 트레이스 해
-        if (flyingEye.DistanceToPlayer() < flyingEye.monsterData.farTraceRange && flyingEye.PlayerInSight() && !player.Stealth)
+        if (flyingEye.DistanceToPlayer() < flyingEye.monsterData.farTraceRange && flyingEye.PlayerInSight() && !playerStealth.Stealth)
         {
             animator.SetTrigger("FarTrace");
         }

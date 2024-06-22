@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SpatialWarpAbility : MonoBehaviour
 {
-    private Player player;
+    private PlayerMovement playerMovement;
     private Rigidbody2D rb;
 
     private void Start()
     {
-        player = GetComponent<Player>();
+        playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -20,11 +20,11 @@ public class SpatialWarpAbility : MonoBehaviour
 
     private IEnumerator TeleportCoroutine()
     {
-        player.onMovingSkill = true;
+        playerMovement.onMovingSkill = true;
         rb.MovePosition(GameManager.Instance.GetMapGenerator().RandomPos(false));
 
         yield return new WaitForFixedUpdate();
 
-        player.onMovingSkill = false;
+        playerMovement.onMovingSkill = false;
     }
 }
