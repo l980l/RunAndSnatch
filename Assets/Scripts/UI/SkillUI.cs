@@ -10,19 +10,19 @@ public class SkillUI : MonoBehaviour
     [SerializeField] private Button skillButton;
     [SerializeField] private Text coolTimeText;
 
-    private Player player;
+    private PlayerMovement player;
     private SkillEffect skillEffect;
     private float coolTime;
     private bool canUseSkill;
 
-    public void SetPlayer(Player _player)
+    public void SetPlayer(PlayerMovement _player)
     {
         player = _player;
-        skillEffect = player.playerData.skill;
+        skillEffect = player.PlayerData.skill;
         if (skillEffect != null)
         {
             // 스킬 아이콘 세팅
-            skillButton.image.sprite = player.playerData.skill.UIImage;
+            skillButton.image.sprite = player.PlayerData.skill.UIImage;
             coolTime = skillEffect.coolTime;
         }
         else

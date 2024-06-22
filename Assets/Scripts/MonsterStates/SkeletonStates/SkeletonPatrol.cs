@@ -6,12 +6,12 @@ public class SkeletonPatrol : StateMachineBehaviour
 {
     private MonSkeleton skeleton;
     private float patrolTime;
-    private Player player;
+    private PlayerStealth playerStealth;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         skeleton = animator.GetComponent<MonSkeleton>();
-        player = skeleton.player.GetComponent<Player>();
+        playerStealth = skeleton.player.GetComponent<PlayerStealth>();
 
         skeleton.monsterState = MonsterState.Patrol;
         patrolTime = skeleton.monsterData.patrolTime;
@@ -32,7 +32,7 @@ public class SkeletonPatrol : StateMachineBehaviour
         }
 
         // 보이는 경우에만 트레이스 해
-        if (skeleton.DistanceToPlayer() < skeleton.monsterData.farTraceRange && skeleton.PlayerInSight() && !player.Stealth)
+        if (skeleton.DistanceToPlayer() < skeleton.monsterData.farTraceRange && skeleton.PlayerInSight() && !playerStealth.Stealth)
         {
             animator.SetTrigger("FarTrace");
         }

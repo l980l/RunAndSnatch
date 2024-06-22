@@ -252,13 +252,17 @@ GameObject:
   m_Component:
   - component: {fileID: 3690060336634662094}
   - component: {fileID: 1274710768161817457}
-  - component: {fileID: 98892224315228525}
   - component: {fileID: 2993325129256984083}
   - component: {fileID: 8725666283500498407}
   - component: {fileID: -8467296233108219012}
   - component: {fileID: 7078571223100425492}
   - component: {fileID: 4701348238527832005}
   - component: {fileID: 7600710076386607381}
+  - component: {fileID: 6004652437650070434}
+  - component: {fileID: 4109262016199447941}
+  - component: {fileID: 2326234537901796408}
+  - component: {fileID: 38398895264218275}
+  - component: {fileID: 5878042197127749691}
   m_Layer: 6
   m_Name: Cosmo
   m_TagString: Player
@@ -336,21 +340,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &98892224315228525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8805928141825943504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9afe72e8fef360f4490f9cbda81daf1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 4d2290a0da0b3a64bbf7b4aabcdcafe2, type: 2}
-  StealthArea: {fileID: 8487944180916282550}
-  stunArea: {fileID: 8748540398307275340}
 --- !u!114 &2993325129256984083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,3 +464,70 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6004652437650070434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c508d29896b0f094dbed9d36a304b25f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 4d2290a0da0b3a64bbf7b4aabcdcafe2, type: 2}
+--- !u!114 &4109262016199447941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6051d19b9b5679e46a228a6085b0c003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 4d2290a0da0b3a64bbf7b4aabcdcafe2, type: 2}
+  dodgeSpeed: 0
+  onMovingSkill: 0
+--- !u!114 &2326234537901796408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9ca3033dddb44d418d8b2f2541210b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 4d2290a0da0b3a64bbf7b4aabcdcafe2, type: 2}
+--- !u!114 &38398895264218275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecac907d75c2b2a4fb8e53934f676103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stealthArea: {fileID: 8487944180916282550}
+--- !u!114 &5878042197127749691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd42168a9c771a643a801dada45aeca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunAreaObj: {fileID: 8748540398307275340}

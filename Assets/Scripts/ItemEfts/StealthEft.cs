@@ -5,11 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/StealthEft")]
 public class StealthEft : ItemEffect
 {
+    private PlayerStealth playerStealth;
+
     public override bool ExecuteRole()
     {
-        if (player == null)
-            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
-        player.SetStealthForDuration(value1);
+        if (playerStealth == null)
+            playerStealth = GameManager.Instance.GetPlayer().GetComponent<PlayerStealth>();
+        playerStealth.SetStealthForDuration(value1);
 
         return true;
     }

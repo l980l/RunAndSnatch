@@ -13,7 +13,7 @@ public class SpatialWarpSkill : SkillEffect
         {
             if (spatialWarpAbility == null)
             {
-                spatialWarpAbility = GameManager.Instance.GetPlayer().GetComponent<Player>().GetComponent<SpatialWarpAbility>();
+                spatialWarpAbility = GameManager.Instance.GetPlayer().GetComponent<SpatialWarpAbility>();
             }
             spatialWarpAbility.Teleport();
             UpdateLastExecutionTime();

@@ -5,11 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/ItemEftSO/SmallHealingEft")] 
 public class SmallHealingEft : ItemEffect
 {
+    private PlayerHealth playerHealth;
+
     public override bool ExecuteRole()
     {
-        if (player == null)
-            player = GameManager.Instance.GetPlayer().GetComponent<Player>();
-        player.AddHP((int)value1);
+        if (playerHealth == null)
+            playerHealth = GameManager.Instance.GetPlayer().GetComponent<PlayerHealth>();
+        playerHealth.AddHP((int)value1);
         return true;
     }
 }
