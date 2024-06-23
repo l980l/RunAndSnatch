@@ -120,7 +120,7 @@ public class Monster : MonoBehaviour
     public void Miss()
     {
         // FarTrace, NearTrace, Attack, Rest에만 Transition을 걸어두었기 때문에, 다른 상태에서는 넘어가지지 않는다.
-        GetComponent<Animator>().SetTrigger("Miss");
+        animator.SetTrigger("Miss");
     }
 
     // 은신 State에서 호출될 함수
@@ -155,13 +155,13 @@ public class Monster : MonoBehaviour
     {
         if (nav.totalWorldPath == null || nav.totalWorldPath.Count == 0)
         {
-            UnityEngine.Debug.Log("경로 없음");
+            //UnityEngine.Debug.Log("경로 없음");
             return;
         }
 
         if (nav.curPathIndex >= nav.totalWorldPath.Count)
         {
-            UnityEngine.Debug.Log("경로를 모두 따라갔습니다.");
+            //UnityEngine.Debug.Log("경로를 모두 따라갔습니다.");
             return;
         }
 

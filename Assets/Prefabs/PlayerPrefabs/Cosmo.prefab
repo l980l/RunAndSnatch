@@ -253,7 +253,6 @@ GameObject:
   - component: {fileID: 3690060336634662094}
   - component: {fileID: 1274710768161817457}
   - component: {fileID: 2993325129256984083}
-  - component: {fileID: 8725666283500498407}
   - component: {fileID: -8467296233108219012}
   - component: {fileID: 7078571223100425492}
   - component: {fileID: 4701348238527832005}
@@ -263,6 +262,7 @@ GameObject:
   - component: {fileID: 2326234537901796408}
   - component: {fileID: 38398895264218275}
   - component: {fileID: 5878042197127749691}
+  - component: {fileID: -1641831118534836100}
   m_Layer: 6
   m_Name: Cosmo
   m_TagString: Player
@@ -329,7 +329,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 700863220, guid: 29c3063ec7972754b8fb8b4cdef4b34e, type: 3}
+  m_Sprite: {fileID: -1154748115, guid: 52b8c34256f87954cbafb9da31cf8d9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -355,20 +355,6 @@ MonoBehaviour:
   ScanTerm: 0.1
   TrailLifeTime: 1
   TrailColor: {r: 0.6039216, g: 0.28627452, b: 1, a: 1}
---- !u!114 &8725666283500498407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8805928141825943504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0183fa96fdb344ea716c23ced5585b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Items: []
-  slotCount: 20
 --- !u!114 &-8467296233108219012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,7 +476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 4d2290a0da0b3a64bbf7b4aabcdcafe2, type: 2}
-  dodgeSpeed: 0
   onMovingSkill: 0
 --- !u!114 &2326234537901796408
 MonoBehaviour:
@@ -531,3 +516,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunAreaObj: {fileID: 8748540398307275340}
+--- !u!114 &-1641831118534836100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805928141825943504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89c80d14478c1b44a875c5b07c7cf3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
