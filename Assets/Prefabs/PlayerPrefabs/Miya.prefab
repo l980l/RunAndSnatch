@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 3506551882703284436}
   - component: {fileID: 5955260436839242853}
   - component: {fileID: 6896424215679525566}
-  - component: {fileID: 7793497630391366962}
   - component: {fileID: 8231039139263967978}
   - component: {fileID: 3925774333189126425}
   - component: {fileID: 5110140089342122563}
@@ -100,6 +99,7 @@ GameObject:
   - component: {fileID: 2396688506380187243}
   - component: {fileID: 1801792403397670706}
   - component: {fileID: 3660018853257372086}
+  - component: {fileID: -1139884321898178382}
   m_Layer: 6
   m_Name: Miya
   m_TagString: Player
@@ -166,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 1741575186, guid: 43bfa2b184972d548a99ff0ee9ab7a9f, type: 3}
+  m_Sprite: {fileID: -230449131, guid: ff2f12d0c1d616742a807c701855de77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -192,20 +192,6 @@ MonoBehaviour:
   ScanTerm: 0.1
   TrailLifeTime: 1
   TrailColor: {r: 1, g: 0.6136441, b: 0, a: 1}
---- !u!114 &7793497630391366962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 914428289684503498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0183fa96fdb344ea716c23ced5585b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Items: []
-  slotCount: 20
 --- !u!50 &8231039139263967978
 Rigidbody2D:
   serializedVersion: 4
@@ -355,6 +341,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunAreaObj: {fileID: 6053445431712347627}
+--- !u!114 &-1139884321898178382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914428289684503498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89c80d14478c1b44a875c5b07c7cf3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1562192318043860492
 GameObject:
   m_ObjectHideFlags: 0

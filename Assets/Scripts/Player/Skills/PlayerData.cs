@@ -9,7 +9,8 @@ public enum CharacterType
     Leo,
     Cosmo,
     Chrono,
-    Misty
+    Misty,
+    Max
 }
 
 [CreateAssetMenu(menuName = "ScriptableObject/PlayerData")] 

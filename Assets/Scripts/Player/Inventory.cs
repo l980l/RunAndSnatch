@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    // 싱글톤으로 지정.
     #region Singleton
     public static Inventory Instance;
     private void Awake()
@@ -19,6 +18,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     #endregion
 
@@ -29,7 +29,6 @@ public class Inventory : MonoBehaviour
     // 획득한 아이템을 모아두는 공간. 즉, 진짜 인벤토리
     [HideInInspector] public List<Item> Items = new List<Item>();
     [SerializeField] private int slotCount;
-    private int AcquiredItemCount;
 
     private void Start()
     {
@@ -83,30 +82,6 @@ public class Inventory : MonoBehaviour
         Items.Sort((item1, item2) => item1.ItemType.CompareTo(item2.ItemType));
         AccountDataManager.Instance.UpdateAccountItems(Items);
         AccountDataManager.Instance.SaveJsonToCloud();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Item")
-        {
-            FieldItem fieldItem = collision.transform.GetComponent<FieldItem>();
-
-            // ItemType으로 Item 가져오기.
-            Item NowItem = ItemDB.Instance.itemDBSO.items[(int)fieldItem.GetItemType()];
-
-            if (AddItem(NowItem))
-            {
-                fieldItem.DestoryItem();
-
-                // 아이템 획득시 효과 사용
-                NowItem.Use();
-
-                // 획득 가치 적용
-                AcquiredItemCount++;
-                GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
-                AccountDataManager.Instance.SaveJsonToCloud();
-            }
-        }
     }
 
     public void AllSell()

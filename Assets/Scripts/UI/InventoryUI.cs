@@ -16,7 +16,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Text GoldText;
     [SerializeField] private Button SortButton;
 
-    Inventory inventory;
+    private Inventory inventory;
      
     private void Start()
     {

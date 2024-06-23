@@ -21,7 +21,7 @@ public class AccountDataManager : MonoBehaviour
     public static AccountDataManager Instance;
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
@@ -30,7 +30,7 @@ public class AccountDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     #endregion
-    public AccountData accountData;
+    private AccountData accountData;
     //private AccountData accountData;
     private string keyWord = "1fh3ji9-re #@sdf^&gr$w&bk`9";
     private readonly object fileLock = new object(); // 파일 쓰기 동기화를 위한 객체

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2887011029404779316}
   - component: {fileID: 253660164358235280}
   - component: {fileID: 1407327888795187782}
-  - component: {fileID: 1922889494928095538}
   - component: {fileID: 7639241061457657673}
   - component: {fileID: 4342204748039958501}
   - component: {fileID: 1651637011034490431}
@@ -20,6 +19,7 @@ GameObject:
   - component: {fileID: 3712328723453489974}
   - component: {fileID: 5800180527096467249}
   - component: {fileID: 2608799102903933940}
+  - component: {fileID: 7803877847483972002}
   m_Layer: 6
   m_Name: Leo
   m_TagString: Player
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 1193388614, guid: db733f50b3f2f334092e5efcc17b4916, type: 3}
+  m_Sprite: {fileID: -1569536093, guid: 77673597af0862f4692bbf40422dc8c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,20 +112,6 @@ MonoBehaviour:
   ScanTerm: 0.1
   TrailLifeTime: 1
   TrailColor: {r: 1, g: 0.9607844, b: 0, a: 1}
---- !u!114 &1922889494928095538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691176355820406740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0183fa96fdb344ea716c23ced5585b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Items: []
-  slotCount: 20
 --- !u!50 &7639241061457657673
 Rigidbody2D:
   serializedVersion: 4
@@ -235,7 +221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 744e97a960e90e64d8eb5d7c90b8bb89, type: 2}
-  dodgeSpeed: 0
   onMovingSkill: 0
 --- !u!114 &3712328723453489974
 MonoBehaviour:
@@ -276,6 +261,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunAreaObj: {fileID: 1609947749017659503}
+--- !u!114 &7803877847483972002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691176355820406740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89c80d14478c1b44a875c5b07c7cf3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1609947749017659503
 GameObject:
   m_ObjectHideFlags: 0
