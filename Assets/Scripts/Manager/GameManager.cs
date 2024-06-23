@@ -58,15 +58,11 @@ public class GameManager : MonoBehaviour
             MonsterManager.Instance.GenerateMonstersOnField();
         }
 
-        // 마을인 것임.
-        else
-        {
-            ChangePlayer(Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], new Vector3(-10, 0.8f, 0), Quaternion.identity));
-        }
+        // 마을인 경우 CatTownManager에서 플레이어 및 NPC 생성.
     }
 
     // 마을에서 캐릭터 바꾸면 호출될 함수.
-    private void ChangePlayer(GameObject _nextPlayer)
+    public void ChangePlayer(GameObject _nextPlayer)
     {
         Player = _nextPlayer;
         // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
