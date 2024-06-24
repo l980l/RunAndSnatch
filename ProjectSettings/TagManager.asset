@@ -19,7 +19,7 @@ TagManager:
   - Item
   - MonsterAttack
   - PlayerAttack
-  - 
+  - NPC
   - Wall
   - Boarder
   - Phantom

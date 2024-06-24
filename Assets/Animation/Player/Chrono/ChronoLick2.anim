@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CatSitting
+  m_Name: ChronoLick2
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1507839146, guid: 65ce8b731e1efbd4d8e681ee98d2ab85, type: 3}
+      value: {fileID: 577239743, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - time: 0.083333336
+      value: {fileID: 271663689, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - time: 0.16666667
+      value: {fileID: -361694630, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - time: 0.25
+      value: {fileID: 927987948, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - time: 0.33333334
+      value: {fileID: -1286668034, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,13 +52,17 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1507839146, guid: 65ce8b731e1efbd4d8e681ee98d2ab85, type: 3}
+    - {fileID: 577239743, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - {fileID: 271663689, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - {fileID: -361694630, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - {fileID: 927987948, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
+    - {fileID: -1286668034, guid: 23e668bde187f524c9d614b7b157c5f6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.083333336
+    m_StopTime: 0.4166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

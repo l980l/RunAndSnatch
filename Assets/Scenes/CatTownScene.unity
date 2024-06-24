@@ -1587,7 +1587,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.1979165
+  orthographic size: 5.178571
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1890,12 +1890,12 @@ MonoBehaviour:
   - {fileID: 691176355820406740, guid: 3db52dc9b075b1048bbe674234dcd40a, type: 3}
   - {fileID: 1042099217566777607, guid: ea47cfc3e66919a499c7d416a0d68e9f, type: 3}
   NPCPositions:
-  - {x: -8.12, y: -6.37, z: 50}
-  - {x: -0.02, y: -6.41, z: 50}
-  - {x: 8.95, y: -6.41, z: 50}
-  - {x: 7.91, y: 7.79, z: 50}
-  - {x: 2.85, y: 7.94, z: 50}
-  - {x: -2.03, y: 8.06, z: 50}
+  - {x: -8, y: -7, z: 50}
+  - {x: 3, y: 8, z: 50}
+  - {x: 9, y: -7, z: 50}
+  - {x: 8, y: 8, z: 50}
+  - {x: 0, y: -7, z: 50}
+  - {x: -2, y: 8, z: 50}
   StartPosition: {x: -10, y: 0.8, z: 0}
 --- !u!4 &1473783827
 Transform:
