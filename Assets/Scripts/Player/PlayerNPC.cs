@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerNPC : MonoBehaviour
@@ -23,6 +21,9 @@ public class PlayerNPC : MonoBehaviour
     private bool playable;
     private int giftCount;
 
+    // 호감도에 따른 대사.
+    public Dialogue[] Dialogue;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -31,6 +32,8 @@ public class PlayerNPC : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerStamina = GetComponent<PlayerStamina>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+
+        UpdateAccountData();
     }
 
     private void OnEnable()
@@ -94,12 +97,42 @@ public class PlayerNPC : MonoBehaviour
     {
         if(bCorrectPos && collision.gameObject.layer == 6) 
         {
-            // 테스트를 위해 바로 플레이어 변경이 되도록 하자.
-            collision.GetComponent<PlayerNPC>().enabled = true;
-
-            GameManager.Instance.ChangePlayer(gameObject);
-            animator.SetTrigger(OffNPCHash);
-            enabled = false;
+            DialogueManager.Instance.StartDialogue(Dialogue[GetLikeability()], playerData.characterType, collision.gameObject, gameObject);
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (bCorrectPos && collision.gameObject.layer == 6)
+        {
+            DialogueManager.Instance.OffDialogue();
+        }
+    }
+
+    public void UpdateAccountData()
+    {
+        playable = AccountDataManager.Instance.GetPlayable(playerData.characterType);
+        giftCount = AccountDataManager.Instance.GetGiftCount(playerData.characterType);
+    }
+
+    public void BePlayer()
+    {
+        GameManager.Instance.ChangePlayer(gameObject);
+        animator.SetTrigger(OffNPCHash);
+        enabled = false;
+    }
+
+    private int GetLikeability()
+    {
+        if(giftCount<5)
+            return 0;
+        if(giftCount<10)
+            return 1;
+        if(giftCount<15)
+            return 2;
+        if(giftCount<20)
+            return 3;
+        else
+            return 4;
     }
 }

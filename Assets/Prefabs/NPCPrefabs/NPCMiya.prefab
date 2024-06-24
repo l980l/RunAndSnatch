@@ -244,3 +244,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 391f8bb28babd1a4599356c9be2bc326, type: 2}
   NPCPosition: {x: 0, y: 0, z: 0}
+  Dialogue:
+  - {fileID: 11400000, guid: c0f8e8ffc8475314b890a6a244a46b7c, type: 2}
+  - {fileID: 11400000, guid: ae53c9bf26aaf6e4890e479fcd8111d5, type: 2}
+  - {fileID: 11400000, guid: a3d0249066b80d846aab7f0df4bbe507, type: 2}
+  - {fileID: 11400000, guid: 7d1acab9f58b862458fa0fb65f476492, type: 2}
+  - {fileID: 11400000, guid: cfab7a1562eb9334f91fbd60a32df64c, type: 2}

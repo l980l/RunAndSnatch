@@ -30,11 +30,16 @@ public class ItemSlot : MonoBehaviour
             {
                 toolTip.gameObject.SetActive(true);
 
-                // 언어 선택에 따라 갈리게.
-                //toolTip.ItemName.text = item.ItemNameKr;
-                toolTip.ItemName.text = item.ItemNameEn;
-                //toolTip.ItemTip.text = item.ItemTipKr;
-                toolTip.ItemTip.text = item.ItemTipEn;
+                if(AccountDataManager.Instance.LanguageType == LanguageType.En)
+                {
+                    toolTip.ItemName.text = item.ItemNameEn;
+                    toolTip.ItemTip.text = item.ItemTipEn;
+                }
+                else if (AccountDataManager.Instance.LanguageType == LanguageType.Kr)
+                {
+                    toolTip.ItemName.text = item.ItemNameKr;
+                    toolTip.ItemTip.text = item.ItemTipKr;
+                }
 
                 toolTip.ItemImage.sprite = item.ItemImage;
                 toolTip.ClickedSlotIndex = slotNum;

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed79213aaee5584fae34cb4b95661cf, type: 3}
+  m_Name: MistyDialogue 4
+  m_EditorClassIdentifier: 
+  characterNameEN: Misty
+  characterNameKR: "\uBBF8\uC2A4\uD2F0"
+  sentencesEN:
+  - I like being with you on rainy days.
+  - Hide and seek and BlueBall are better with you.
+  - You and BlueBall are precious to me.
+  sentencesKR:
+  - "\uBE44 \uC624\uB294 \uB0A0, \uB108\uC640 \uD568\uAED8\uB77C\uC11C \uC88B\uC544."
+  - "\uC228\uBC14\uAF2D\uC9C8\uB3C4 \uD30C\uB780\uACF5\uB3C4 \uB108\uB791 \uD558\uBA74
+    \uB354 \uC88B\uC544."
+  - "\uB108\uC640 \uD30C\uB780\uACF5, \uB0B4\uAC8C \uC18C\uC911\uD574."

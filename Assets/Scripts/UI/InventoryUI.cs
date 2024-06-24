@@ -46,6 +46,12 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void ShowInventory(bool active)
+    {
+        ActiveInventory = active;
+        inventoryPanel.SetActive(ActiveInventory);
+    }
+
     private void RedrawSlotUI()
     {
         for (int i = 0; i < itemSlots.Length; i++)

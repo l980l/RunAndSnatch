@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed79213aaee5584fae34cb4b95661cf, type: 3}
+  m_Name: ChronoDialogue
+  m_EditorClassIdentifier: 
+  characterNameEN: Chrono
+  characterNameKR: "\uD06C\uB85C\uB178"
+  sentencesEN:
+  - Hi! Did you come here to exercise too?
+  - Do you know how to play with dogtail grass?
+  - Do you like running too?
+  sentencesKR:
+  - "\uC548\uB155! \uB108\uB3C4 \uC5EC\uAE30\uC11C \uC6B4\uB3D9\uD558\uB7EC \uC654\uC5B4?"
+  - "\uAC15\uC544\uC9C0\uD480 \uAC00\uC9C0\uACE0 \uB180 \uC904 \uC54C\uC544?"
+  - "\uB108\uB3C4 \uB2EC\uB9AC\uAE30 \uC88B\uC544\uD574?"

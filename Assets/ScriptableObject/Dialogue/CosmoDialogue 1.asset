@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed79213aaee5584fae34cb4b95661cf, type: 3}
+  m_Name: CosmoDialogue 1
+  m_EditorClassIdentifier: 
+  characterNameEN: Cosmo
+  characterNameKR: "\uCF54\uC2A4\uBAA8"
+  sentencesEN:
+  - Why do you keep showing up?
+  - Isn't my necklace awesome? It's way better than yours.
+  - Even if you like necklaces, mine isn't for you.
+  sentencesKR:
+  - "\uB10C \uC65C \uC790\uAFB8 \uB098\uD0C0\uB098\uB294 \uAC70\uC57C?"
+  - "\uB0B4 \uBAA9\uAC78\uC774 \uBA4B\uC788\uC9C0? \uB124 \uAC83\uBCF4\uB2E4\uB294
+    \uD6E8\uC52C \uB098\uC544."
+  - "\uBAA9\uAC78\uC774 \uC88B\uC544\uD55C\uB2E4\uACE0 \uD574\uB3C4, \uB0B4 \uAC74
+    \uC544\uB2C8\uC57C."
