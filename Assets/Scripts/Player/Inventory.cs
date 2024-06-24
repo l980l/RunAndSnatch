@@ -44,8 +44,9 @@ public class Inventory : MonoBehaviour
             {
                 Items.Add(ItemDB.Instance.itemDBSO.items[(int)item]);
             }
+            onChangeItem.Invoke();
         }
-        onChangeItem.Invoke();
+        // onChangeItem.Invoke();
     }
 
     public bool AddItem(Item _item)

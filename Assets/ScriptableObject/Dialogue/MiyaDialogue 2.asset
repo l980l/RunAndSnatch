@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed79213aaee5584fae34cb4b95661cf, type: 3}
+  m_Name: MiyaDialogue 2
+  m_EditorClassIdentifier: 
+  characterNameEN: Miya
+  characterNameKR: "\uBBF8\uC57C"
+  sentencesEN:
+  - Being righteous is always important.
+  - Salmon is really good for health.
+  - Time flies when I'm with you.
+  sentencesKR:
+  - "\uC815\uC758\uB85C\uC6B4 \uD589\uB3D9\uC740 \uC5B8\uC81C\uB098 \uC911\uC694\uD574."
+  - "\uC5F0\uC5B4\uB294 \uC815\uB9D0 \uAC74\uAC15\uC5D0 \uC88B\uC544."
+  - "\uB108\uB791 \uB180\uBA74 \uC2DC\uAC04\uC774 \uAE08\uBC29 \uAC00."
