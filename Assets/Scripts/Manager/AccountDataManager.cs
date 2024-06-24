@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System;
 using System.Threading.Tasks;
 using Unity.Services.CloudSave;
-using System.Text;
-using Unity.Services.CloudSave.Models;
 
 [System.Serializable]
-public class AccountData    // 캐릭터 해금 정보, 캐릭터 별 선물 정보도 추가해야 한다.
+public class AccountData   
 {
     public CharacterType selectedCharacter;
     public ItemType[] Items; 
     public int gold;
+    public LanguageType language;
+    public bool[] PlayableCharacter;
+    public int[] CharacterGifts;
 }
 
 public class AccountDataManager : MonoBehaviour
@@ -38,6 +37,23 @@ public class AccountDataManager : MonoBehaviour
     public int AccountGold { get { return accountData.gold; } set { accountData.gold = value; } }
     public CharacterType SelectedCharacter { get { return accountData.selectedCharacter; } set { accountData.selectedCharacter = value; } }
     public ItemType[] GetAccountInven() { return accountData.Items; }
+    public LanguageType LanguageType { get { return accountData.language; } set { accountData.language = value; } }
+    public bool GetPlayable(CharacterType characterType)
+    {
+        return accountData.PlayableCharacter[(int)characterType];
+    }
+    public void SetPlayable(CharacterType characterType)
+    {
+        accountData.PlayableCharacter[(int)characterType] = true;
+    }
+    public int GetGiftCount(CharacterType characterType)
+    {
+        return accountData.CharacterGifts[(int)characterType];
+    }
+    public void AddGiftCount(CharacterType characterType)
+    {
+        accountData.CharacterGifts[(int)characterType] += 1;
+    }
 
 
     private void Start()
@@ -93,6 +109,9 @@ public class AccountDataManager : MonoBehaviour
         else
         {
             accountData = new AccountData();
+            accountData.PlayableCharacter = new bool[(int)CharacterType.Max];
+            accountData.PlayableCharacter[0] = true;
+            accountData.CharacterGifts = new int[(int)CharacterType.Max];
         }
     }
 

@@ -23,5 +23,7 @@ public class PlayerData : ScriptableObject
     public float speed;
     public float dodgeSpeed;
     public SkillEffect skill;
+    public ItemType giftType;
+    public int hireCost;
     public Sprite portraitImage;
 }

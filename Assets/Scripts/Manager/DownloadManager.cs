@@ -21,11 +21,21 @@ public class DownloadManager : MonoBehaviour
 
     [Tooltip("Miya, Bambi, Leo, Cosmo, Chrono, Misty")]
     [SerializeField] private PlayerData[] PlayerDB;
+    public PlayerData[] playerDatas { get { return PlayerDB; } }
 
-    void Awake()
+    #region Singleton
+    public static DownloadManager Instance;
+    private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    #endregion
 
     private void Start()
     {
@@ -210,7 +220,7 @@ public class DownloadManager : MonoBehaviour
 
     #region PlayerData
 
-    const string PlayerDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1361663794&range=A2:G";
+    const string PlayerDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1361663794&range=A2:I";
 
     IEnumerator DownloadPlayerDB()
     {
@@ -240,6 +250,8 @@ public class DownloadManager : MonoBehaviour
             {
                 PlayerDB[i].skill = SkillEffects[index];
             }
+            PlayerDB[i].giftType = Enum.Parse<ItemType>(column[7]);
+            PlayerDB[i].hireCost = int.Parse(column[8]);
         }
     }
     #endregion
