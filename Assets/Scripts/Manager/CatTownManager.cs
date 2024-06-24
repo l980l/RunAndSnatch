@@ -18,13 +18,14 @@ public class CatTownManager : MonoBehaviour
             if (i == selectedPlayerIndex)
             {
                 GameObject Player = Instantiate(NPCPrefabs[i], StartPosition, Quaternion.identity);
-                //Player.GetComponent<PlayerNPC>().enabled = false;
+                Player.GetComponent<PlayerNPC>().NPCPosition = NPCPositions[i];
+                Player.GetComponent<PlayerNPC>().enabled = false;
                 GameManager.Instance.ChangePlayer(Player);
             }
             else
             {
                 GameObject NPC = Instantiate(NPCPrefabs[i], NPCPositions[i], Quaternion.identity);
-                NPC.GetComponent<PlayerMovement>().enabled = false;
+                NPC.GetComponent<PlayerNPC>().NPCPosition = NPCPositions[i];
             }
         }
     }

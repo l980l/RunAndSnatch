@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5275041298791121888}
   - component: {fileID: 3878443818238666053}
   - component: {fileID: 2396688506380187243}
+  - component: {fileID: 7310714399393573033}
   m_Layer: 6
   m_Name: NPCMiya
   m_TagString: Player
@@ -162,7 +163,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -229,3 +230,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 391f8bb28babd1a4599356c9be2bc326, type: 2}
+--- !u!114 &7310714399393573033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914428289684503498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d05f68cec06a241847c788e2358962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 391f8bb28babd1a4599356c9be2bc326, type: 2}
+  NPCPosition: {x: 0, y: 0, z: 0}

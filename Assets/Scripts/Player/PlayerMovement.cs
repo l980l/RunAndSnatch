@@ -78,6 +78,11 @@ public class PlayerMovement : MonoBehaviour
         transform.position = position;
     }
 
+    private void OnDisable()
+    {
+        DodgeEnd();
+    }
+
     private void GetInput()
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
