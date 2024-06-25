@@ -8,7 +8,7 @@ public enum ItemType
     BlueBall,
     MouseToy,
     FishToy,
-    FoxTail,
+    DogtailGrass,
     Salmon,
     PaperBox,
     Necklace,

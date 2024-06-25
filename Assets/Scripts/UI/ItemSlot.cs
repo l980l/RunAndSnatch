@@ -30,7 +30,9 @@ public class ItemSlot : MonoBehaviour
             {
                 toolTip.gameObject.SetActive(true);
 
-                if(AccountDataManager.Instance.LanguageType == LanguageType.En)
+                toolTip.ItemType = item.ItemType;
+                
+                if (AccountDataManager.Instance.LanguageType == LanguageType.En)
                 {
                     toolTip.ItemName.text = item.ItemNameEn;
                     toolTip.ItemTip.text = item.ItemTipEn;
