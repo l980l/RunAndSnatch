@@ -15,6 +15,12 @@ public class InventoryUI : MonoBehaviour
     private ItemSlot[] itemSlots;
     [SerializeField] private Text GoldText;
     [SerializeField] private Button SortButton;
+    public bool IsGiftInven {  get; private set; }
+    private CharacterType NPCType;
+    private ItemType giftType;
+    [SerializeField] private GameObject allSellButton;
+    [SerializeField] private GameObject sellButton;
+    [SerializeField] private GameObject giftButton;
 
     private Inventory inventory;
      
@@ -41,15 +47,59 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            ActiveInventory = !ActiveInventory;
-            inventoryPanel.SetActive(ActiveInventory);
+            if(ActiveInventory)
+            {
+                if(!IsGiftInven)
+                    ShowInven(false);
+                else
+                    HideGiftInven();
+            }
+            else
+                ShowInven(true);
         }
     }
 
-    public void ShowInventory(bool active)
+    // 버튼에서 사용함.
+    public void CloseInven()
     {
-        ActiveInventory = active;
+        if (ActiveInventory)
+        {
+            if (!IsGiftInven)
+                ShowInven(false);
+            else
+                HideGiftInven();
+        }
+    }
+
+    private void ShowInven(bool show)
+    {
+        ActiveInventory = show;
         inventoryPanel.SetActive(ActiveInventory);
+    }
+
+    public void ShowGiftInven(CharacterType characterType)
+    {
+        NPCType = characterType;
+        giftType = DownloadManager.Instance.playerDatas[(int)characterType].giftType;
+
+        IsGiftInven = true;
+        ActiveInventory = true;
+        inventoryPanel.SetActive(ActiveInventory);
+        
+        allSellButton.SetActive(false);
+        sellButton.SetActive(false);
+        giftButton.SetActive(true);
+    }
+
+    public void HideGiftInven()
+    {
+        IsGiftInven = false;
+        ActiveInventory = false;
+        inventoryPanel.SetActive(ActiveInventory);
+        allSellButton.SetActive(true);
+        sellButton.SetActive(true);
+        giftButton.SetActive(false);
+        ToolTip.Instance.gameObject.SetActive(false);
     }
 
     private void RedrawSlotUI()
@@ -93,5 +143,16 @@ public class InventoryUI : MonoBehaviour
     {
         inventory.Sell();
         GoldTextUpdate();
+    }
+    public void GiftButtonClicked()
+    {
+        // 툴팁 아이템
+        if(ToolTip.Instance.ItemType == giftType)
+        {
+            inventory.Gift(NPCType);
+            int giftCount = AccountDataManager.Instance.GetGiftCount(NPCType);
+            DialogueManager.Instance.giftCountText.text = "X " + giftCount.ToString();
+            DialogueManager.Instance.ShowDialogueWindow(2f);
+        }
     }
 }

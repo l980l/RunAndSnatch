@@ -105,5 +105,12 @@ public class Inventory : MonoBehaviour
         // 세이브
         AccountDataManager.Instance.SaveJsonToCloud();
     }
-
+    
+    public void Gift(CharacterType characterType)
+    {
+        AccountDataManager.Instance.AddGiftCount(characterType);
+        RemoveItem(ToolTip.Instance.ClickedSlotIndex);
+        // 세이브
+        AccountDataManager.Instance.SaveJsonToCloud();
+    }
 }

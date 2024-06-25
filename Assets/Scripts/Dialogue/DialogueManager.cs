@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -34,6 +35,7 @@ public class DialogueManager : MonoBehaviour
     public Text changeButtonText;
     public Image giftImage;
     public Text giftCountText;
+    public InventoryUI inventoryUI;
 
     private bool OnConversation;    // 대화중인지
 
@@ -55,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue, CharacterType characterType, GameObject player, GameObject npc)
+    public void StartDialogue(Dialogue dialogue, CharacterType npcType, GameObject player, GameObject npc)
     {
         animator.SetBool(isShowHash, true);
         closeButton.gameObject.SetActive(true);
@@ -68,13 +70,13 @@ public class DialogueManager : MonoBehaviour
         else
             nameText.text = dialogue.characterNameKR;
 
-        SetGiftUI(characterType);
+        SetGiftUI(npcType);
         dialogueText.text = "";
         SetActiveButtons(true);
 
         SetConverseButton(dialogue);
-        SetGiftButton(characterType, player, npc);
-        SetChangeButton(characterType, player, npc);
+        SetGiftButton(npcType, player, npc);
+        SetChangeButton(npcType, player, npc);
     }
 
     private void SetConverseButton(Dialogue dialogue)
@@ -96,12 +98,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void SetGiftButton(CharacterType characterType, GameObject player, GameObject npc)
+    private void SetGiftButton(CharacterType npcType, GameObject player, GameObject npc)
     {
         giftButton.enabled = true;
 
         // 버튼 OnClick 재할당.
         giftButton.onClick.RemoveAllListeners();
+        giftButton.onClick.AddListener(() => ShowGiftInven(npcType));
 
         // 대화 및 선물하기 텍스트 세팅
         if (currentLanguage == LanguageType.En)
@@ -114,13 +117,13 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void SetChangeButton(CharacterType characterType, GameObject player, GameObject npc)
+    private void SetChangeButton(CharacterType npcType, GameObject player, GameObject npc)
     {
         changeButton.enabled = true;
         changeButton.interactable = true;
 
-        bool playable = AccountDataManager.Instance.GetPlayable(characterType);
-        int giftCount = AccountDataManager.Instance.GetGiftCount(characterType);
+        bool playable = AccountDataManager.Instance.GetPlayable(npcType);
+        int giftCount = AccountDataManager.Instance.GetGiftCount(npcType);
 
         changeButton.onClick.RemoveAllListeners();
 
@@ -133,7 +136,7 @@ public class DialogueManager : MonoBehaviour
             else if (currentLanguage == LanguageType.Kr)
                 changeButtonText.text = "네 차례야.";
 
-            changeButton.onClick.AddListener(() => ChangePlayer(player, npc));
+            changeButton.onClick.AddListener(() => ChangePlayer(npcType, player, npc));
         }
 
         // 잠금된 플레이어인 경우, changeButton을 해금 버튼으로 변경
@@ -149,10 +152,10 @@ public class DialogueManager : MonoBehaviour
                 else if (currentLanguage == LanguageType.Kr)
                     changeButtonText.text = "너를 고용할게.";
 
-                changeButton.onClick.AddListener(() => PurchasePlayer(characterType, npc));
+                changeButton.onClick.AddListener(() => PurchasePlayer(npcType, npc));
 
                 // 잔액이 부족한 경우
-                if (AccountDataManager.Instance.AccountGold < DownloadManager.Instance.playerDatas[(int)characterType].hireCost)
+                if (AccountDataManager.Instance.AccountGold < DownloadManager.Instance.playerDatas[(int)npcType].hireCost)
                 {
                     if (currentLanguage == LanguageType.En)
                         changeButtonText.text = "(Need more gold)";
@@ -225,17 +228,47 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void ChangePlayer(GameObject player, GameObject npc)
+    private void ShowGiftInven(CharacterType npcType)
+    {
+        OffDialogue();
+        SetActiveButtons(false);
+
+        // 미리 대화 세팅하고, 선물 받으면 대화창 올리고 내리기.
+        if (currentLanguage == LanguageType.En)
+            dialogueText.text = "Thank you so much!";
+        else
+            dialogueText.text = "고마워!";
+
+        inventoryUI.ShowGiftInven(npcType);
+    }
+
+    public void ShowDialogueWindow(float duration)
+    {
+        StartCoroutine(ShowDialogueWindowCoroutine(duration));
+    }
+
+    private IEnumerator ShowDialogueWindowCoroutine(float duration)
+    {
+        animator.SetBool(isShowHash, true); 
+        yield return new WaitForSeconds(duration);
+        animator.SetBool(isShowHash, false);
+    }
+
+    private void ChangePlayer(CharacterType npcType, GameObject player, GameObject npc)
     {
         player.GetComponent<PlayerNPC>().enabled = true;
         npc.GetComponent<PlayerNPC>().BePlayer();
+
+        AccountDataManager.Instance.SelectedCharacter = npcType;
+        AccountDataManager.Instance.SaveJsonToCloud();
+
         OffDialogue();
     }
 
-    private void PurchasePlayer(CharacterType characterType, GameObject npc)
+    private void PurchasePlayer(CharacterType npcType, GameObject npc)
     {
-        AccountDataManager.Instance.AccountGold -= DownloadManager.Instance.playerDatas[(int)characterType].hireCost;
-        AccountDataManager.Instance.SetPlayable(characterType);
+        AccountDataManager.Instance.AccountGold -= DownloadManager.Instance.playerDatas[(int)npcType].hireCost;
+        AccountDataManager.Instance.SetPlayable(npcType);
         AccountDataManager.Instance.SaveJsonToCloud();
 
         npc.GetComponent<PlayerNPC>().UpdateAccountData();
@@ -256,11 +289,11 @@ public class DialogueManager : MonoBehaviour
         OnConversation = false;
     }
 
-    private void SetGiftUI(CharacterType characterType)
+    private void SetGiftUI(CharacterType npcType)
     {
-        ItemType giftType = DownloadManager.Instance.playerDatas[(int)characterType].giftType;
+        ItemType giftType = DownloadManager.Instance.playerDatas[(int)npcType].giftType;
         giftImage.sprite = ItemDB.Instance.itemDBSO.items[(int)giftType].ItemImage;
-        int giftCount = AccountDataManager.Instance.GetGiftCount(characterType);
+        int giftCount = AccountDataManager.Instance.GetGiftCount(npcType);
         giftCountText.text = "X " + giftCount.ToString();
     }
 
