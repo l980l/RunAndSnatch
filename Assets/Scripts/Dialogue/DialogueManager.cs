@@ -32,8 +32,10 @@ public class DialogueManager : MonoBehaviour
     public Text converseButtonText;
     public Text giftButtonText;
     public Text changeButtonText;
+    public Image giftImage;
+    public Text giftCountText;
 
-    private bool OnConversation;
+    private bool OnConversation;    // 대화중인지
 
     private Queue<string> sentences;
 
@@ -59,7 +61,6 @@ public class DialogueManager : MonoBehaviour
         closeButton.gameObject.SetActive(true);
         nextButton.gameObject.SetActive(false);
         OnConversation = false;
-
         SetLanguage(AccountDataManager.Instance.LanguageType);
        
         if (currentLanguage == LanguageType.En)
@@ -67,6 +68,7 @@ public class DialogueManager : MonoBehaviour
         else
             nameText.text = dialogue.characterNameKR;
 
+        SetGiftUI(characterType);
         dialogueText.text = "";
         SetActiveButtons(true);
 
@@ -252,6 +254,14 @@ public class DialogueManager : MonoBehaviour
         closeButton.gameObject.SetActive(false);
         animator.SetBool(isShowHash, false);
         OnConversation = false;
+    }
+
+    private void SetGiftUI(CharacterType characterType)
+    {
+        ItemType giftType = DownloadManager.Instance.playerDatas[(int)characterType].giftType;
+        giftImage.sprite = ItemDB.Instance.itemDBSO.items[(int)giftType].ItemImage;
+        int giftCount = AccountDataManager.Instance.GetGiftCount(characterType);
+        giftCountText.text = "X " + giftCount.ToString();
     }
 
     public void SetLanguage(LanguageType language)
