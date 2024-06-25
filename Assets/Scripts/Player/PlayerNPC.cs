@@ -106,6 +106,9 @@ public class PlayerNPC : MonoBehaviour
         if (bCorrectPos && collision.gameObject.layer == 6)
         {
             DialogueManager.Instance.OffDialogue();
+            // GiftInven이 켜져있다면 끔.
+            if(DialogueManager.Instance.inventoryUI.IsGiftInven)
+                DialogueManager.Instance.inventoryUI.HideGiftInven();
         }
     }
 

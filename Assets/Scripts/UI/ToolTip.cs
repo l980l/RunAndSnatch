@@ -19,6 +19,7 @@ public class ToolTip : MonoBehaviour
     }
     #endregion
 
+    public ItemType ItemType;
     public Text ItemName;
     public Text ItemTip;
     public Image ItemImage;
