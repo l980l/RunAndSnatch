@@ -25,10 +25,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HeatlhHUD heatlhHUD;
     [SerializeField] private StaminaHUD staminaHUD;
     [SerializeField] private MapGenerator mapGenerator;
-    [SerializeField] private Text itemValueText;
+    [SerializeField] private Text itemCountText;
     [Tooltip ("Miya, Bambi, Leo, Cosmo, Chrono, Misty")]
     [SerializeField] private GameObject[] PlayerPrefab;
-    [SerializeField] private GameObject ExitPrefab;
     [SerializeField] private SkillUI skillUI;
     [SerializeField] private PortraitUI portraitUI;
     [Tooltip("OnlySetInCatTown")] [SerializeField] private GameObject Player;
@@ -37,15 +36,15 @@ public class GameManager : MonoBehaviour
     public HeatlhHUD GetHeatlhHUD() { return heatlhHUD; }
     public StaminaHUD GetStaminaHUD() { return staminaHUD; }
     public MapGenerator GetMapGenerator() { return mapGenerator; }
-    public void SetItemValue(int Value, int TotalItemValue)
+    public void SetItemCount(int Value, int TotalItemCount)
     {
-        itemValueText.text = Value.ToString() + " / " + TotalItemValue.ToString();
+        itemCountText.text = Value.ToString() + " / " + TotalItemCount.ToString();
     }
 
     private void Start()
     {
-        // 던전인 것임.
-        if(mapGenerator)
+        // 던전인 것임. 마을인 경우 CatTownManager에서 플레이어 및 NPC 생성.
+        if (mapGenerator)
         {
             // 랜덤한 위치로 플레이어 생성. 시네머신, 초상화UI 세팅
             ChangePlayer(Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity));
@@ -56,9 +55,11 @@ public class GameManager : MonoBehaviour
             ItemDB.Instance.GenerateItemsOnField();
             // 몬스터 생성
             MonsterManager.Instance.GenerateMonstersOnField();
-        }
 
-        // 마을인 경우 CatTownManager에서 플레이어 및 NPC 생성.
+            // 던전에 위치함을 저장
+            AccountDataManager.Instance.InDungeon = true;
+            AccountDataManager.Instance.SaveJsonToCloud();
+        }
     }
 
     // 마을에서 캐릭터 바꾸면 호출될 함수.

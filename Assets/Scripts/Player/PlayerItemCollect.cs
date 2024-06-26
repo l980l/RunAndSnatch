@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerItemCollect : MonoBehaviour
 {
     private Inventory inventory;
-    private int AcquiredItemCount;
+    public int AcquiredItemCount {  get; private set; } 
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class PlayerItemCollect : MonoBehaviour
 
                 // È¹µæ °¡Ä¡ Àû¿ë
                 AcquiredItemCount++;
-                GameManager.Instance.SetItemValue(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
+                GameManager.Instance.SetItemCount(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
                 AccountDataManager.Instance.SaveJsonToCloud();
             }
         }
