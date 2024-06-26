@@ -44,8 +44,8 @@ public class PlayerHealth : MonoBehaviour
             if (collision.gameObject.GetComponentInParent<Monster>() != null)
             {
                 int damage = collision.gameObject.GetComponentInParent<Monster>().monsterData.damage;
-                OnDamage(0);
-                //OnDamage(damage);
+                //OnDamage(0);
+                OnDamage(damage);
             }
         }
     }
@@ -75,8 +75,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        GetComponent<Animator>().SetTrigger("Dead");
-        GetComponent<Rigidbody2D>().simulated = false;
-        GetComponent<CapsuleCollider2D>().enabled = false;
+        DeathUI.Instance.Death();
     }
 }

@@ -39,7 +39,7 @@ public class ItemDB : MonoBehaviour
             // 랜덤한 아이템으로 세팅
             NewFieldItem.GetComponent<FieldItem>().SetItem((ItemType)UnityEngine.Random.Range(0, (int)ItemType.Max));
         }
-        // ItemValueText 세팅
-        GameManager.Instance.SetItemValue(0, ItemCount);
+        // ItemCountText 세팅
+        GameManager.Instance.SetItemCount(0, ItemCount);
     }
 }

@@ -24,6 +24,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private RuleTile WallTile;
     [SerializeField] private RuleTile RoadTile;
     [SerializeField] private ShadowCasterGenerator shadowCasterGenerator;
+    [SerializeField] private GameObject ExitPrefab;
 
     private int[,] map;
     private const int WALL = 0;
@@ -282,6 +283,10 @@ public class MapGenerator : MonoBehaviour
                 MoveUnit.Set(0, -1, 0);
                 break;
         }
+
+        Vector3 result = grid.CellToWorld(tempClearTilePos);
+        result += RoadTilemap.GetLayoutCellCenter();
+        Instantiate(ExitPrefab, result, Quaternion.identity);
 
         // 벽 지우기.
         while (WallTilemap.GetTile(tempClearTilePos))

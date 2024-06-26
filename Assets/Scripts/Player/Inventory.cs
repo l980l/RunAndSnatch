@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -34,11 +29,13 @@ public class Inventory : MonoBehaviour
     {
         LoadInven();
     }
-     
-    private void LoadInven()
+
+    public void LoadInven()
     {
         if (AccountDataManager.Instance.GetAccountInven() != null)
         {
+            Items = new List<Item>();
+
             ItemType[] temp = AccountDataManager.Instance.GetAccountInven();
             foreach(ItemType item in temp)
             {
@@ -46,7 +43,6 @@ public class Inventory : MonoBehaviour
             }
             onChangeItem.Invoke();
         }
-        // onChangeItem.Invoke();
     }
 
     public bool AddItem(Item _item)

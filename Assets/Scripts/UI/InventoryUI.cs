@@ -34,6 +34,7 @@ public class InventoryUI : MonoBehaviour
 
         ToolTip.Instance.gameObject.SetActive(false);   // 초기 툴팁 비활성화
 
+        RedrawSlotUI();
         GoldTextUpdate();
     }
     private void OnDestroy()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using Unity.Services.CloudSave;
+using System;
 
 [System.Serializable]
 public class AccountData   
@@ -12,6 +13,8 @@ public class AccountData
     public LanguageType language;
     public bool[] PlayableCharacter;
     public int[] CharacterGifts;
+    public int exitStreak;
+    public bool inDungeon;
 }
 
 public class AccountDataManager : MonoBehaviour
@@ -38,6 +41,8 @@ public class AccountDataManager : MonoBehaviour
     public CharacterType SelectedCharacter { get { return accountData.selectedCharacter; } set { accountData.selectedCharacter = value; } }
     public ItemType[] GetAccountInven() { return accountData.Items; }
     public LanguageType LanguageType { get { return accountData.language; } set { accountData.language = value; } }
+    public int ExitStreak { get { return accountData.exitStreak; } set { accountData.exitStreak = value; } }
+    public bool InDungeon { get { return accountData.inDungeon; } set { accountData.inDungeon = value; } }
     public bool GetPlayable(CharacterType characterType)
     {
         return accountData.PlayableCharacter[(int)characterType];
@@ -54,7 +59,17 @@ public class AccountDataManager : MonoBehaviour
     {
         accountData.CharacterGifts[(int)characterType] += 1;
     }
-
+    public void DeathPenalty()
+    {
+        accountData.Items = new ItemType[0];
+        accountData.gold = (int)(0.8f * accountData.gold);
+        ExitStreak = 0;
+        InDungeon = false;
+        SaveJsonToCloud();
+        // 아직 안 만들어졌으면 할 필요 없음. 어차피 Start에서 함.
+        if(Inventory.Instance)
+            Inventory.Instance.LoadInven();
+    }
 
     private void Start()
     {
@@ -104,6 +119,10 @@ public class AccountDataManager : MonoBehaviour
         {
             string jsonData = EncryptAndDecript(encryptedData);
             accountData = JsonUtility.FromJson<AccountData>(jsonData);
+            if (accountData.inDungeon == true)
+            {
+                DeathPenalty();
+            }
             Debug.Log(jsonData);
         }
         else
