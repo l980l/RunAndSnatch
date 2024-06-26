@@ -4,16 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public enum DifLevel
-{
-    ChickenHeart,
-    Spooky,
-    CreepyCrawler,
-    Nightmare,
-    Hellbound,
-    Max
-}
-
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
@@ -25,7 +15,6 @@ public class MonsterManager : MonoBehaviour
     [Tooltip("FlyingEye, Goblin, EvilWizard, Skeleton")]
     [SerializeField] private GameObject[] monsterPrefab;
     [SerializeField] private int monsterCount;
-    [SerializeField] private DifLevel difficulty;
     [SerializeField] private MonsterSpawnRatio MonsterRatio;
 
 
@@ -38,7 +27,7 @@ public class MonsterManager : MonoBehaviour
             // 몬스터 종류별로 for문
             for (int j = 0; j < (int)MonsterType.Max; j++)
             {
-                cumulativeRatio += MonsterRatio.monsterRatio[(int)difficulty][j];
+                cumulativeRatio += MonsterRatio.monsterRatio[j];
                 if (randomValue < cumulativeRatio)
                 {
                     Instantiate(monsterPrefab[j], GameManager.Instance.GetMapGenerator().RandomPos(false), Quaternion.identity);
