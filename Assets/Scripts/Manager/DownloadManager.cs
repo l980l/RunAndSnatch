@@ -175,13 +175,10 @@ public class DownloadManager : MonoBehaviour
         {
             string[] column = row[i].Split("\t");
 
-            List<int> temp = new List<int>();
-            temp.Add(int.Parse(column[0]));
-            temp.Add(int.Parse(column[1]));
-            temp.Add(int.Parse(column[2]));
-            temp.Add(int.Parse(column[3]));
-
-            MonsterRatio.monsterRatio.Add(temp);
+            MonsterRatio.monsterRatio.Add(int.Parse(column[0]));
+            MonsterRatio.monsterRatio.Add(int.Parse(column[1]));
+            MonsterRatio.monsterRatio.Add(int.Parse(column[2]));
+            MonsterRatio.monsterRatio.Add(int.Parse(column[3]));
         }
     }
     #endregion
