@@ -16,7 +16,10 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private GameObject[] monsterPrefab;
     [SerializeField] private int monsterCount;
     [SerializeField] private MonsterSpawnRatio MonsterRatio;
-
+    public void SetMonsterCount(int _monsterCount)
+    {
+        monsterCount = _monsterCount;
+    }
 
     public void GenerateMonstersOnField()
     {

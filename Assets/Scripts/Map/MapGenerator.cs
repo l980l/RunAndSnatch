@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEditor.PlayerSettings;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -43,6 +41,11 @@ public class MapGenerator : MonoBehaviour
 
     public Tilemap GetRoadTilemap() { return RoadTilemap; }
     public Grid GetGrid() { return grid; }
+    public void SetSize(int _width, int _height)
+    {
+        width = _width; 
+        height = _height;
+    }
 
     // 나는 주로 x를 세로축, y를 가로축으로 썼지만, 타일맵 좌표와 혼동하지 않도록 x가 가로축, y가 세로축이다. 
     public bool isWallAtPos(int x, int y)
@@ -120,7 +123,7 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
-        GenerateMap();
+        //GenerateMap();
         grid = GetComponentInParent<Grid>();
 
         queue = new Queue<Vector2Int>();
@@ -136,10 +139,10 @@ public class MapGenerator : MonoBehaviour
 
     private void Start()
     {
-        GenerateShadowCasters();    // ShadowCaster2D 생성.
+        //GenerateShadowCasters();    // ShadowCaster2D 생성.
     } 
 
-    private void GenerateMap()
+    public void GenerateMap()
     {
         map = new int[width, height];
         MapRandomFill();
@@ -151,6 +154,8 @@ public class MapGenerator : MonoBehaviour
 
         DrawTile(); // 타일 그리기.
         SetBoarder(); // 경계 그리기.
+
+        GenerateShadowCasters();
     }
 
     private void MapRandomFill() //맵을 비율에 따라 벽 혹은 빈 공간으로 랜덤하게 채우는 메소드

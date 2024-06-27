@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // 싱글톤으로 지정.
     #region Singleton
     public static GameManager Instance;
     private void Awake()
@@ -21,7 +20,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField] private CinemachineVirtualCamera CVC;
-
     [SerializeField] private HeatlhHUD heatlhHUD;
     [SerializeField] private StaminaHUD staminaHUD;
     [SerializeField] private MapGenerator mapGenerator;
@@ -30,7 +28,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] PlayerPrefab;
     [SerializeField] private SkillUI skillUI;
     [SerializeField] private PortraitUI portraitUI;
-    [Tooltip("OnlySetInCatTown")] [SerializeField] private GameObject Player;
+    [SerializeField] private Vector2Int OriginalMapSize;
+    [SerializeField] private int OriginalItemCount;
+    [SerializeField] private int OriginalMonsterCount;
+    private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
     public HeatlhHUD GetHeatlhHUD() { return heatlhHUD; }
@@ -46,6 +47,9 @@ public class GameManager : MonoBehaviour
         // 던전인 것임. 마을인 경우 CatTownManager에서 플레이어 및 NPC 생성.
         if (mapGenerator)
         {
+            SetDungeonData();
+            mapGenerator.GenerateMap();
+
             // 랜덤한 위치로 플레이어 생성. 시네머신, 초상화UI 세팅
             ChangePlayer(Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity));
 
@@ -70,5 +74,27 @@ public class GameManager : MonoBehaviour
         CVC.m_Follow = Player.transform;
         // 초상화UI 세팅
         portraitUI.SetPortrait(Player.GetComponent<PlayerMovement>().PlayerData.portraitImage);
+    }
+
+    private void SetDungeonData()
+    {
+        var accountDataManager = AccountDataManager.Instance;
+        var itemDB = ItemDB.Instance;
+        var monsterManager = MonsterManager.Instance;
+
+        float multiplier = 1;
+        for(int i = 0; i < accountDataManager.ExitStreak; ++i)
+        {
+            multiplier *= 1.2f;
+        }
+
+        int newSizeX = Mathf.RoundToInt(OriginalMapSize.x * multiplier);
+        int newSizeY = Mathf.RoundToInt(OriginalMapSize.y * multiplier);
+        int newItemCount = Mathf.RoundToInt(OriginalItemCount * multiplier);
+        int newMonsterCount = Mathf.RoundToInt(OriginalMonsterCount * multiplier);
+
+        mapGenerator.SetSize(newSizeX, newSizeY);
+        itemDB.SetTotalItemCount(newItemCount);
+        monsterManager.SetMonsterCount(newMonsterCount);
     }
 }
