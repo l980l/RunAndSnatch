@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector2Int OriginalMapSize;
     [SerializeField] private int OriginalItemCount;
     [SerializeField] private int OriginalMonsterCount;
+    [SerializeField] private PolygonCollider2D polygonCollider;
     private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
@@ -96,5 +97,14 @@ public class GameManager : MonoBehaviour
         mapGenerator.SetSize(newSizeX, newSizeY);
         itemDB.SetTotalItemCount(newItemCount);
         monsterManager.SetMonsterCount(newMonsterCount);
+
+        float halfWidth = newSizeX / 2f;
+        float halfHeight = newSizeY / 2f;
+        Vector2[] scaledPoints = new Vector2[4];
+        scaledPoints[0] = new Vector2(halfWidth, halfHeight);
+        scaledPoints[1] = new Vector2(-halfWidth, halfHeight);
+        scaledPoints[2] = new Vector2(-halfWidth, -halfHeight);
+        scaledPoints[3] = new Vector2(halfWidth, -halfHeight);
+        polygonCollider.points = scaledPoints;
     }
 }

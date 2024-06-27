@@ -2058,7 +2058,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.453125
+  orthographic size: 4.609375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2450,6 +2450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2140195408}
   - component: {fileID: 2140195407}
+  - component: {fileID: 2140195409}
   m_Layer: 0
   m_Name: CamBorder
   m_TagString: Untagged
@@ -2501,11 +2502,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.04986357, y: 24.721771}
-      - {x: -24.96198, y: 24.705462}
-      - {x: -24.944489, y: -25.206318}
-      - {x: 24.944996, y: -25.211065}
-      - {x: 24.959486, y: 24.710701}
+    - - {x: 25, y: 25}
+      - {x: -25, y: 25}
+      - {x: -25, y: -25}
+      - {x: 25, y: -25}
   m_UseDelaunayMesh: 0
 --- !u!4 &2140195408
 Transform:
@@ -2522,6 +2522,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2140195409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140195406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b881e7bda10d744b36d25c0f43453b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1273068939418146111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3296,6 +3308,10 @@ PrefabInstance:
       propertyPath: itemValueText
       value: 
       objectReference: {fileID: 2068913703}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: polygonCollider
+      value: 
+      objectReference: {fileID: 2140195407}
     - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
       propertyPath: OriginalItemCount
       value: 6
