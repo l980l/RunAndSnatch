@@ -6,6 +6,7 @@ public class Eixt : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ExitUI.instance.OpenExitUI();
+        if(collision.gameObject == GameManager.Instance.GetPlayer())
+            ExitUI.instance.OpenExitUI();
     }
 }
