@@ -28,6 +28,7 @@ public class ItemDB : MonoBehaviour
     [SerializeField] private int ItemCount;
     public ItemDBSO itemDBSO;
     public int GetTotalItemCount(){ return ItemCount; }
+    public void SetTotalItemCount(int _ItemCount){ ItemCount = _ItemCount; }
 
     public void GenerateItemsOnField()
     { 

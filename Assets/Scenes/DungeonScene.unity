@@ -3297,6 +3297,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2068913703}
     - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: OriginalItemCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: OriginalMapSize.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: OriginalMapSize.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: OriginalMonsterCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
       propertyPath: PlayerPrefab.Array.size
       value: 6
       objectReference: {fileID: 0}
