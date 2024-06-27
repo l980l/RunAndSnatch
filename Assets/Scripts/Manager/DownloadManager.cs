@@ -23,6 +23,8 @@ public class DownloadManager : MonoBehaviour
     [SerializeField] private PlayerData[] PlayerDB;
     public PlayerData[] playerDatas { get { return PlayerDB; } }
 
+    [SerializeField] private Tips tips;
+
     #region Singleton
     public static DownloadManager Instance;
     private void Awake()
@@ -43,6 +45,7 @@ public class DownloadManager : MonoBehaviour
         StartCoroutine(DownloadSkillEffects()); // PlayerDB까지 다운
         StartCoroutine(DownloadMonsterDB());
         StartCoroutine(DownloadSpawnRatio());
+        StartCoroutine(DownloadTips());
     }
 
     #region ItemEffects
@@ -249,6 +252,31 @@ public class DownloadManager : MonoBehaviour
             }
             PlayerDB[i].giftType = Enum.Parse<ItemType>(column[7]);
             PlayerDB[i].hireCost = int.Parse(column[8]);
+        }
+    }
+    #endregion
+
+    #region Tips
+    const string TipsURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=64458048&range=A2:B";
+
+    IEnumerator DownloadTips()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(TipsURL);
+        yield return www.SendWebRequest();
+        SetSTips(www.downloadHandler.text);
+    }
+
+    private void SetSTips(string tsv)
+    {
+        string[] row = tsv.Split('\n');
+        int rowSize = row.Length;
+        int columnSize = row[0].Split('\t').Length;
+
+        for (int i = 0; i < rowSize; i++)
+        {
+            string[] column = row[i].Split("\t");
+            tips.EnTips.Add(column[0]);
+            tips.KrTips.Add(column[1]);
         }
     }
     #endregion

@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Tips")] 
 public class Tips : ScriptableObject
 {
-    public string[] EnTips;
-    public string[] KrTips;
+    public List<string> EnTips;
+    public List<string> KrTips;
 }
