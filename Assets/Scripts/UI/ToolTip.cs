@@ -27,8 +27,7 @@ public class ToolTip : MonoBehaviour
 
     private void Update()
     {
-        // esc를 누르거나 마우스 좌클릭을 하거나.
-        if (Input.GetButtonDown("Cancel") || Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             gameObject.SetActive(false);
         }
