@@ -15,12 +15,25 @@ public class AccountData
     public int[] CharacterGifts;
     public int exitStreak;
     public bool inDungeon;
+    public float volumeBGM;
+    public float volumeSFX;
+
+    public AccountData() 
+    {
+        selectedCharacter = CharacterType.Miya;
+        language = LanguageType.En;
+        PlayableCharacter = new bool[(int)CharacterType.Max];
+        PlayableCharacter[0] = true;
+        CharacterGifts = new int[(int)CharacterType.Max];
+        volumeBGM = 0.5f;
+        volumeSFX = 0.5f;
+    }
 }
 
 public class AccountDataManager : MonoBehaviour
 {
     #region Singleton
-    public static AccountDataManager Instance;
+    public static AccountDataManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null)
@@ -59,6 +72,9 @@ public class AccountDataManager : MonoBehaviour
     {
         accountData.CharacterGifts[(int)characterType] += 1;
     }
+    public float VolumeBGM { get { return accountData.volumeBGM; } set { accountData.volumeBGM = value; } }
+    public float VolumeSFX { get { return accountData.volumeSFX; } set { accountData.volumeSFX = value; } }
+
     public void DeathPenalty()
     {
         accountData.Items = new ItemType[0];
@@ -128,9 +144,12 @@ public class AccountDataManager : MonoBehaviour
         else
         {
             accountData = new AccountData();
-            accountData.PlayableCharacter = new bool[(int)CharacterType.Max];
-            accountData.PlayableCharacter[0] = true;
-            accountData.CharacterGifts = new int[(int)CharacterType.Max];
+            //accountData.language = LanguageType.En;
+            //accountData.PlayableCharacter = new bool[(int)CharacterType.Max];
+            //accountData.PlayableCharacter[0] = true;
+            //accountData.CharacterGifts = new int[(int)CharacterType.Max];
+            //accountData.volumeBGM = 0.5f;
+            //accountData.volumeSFX = 0.5f;
         }
     }
 

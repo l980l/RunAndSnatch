@@ -46,7 +46,7 @@ public class InventoryUI : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             if(ActiveInventory)
             {
@@ -54,6 +54,7 @@ public class InventoryUI : MonoBehaviour
                     ShowInven(false);
                 else
                     HideGiftInven();
+                ToolTip.Instance.gameObject.SetActive(false);
             }
             else
                 ShowInven(true);
@@ -72,7 +73,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void ShowInven(bool show)
+    public void ShowInven(bool show)
     {
         ActiveInventory = show;
         inventoryPanel.SetActive(ActiveInventory);

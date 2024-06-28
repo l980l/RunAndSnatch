@@ -26,7 +26,7 @@ public class DownloadManager : MonoBehaviour
     [SerializeField] private Tips tips;
 
     #region Singleton
-    public static DownloadManager Instance;
+    public static DownloadManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null)
