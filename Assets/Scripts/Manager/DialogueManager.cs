@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     #region Singleton
-    public static DialogueManager Instance;
+    public static DialogueManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null)
