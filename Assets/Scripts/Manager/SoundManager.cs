@@ -6,9 +6,12 @@ using System.Collections;
 
 public enum SFX
 {
+    BellSFX,
     BrightenSFX,
     ButtonSFX,
+    CatHitSFX,
     ChronoTwistSFX,
+    DeathSFX,
     DialogueSFX,
     EvilWizardAttackSFX,
     ExitFailSFX,
@@ -16,21 +19,20 @@ public enum SFX
     FerociousHowlSFX,
     FlyingEyeAttackSFX,
     GiftSFX,
-    GoblinAttack1SFX,
-    GoblinAttack2SFX,
-    MonsterFootstepSFX,
-    OptionCheckSFX,
+    GoblinAttackSFX,
+    HealingLargeSFX,
+    HealingSmallSFX,
+    PerchaseSFX,
     PhantomPassageSkillSFX,
-    RecoverSFX,
+    RegenUpSFX,
     SellSFX,
     ShadowVeilSFX,
     SkeletonAttackSFX,
     SkeletonShieldSFX,
-    SoundUISFX,
+    SortButtonSFX,
     SpatialWarpSFX,
     SpeedUpSFX,
     TimerSFX,
-    TownEntrySFX,
 }
 
 public class SoundManager : MonoBehaviour
@@ -62,6 +64,13 @@ public class SoundManager : MonoBehaviour
     private AudioSource[] SFXAudioSource;
     private int channelIndex;
 
+    [Header("#LoopSFX")]
+    [SerializeField] private int loopChannelCount;
+    [SerializeField] private GameObject LoopSFXAudioPlayerPrefab;
+    private AudioSource[] loopSFXAudioSource;
+    private int loopChannelIndex;
+
+
     private void Init()
     {
         // BGM 플레이어 초기화
@@ -72,12 +81,31 @@ public class SoundManager : MonoBehaviour
 
         // SFX 플레이어 초기화
         SFXAudioSource = new AudioSource[channelCount];
+        loopSFXAudioSource = new AudioSource[loopChannelCount];
 
         for (int i = 0; i < channelCount; i++)
         {
             SFXAudioSource[i] = Instantiate(SFXAudioPlayerPrefab).GetComponent<AudioSource>();
         }
+
+        for (int i = 0; i < loopChannelCount; i++)
+        {
+            loopSFXAudioSource[i] = Instantiate(LoopSFXAudioPlayerPrefab).GetComponent<AudioSource>();
+        }
     }
+
+    private void OnDestroy()
+    {
+        // 씬이 언로드될 때 호출되는 메서드
+        foreach (var clip in bgmClip)
+        {
+            if (clip.loadState == AudioDataLoadState.Loaded)
+            {
+                clip.UnloadAudioData();
+            }
+        }
+    }
+
     private IEnumerator PlayBGM(int _bgmIndex)
     {
         // 오디오 데이터를 비동기적으로 로드
@@ -101,11 +129,39 @@ public class SoundManager : MonoBehaviour
             if (SFXAudioSource[loopIndex].isPlaying)
                 continue;
 
-            channelIndex = i;
+            channelIndex = loopIndex;
             SFXAudioSource[loopIndex].transform.position = _Pos;
             SFXAudioSource[loopIndex].clip = sfxClip[(int)_SFX];
             SFXAudioSource[loopIndex].Play();
             break;
         }
+    }
+
+    public int PlayLoopSFX(SFX _SFX, Vector3 _Pos)
+    {
+        for (int i = 0; i < loopChannelCount; ++i)
+        {
+            int loopIndex = (i + loopChannelIndex) % loopChannelCount;
+
+            if (loopSFXAudioSource[loopIndex].isPlaying)
+                continue;
+
+            loopChannelIndex = loopIndex;
+            loopSFXAudioSource[loopIndex].transform.position = _Pos;
+            loopSFXAudioSource[loopIndex].clip = sfxClip[(int)_SFX];
+            loopSFXAudioSource[loopIndex].Play();
+            return loopIndex;
+        }
+        return -1;
+    }
+
+    public void StopLoopSFX(int Index)
+    {
+        loopSFXAudioSource[Index].Stop();
+    }
+
+    public void SetLoopSFXPos(int Index, Vector3 _Pos)
+    {
+        loopSFXAudioSource[Index].transform.position = _Pos;
     }
 }

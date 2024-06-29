@@ -15,6 +15,8 @@ public class SpatialWarpAbility : MonoBehaviour
 
     public void Teleport()
     {
+        SoundManager.Instance.PlaySFX(SFX.SpatialWarpSFX, Camera.main.transform.position);
+
         StartCoroutine(TeleportCoroutine());
     }
 

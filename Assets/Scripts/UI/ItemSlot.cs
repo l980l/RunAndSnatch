@@ -29,6 +29,8 @@ public class ItemSlot : MonoBehaviour
             // 꺼져있던 경우 클릭되면
             if (!toolTip.gameObject.activeSelf)
             {
+                SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+
                 toolTip.gameObject.SetActive(true);
 
                 toolTip.ItemType = item.ItemType;

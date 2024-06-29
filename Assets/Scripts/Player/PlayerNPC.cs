@@ -127,7 +127,9 @@ public class PlayerNPC : MonoBehaviour
 
     private int GetLikeability()
     {
-        if(giftCount<5)
+        UpdateAccountData();
+
+        if (giftCount<5)
             return 0;
         if(giftCount<10)
             return 1;

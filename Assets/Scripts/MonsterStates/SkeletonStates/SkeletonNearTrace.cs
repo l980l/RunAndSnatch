@@ -19,6 +19,7 @@ public class SkeletonNearTrace : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         float distance = skeleton.DistanceToPlayer();
 
         // nearTraceRange < 플레이어와의 거리 < farTraceRange
@@ -43,7 +44,6 @@ public class SkeletonNearTrace : StateMachineBehaviour
                 animator.SetTrigger("Attack");
             }
         }
-
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

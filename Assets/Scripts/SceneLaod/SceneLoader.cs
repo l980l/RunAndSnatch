@@ -12,7 +12,6 @@ public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private LoadType loadType;
     [SerializeField] private int NextSceneInt;
-    private BoxCollider2D boxCollider2D;
 
     void Update()
     {
