@@ -9,6 +9,7 @@ public class TimerUI : MonoBehaviour
     public float RemainTime {  get; private set; }
     private Image TimerImage; 
     private bool death;
+    private int AudioSourceIndex = -1;
 
     private void Awake()
     {
@@ -22,11 +23,19 @@ public class TimerUI : MonoBehaviour
         RemainTime -= Time.deltaTime;
         TimerImage.fillAmount = RemainTime / FullTime;
 
+        // 남은 시간이 적다면 
+        if(!death && RemainTime <= 10f)
+        {
+            AudioSourceIndex = SoundManager.Instance.PlayLoopSFX(SFX.TimerSFX, Camera.main.transform.position);
+        }
+
         // 사망
         if(!death && RemainTime <= 0)
         {
             DeathUI.Instance.Death();
             death = true;
+            if (AudioSourceIndex != -1)
+                SoundManager.Instance.StopLoopSFX(AudioSourceIndex);
         }
     }
 }

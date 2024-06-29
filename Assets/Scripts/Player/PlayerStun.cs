@@ -25,7 +25,7 @@ public class PlayerStun : MonoBehaviour
             circleCollider2D.radius = radius;
         stunAreaObj.SetActive(true);
 
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(0.1f);
 
         stunAreaObj.SetActive(false);
     }

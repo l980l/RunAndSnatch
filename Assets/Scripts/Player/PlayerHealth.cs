@@ -60,6 +60,8 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlaySFX(SFX.CatHitSFX, Camera.main.transform.position);
+
             SetInvincible(true);
             spriteRenderer.color = new Color(1, 0f, 0f, 1f);
             StartCoroutine(OffDamageAfterDelay(0.5f));
@@ -75,6 +77,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        SoundManager.Instance.PlaySFX(SFX.DeathSFX, Camera.main.transform.position);
+
         DeathUI.Instance.Death();
     }
 }

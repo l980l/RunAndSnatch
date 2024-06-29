@@ -13,6 +13,8 @@ public class MonGoblin : Monster
 
     protected override void Attack()
     {
+        SoundManager.Instance.PlaySFX(SFX.GoblinAttackSFX, transform.position);
+
         if (atkBox != null)
         {
             FlipCollider(GetComponent<SpriteRenderer>().flipX);

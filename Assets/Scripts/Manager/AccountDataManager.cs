@@ -144,12 +144,6 @@ public class AccountDataManager : MonoBehaviour
         else
         {
             accountData = new AccountData();
-            //accountData.language = LanguageType.En;
-            //accountData.PlayableCharacter = new bool[(int)CharacterType.Max];
-            //accountData.PlayableCharacter[0] = true;
-            //accountData.CharacterGifts = new int[(int)CharacterType.Max];
-            //accountData.volumeBGM = 0.5f;
-            //accountData.volumeSFX = 0.5f;
         }
     }
 

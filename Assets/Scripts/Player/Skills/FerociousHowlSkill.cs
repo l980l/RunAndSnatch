@@ -12,6 +12,8 @@ public class FerociousHowlSkill : SkillEffect
     {
         if (IsCooltimeReady())
         {
+            SoundManager.Instance.PlaySFX(SFX.FerociousHowlSFX, Camera.main.transform.position);
+
             if (playerMovement == null)
             {
                 playerMovement = GameManager.Instance.GetPlayer().GetComponent<PlayerMovement>();

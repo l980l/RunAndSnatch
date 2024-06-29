@@ -13,6 +13,8 @@ public class BrightenEft : ItemEffect
         if (light2D == null)
             light2D = GameManager.Instance.GetPlayer().GetComponentInChildren<Light2D>();
         light2D.pointLightOuterRadius += value1;
+        SoundManager.Instance.PlaySFX(SFX.BrightenSFX, Camera.main.transform.position);
+        
         return true;
     }
 }

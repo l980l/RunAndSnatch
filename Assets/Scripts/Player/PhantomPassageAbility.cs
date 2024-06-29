@@ -22,6 +22,7 @@ public class PhantomPassageAbility : MonoBehaviour
 
     public void UsePhantomPassage(float duration)
     {
+        SoundManager.Instance.PlaySFX(SFX.PhantomPassageSkillSFX, Camera.main.transform.position);
         StartCoroutine(PhantomPassageCoroutine(duration));
     }
 

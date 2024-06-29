@@ -46,6 +46,8 @@ public class ExitUI : MonoBehaviour
         // 아이템 70프로 이상 획득.
         if (playerItemCollect.AcquiredItemCount >= ItemDB.Instance.GetTotalItemCount() * 0.7f)
         {
+            SoundManager.Instance.PlaySFX(SFX.ExitSuccessSFX, Camera.main.transform.position);
+
             // 연속 탈출 횟수, 던전 여부 업데이트
             AccountDataManager.Instance.ExitStreak++;
             AccountDataManager.Instance.InDungeon = false;
@@ -68,6 +70,7 @@ public class ExitUI : MonoBehaviour
 
     private void ShowCantExitText()
     {
+        SoundManager.Instance.PlaySFX(SFX.ExitFailSFX, Camera.main.transform.position);
         StartCoroutine(ShowCantExitTextCoroutine());
     }
 
@@ -82,11 +85,13 @@ public class ExitUI : MonoBehaviour
     {
         Time.timeScale = 1f;
         LoadingSceneController.LoadScene(DungeonSceneInt);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
     }
 
     public void ReturnToTownButtonClick()
     {
         Time.timeScale = 1f;
         LoadingSceneController.LoadScene(CatTownSceneInt);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
     }
 }

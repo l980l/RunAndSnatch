@@ -13,6 +13,7 @@ public class ChronoTwistAbility : MonoBehaviour
 
     public void UseChronoTwist(float duration)
     {
+        SoundManager.Instance.PlaySFX(SFX.ChronoTwistSFX, Camera.main.transform.position);
         StartCoroutine(ChronoTwistCoroutine(duration));
     }
 

@@ -181,6 +181,8 @@ public class DialogueManager : MonoBehaviour
 
     private void StartConversation(Dialogue dialogue)
     {
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+
         nextButton.gameObject.SetActive(true);
         SetActiveButtons(false);
         OnConversation = true;
@@ -207,6 +209,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
+        SoundManager.Instance.PlaySFX(SFX.DialogueSFX, Camera.main.transform.position);
+
         if (sentences.Count == 0)
         {
             OffDialogue();
@@ -256,6 +260,8 @@ public class DialogueManager : MonoBehaviour
 
     private void ChangePlayer(CharacterType npcType, GameObject player, GameObject npc)
     {
+        SoundManager.Instance.PlaySFX(SFX.BrightenSFX, Camera.main.transform.position);
+
         player.GetComponent<PlayerNPC>().enabled = true;
         npc.GetComponent<PlayerNPC>().BePlayer();
 
@@ -267,7 +273,10 @@ public class DialogueManager : MonoBehaviour
 
     private void PurchasePlayer(CharacterType npcType, GameObject npc)
     {
+        SoundManager.Instance.PlaySFX(SFX.PerchaseSFX, Camera.main.transform.position);
+
         AccountDataManager.Instance.AccountGold -= DownloadManager.Instance.playerDatas[(int)npcType].hireCost;
+        inventoryUI.GoldTextUpdate();
         AccountDataManager.Instance.SetPlayable(npcType);
         AccountDataManager.Instance.SaveJsonToCloud();
 
