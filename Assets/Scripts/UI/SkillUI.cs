@@ -24,6 +24,7 @@ public class SkillUI : MonoBehaviour
             // 스킬 아이콘 세팅
             skillButton.image.sprite = player.PlayerData.skill.UIImage;
             coolTime = skillEffect.coolTime;
+            skillEffect.lastExecutionTime = 0f;
         }
         else
             gameObject.SetActive(false);
