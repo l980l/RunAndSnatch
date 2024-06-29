@@ -18,6 +18,7 @@ public class PlayerStealth : MonoBehaviour
     // 일정 시간 동안 stealth 변수를 true로 설정하는 함수
     public void SetStealthForDuration(float duration, float radius = -1)
     {
+        SoundManager.Instance.PlaySFX(SFX.ShadowVeilSFX, Camera.main.transform.position);
         StartCoroutine(StealthCoroutine(duration, radius));
     }
 
@@ -30,8 +31,7 @@ public class PlayerStealth : MonoBehaviour
             circleCollider2D.radius = radius;
         stealthArea.SetActive(true);
 
-        // FixedUpdate 주기 동안 대기
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(0.1f);
 
         // stealthArea 비활성화
         stealthArea.SetActive(false);

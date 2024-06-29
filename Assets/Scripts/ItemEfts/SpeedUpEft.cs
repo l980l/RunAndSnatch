@@ -12,6 +12,8 @@ public class SpeedUpEft : ItemEffect
         if (playerMovement == null)
             playerMovement = GameManager.Instance.GetPlayer().GetComponent<PlayerMovement>();
         playerMovement.MoveSpeedUp(value1);
+        SoundManager.Instance.PlaySFX(SFX.SpeedUpSFX, Camera.main.transform.position);
+
         return true;
     }
 }

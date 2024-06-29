@@ -12,6 +12,8 @@ public class StaminaRegenUpEft : ItemEffect
         if (playerStamina == null)
             playerStamina = GameManager.Instance.GetPlayer().GetComponent<PlayerStamina>();
         playerStamina.StaminaRegenSpeedUp(value1);
+        SoundManager.Instance.PlaySFX(SFX.RegenUpSFX, Camera.main.transform.position);
+
         return true;
     }
 }

@@ -82,6 +82,7 @@ public class Navigator : MonoBehaviour
 
     public void SetDesTilePos(Vector3 _WorldVec3)
     {
+        _WorldVec3 += grid.GetLayoutCellCenter();
         desTilePos = grid.WorldToCell(_WorldVec3);
     }
 

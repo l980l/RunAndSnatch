@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tips: {fileID: 11400000, guid: 8642bd59f4a23304b832a6a8d6bf3492, type: 2}
-  holdTime: 0.2
+  holdTime: 1
 --- !u!1 &218245922
 GameObject:
   m_ObjectHideFlags: 0

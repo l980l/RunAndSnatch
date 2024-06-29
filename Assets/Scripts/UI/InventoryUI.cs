@@ -54,10 +54,11 @@ public class InventoryUI : MonoBehaviour
                     ShowInven(false);
                 else
                     HideGiftInven();
-                ToolTip.Instance.gameObject.SetActive(false);
             }
             else
+            {
                 ShowInven(true);
+            }
         }
     }
 
@@ -71,12 +72,14 @@ public class InventoryUI : MonoBehaviour
             else
                 HideGiftInven();
         }
+        SoundManager.Instance.PlaySFX(SFX.SortButtonSFX, Camera.main.transform.position);
     }
 
     public void ShowInven(bool show)
     {
         ActiveInventory = show;
         inventoryPanel.SetActive(ActiveInventory);
+        SoundManager.Instance.PlaySFX(SFX.SortButtonSFX, Camera.main.transform.position);
     }
 
     public void ShowGiftInven(CharacterType characterType)
@@ -91,6 +94,8 @@ public class InventoryUI : MonoBehaviour
         allSellButton.SetActive(false);
         sellButton.SetActive(false);
         giftButton.SetActive(true);
+
+        SoundManager.Instance.PlaySFX(SFX.SortButtonSFX, Camera.main.transform.position);
     }
 
     public void HideGiftInven()
@@ -102,6 +107,8 @@ public class InventoryUI : MonoBehaviour
         sellButton.SetActive(true);
         giftButton.SetActive(false);
         ToolTip.Instance.gameObject.SetActive(false);
+
+        SoundManager.Instance.PlaySFX(SFX.SortButtonSFX, Camera.main.transform.position);
     }
 
     private void RedrawSlotUI()
@@ -118,11 +125,12 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void GoldTextUpdate()
+    public void GoldTextUpdate()
     {
         // GoldText 업데이트
         GoldText.text = "Gold " + AccountDataManager.Instance.AccountGold.ToString();
     }
+
     private IEnumerator ButtonCooldownRoutine()
     {
         SortButton.interactable = false; // 버튼 비활성화
@@ -135,16 +143,23 @@ public class InventoryUI : MonoBehaviour
         inventory.SortItems();
         RedrawSlotUI();
         StartCoroutine(ButtonCooldownRoutine());
+
+        SoundManager.Instance.PlaySFX(SFX.SortButtonSFX, Camera.main.transform.position);
     }
     public void AllSellButtonClicked()
     {
         inventory.AllSell();
         GoldTextUpdate();
+
+        SoundManager.Instance.PlaySFX(SFX.SellSFX, Camera.main.transform.position);
     }
     public void SellButtonClicked()
     {
         inventory.Sell();
         GoldTextUpdate();
+
+        SoundManager.Instance.PlaySFX(SFX.SellSFX, Camera.main.transform.position);
+
     }
     public void GiftButtonClicked()
     {
@@ -155,6 +170,8 @@ public class InventoryUI : MonoBehaviour
             int giftCount = AccountDataManager.Instance.GetGiftCount(NPCType);
             DialogueManager.Instance.giftCountText.text = "X " + giftCount.ToString();
             DialogueManager.Instance.ShowDialogueWindow(2f);
+
+            SoundManager.Instance.PlaySFX(SFX.GiftSFX, Camera.main.transform.position);
         }
     }
 }

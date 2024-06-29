@@ -40,6 +40,7 @@ public class SettingUI : MonoBehaviour
         }
         ActiveSettingPanel = show;
         SettingPanel.SetActive(ActiveSettingPanel);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
     }
 
     public void SetBGMVolume(float volume)

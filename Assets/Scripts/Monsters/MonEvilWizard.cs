@@ -29,6 +29,8 @@ public class MonEvilWizard : Monster
 
     protected override void Attack()
     {
+        SoundManager.Instance.PlaySFX(SFX.EvilWizardAttackSFX, transform.position);
+
         bool addNew = true;
 
         int Length = projectiles.Count;

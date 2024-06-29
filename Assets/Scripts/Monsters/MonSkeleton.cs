@@ -13,6 +13,7 @@ public class MonSkeleton : Monster
 
     protected override void Attack()
     {
+        SoundManager.Instance.PlaySFX(SFX.SkeletonAttackSFX, transform.position);
         if (atkBox != null)
         {
             FlipCollider(GetComponent<SpriteRenderer>().flipX);
@@ -32,7 +33,9 @@ public class MonSkeleton : Monster
         
         // 플레이어를 스켈레톤이 바라보고 있었다면 막기.
         if(LeftSidePlayer == GetComponent<SpriteRenderer>().flipX)
+        {
             animator.SetTrigger("Shield");
+        }
         else
             animator.SetTrigger("Stunned");
     }

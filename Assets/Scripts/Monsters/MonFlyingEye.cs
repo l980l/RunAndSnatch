@@ -33,6 +33,7 @@ public class MonFlyingEye : Monster
 
     protected override void Attack()
     {
+        SoundManager.Instance.PlaySFX(SFX.FlyingEyeAttackSFX, transform.position);
         if (atkCircle != null)
         {
             atkCircle.enabled = true;
