@@ -6,6 +6,7 @@ public class PlayerStun : MonoBehaviour
     [SerializeField] private GameObject stunAreaObj;
     private CircleCollider2D circleCollider2D;
     private StunArea stunArea;
+    [SerializeField] private ParticleSystem stunPS;
 
     private void Awake()
     {
@@ -15,6 +16,8 @@ public class PlayerStun : MonoBehaviour
 
     public void SetStunAreaForDuration(float duration, float radius = -1)
     {
+        stunPS.Play();  // 사운드는 Bell과 FerociousHowl 따로 재생.
+
         StartCoroutine(StunAreaCoroutine(duration, radius));
     }
 

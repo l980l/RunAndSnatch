@@ -37,6 +37,8 @@ public class DialogueManager : MonoBehaviour
     public Text giftCountText;
     public InventoryUI inventoryUI;
 
+    [SerializeField] private ParticleSystem HeartPS;
+
     private bool OnConversation;    // 대화중인지
 
     private Queue<string> sentences;
@@ -248,6 +250,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogueWindow(float duration)
     {
+        HeartPS.Play();
         StartCoroutine(ShowDialogueWindowCoroutine(duration));
     }
 

@@ -8,6 +8,8 @@ public class PlayerStamina : MonoBehaviour
     private float staminaRegenSpeed;
     private PlayerMovement playerMovement;
     private PlayerHealth playerHealth;
+    [SerializeField] private ParticleSystem staminaPS;
+    [SerializeField] private ParticleSystem staminaRegenPS;
 
     public float Stamina { get; private set; }
 
@@ -53,5 +55,15 @@ public class PlayerStamina : MonoBehaviour
     public void StaminaRegenSpeedUp(float _amount)
     {
         staminaRegenSpeed += _amount;
+    }
+
+    public void PlayeStaminaPS()
+    {
+        staminaPS.Play();
+    }
+
+    public void PlayeStaminaRegenPS()
+    {
+        staminaRegenPS.Play();
     }
 }

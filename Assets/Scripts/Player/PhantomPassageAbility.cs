@@ -10,6 +10,8 @@ public class PhantomPassageAbility : MonoBehaviour
     [SerializeField] private Light2D mistyLight;
     private MapGenerator mapGenerator;
     private Grid grid;
+    [SerializeField] private ParticleSystem bgPS;
+    [SerializeField] private ParticleSystem catPS;
 
     private void Start()
     {
@@ -23,6 +25,8 @@ public class PhantomPassageAbility : MonoBehaviour
     public void UsePhantomPassage(float duration)
     {
         SoundManager.Instance.PlaySFX(SFX.PhantomPassageSkillSFX, Camera.main.transform.position);
+        bgPS.Play();
+        catPS.Play();
         StartCoroutine(PhantomPassageCoroutine(duration));
     }
 
@@ -58,5 +62,7 @@ public class PhantomPassageAbility : MonoBehaviour
         yield return new WaitForFixedUpdate();
 
         playerMovement.onMovingSkill = false;
+        bgPS.Stop();
+        catPS.Stop();
     }
 }
