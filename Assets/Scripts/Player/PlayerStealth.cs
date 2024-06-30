@@ -5,6 +5,7 @@ public class PlayerStealth : MonoBehaviour
 {
     [SerializeField] private GameObject stealthArea;
     private CircleCollider2D circleCollider2D;
+    [SerializeField] private ParticleSystem stealthPS;
 
     public bool Stealth { get; private set; }
     private SpriteRenderer spriteRenderer;
@@ -19,6 +20,8 @@ public class PlayerStealth : MonoBehaviour
     public void SetStealthForDuration(float duration, float radius = -1)
     {
         SoundManager.Instance.PlaySFX(SFX.ShadowVeilSFX, Camera.main.transform.position);
+        stealthPS.Play();
+
         StartCoroutine(StealthCoroutine(duration, radius));
     }
 

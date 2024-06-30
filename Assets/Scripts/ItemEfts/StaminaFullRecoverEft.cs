@@ -13,6 +13,7 @@ public class StaminaFullRecoverEft : ItemEffect
         if (playerStamina == null)
             playerStamina = GameManager.Instance.GetPlayer().GetComponent<PlayerStamina>();
         playerStamina.AddStamina(value1);
+        playerStamina.PlayeStaminaPS();
         SoundManager.Instance.PlaySFX(SFX.HealingLargeSFX, Camera.main.transform.position);
 
         return true;

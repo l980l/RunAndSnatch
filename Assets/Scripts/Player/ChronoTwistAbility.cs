@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChronoTwistAbility : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    [SerializeField] private ParticleSystem chronoTwistPS;
 
     private void Start()
     {
@@ -14,6 +15,8 @@ public class ChronoTwistAbility : MonoBehaviour
     public void UseChronoTwist(float duration)
     {
         SoundManager.Instance.PlaySFX(SFX.ChronoTwistSFX, Camera.main.transform.position);
+        chronoTwistPS.Play();
+
         StartCoroutine(ChronoTwistCoroutine(duration));
     }
 
@@ -32,5 +35,6 @@ public class ChronoTwistAbility : MonoBehaviour
         Time.fixedDeltaTime = 0.02f;
 
         playerMovement.MoveSpeedUp(-originSpeed); // 플레이어의 이동 속도를 원래대로 복구
+        chronoTwistPS.Stop();
     }
 }

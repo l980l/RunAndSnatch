@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStamina playerStamina;
     private PlayerHealth playerHealth;
 
+    [SerializeField] private ParticleSystem speedUpPS;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -128,5 +130,10 @@ public class PlayerMovement : MonoBehaviour
         dodgeSpeed = playerData.dodgeSpeed * (speed / playerData.speed);
         // 애니메이터 재생 속도를 기본 속도일때를 1로 잡고 세팅.
         animator.speed = speed / playerData.speed;
+    }
+
+    public void PlaySpeedUpPS()
+    {
+        speedUpPS.Play();
     }
 }

@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     private bool invincible;
     private SpriteRenderer spriteRenderer;
     private PlayerStealth playerStealth;
+    [SerializeField] private ParticleSystem smallHealPS;
+    [SerializeField] private ParticleSystem largeHealPS;
 
     private void Awake()
     {
@@ -19,6 +21,16 @@ public class PlayerHealth : MonoBehaviour
         // 원본 데이터 세팅
         maxHP = playerData.maxHP;
         HP = playerData.maxHP;
+    }
+
+    public void PlaySmallHealPS()
+    {
+        smallHealPS.Play();
+    }
+
+    public void PlayLargeHealPS()
+    {
+        largeHealPS.Play();
     }
 
     public void AddHP(int amount)
