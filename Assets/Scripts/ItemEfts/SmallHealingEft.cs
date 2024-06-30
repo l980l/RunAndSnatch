@@ -12,6 +12,7 @@ public class SmallHealingEft : ItemEffect
         if (playerHealth == null)
             playerHealth = GameManager.Instance.GetPlayer().GetComponent<PlayerHealth>();
         playerHealth.AddHP((int)value1);
+        playerHealth.PlaySmallHealPS();
         SoundManager.Instance.PlaySFX(SFX.HealingSmallSFX, Camera.main.transform.position);
 
         return true;
