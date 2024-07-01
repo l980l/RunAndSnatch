@@ -17,6 +17,9 @@ public class AccountData
     public bool inDungeon;
     public float volumeBGM;
     public float volumeSFX;
+    public int frameRateAnd;
+    public int winResolutionIndex;
+    public bool isFullscreen;
 
     public AccountData() 
     {
@@ -27,6 +30,9 @@ public class AccountData
         CharacterGifts = new int[(int)CharacterType.Max];
         volumeBGM = 0.5f;
         volumeSFX = 0.5f;
+        frameRateAnd = 0;
+        winResolutionIndex = -1;
+        isFullscreen = true;
     }
 }
 
@@ -74,6 +80,10 @@ public class AccountDataManager : MonoBehaviour
     }
     public float VolumeBGM { get { return accountData.volumeBGM; } set { accountData.volumeBGM = value; } }
     public float VolumeSFX { get { return accountData.volumeSFX; } set { accountData.volumeSFX = value; } }
+    public int FrameRateAnd { get { return accountData.frameRateAnd; } set { accountData.frameRateAnd = value; } }
+    public int WinResolutionIndex { get { return accountData.winResolutionIndex; } set { accountData.winResolutionIndex = value; } }
+    public bool IsFullscreen { get { return accountData.isFullscreen; } set { accountData.isFullscreen = value; } }
+
 
     public void DeathPenalty()
     {

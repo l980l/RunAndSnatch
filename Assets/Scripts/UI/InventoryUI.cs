@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Inventory;
-using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
