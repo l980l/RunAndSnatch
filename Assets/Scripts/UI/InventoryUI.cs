@@ -8,6 +8,12 @@ using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
+    public static InventoryUI Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     [SerializeField] private GameObject inventoryPanel;
     private bool ActiveInventory = false;
 
@@ -21,6 +27,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject allSellButton;
     [SerializeField] private GameObject sellButton;
     [SerializeField] private GameObject giftButton;
+    [SerializeField] private GameObject invenFullText;
 
     private Inventory inventory;
      
@@ -173,5 +180,17 @@ public class InventoryUI : MonoBehaviour
 
             SoundManager.Instance.PlaySFX(SFX.GiftSFX, Camera.main.transform.position);
         }
+    }
+    public void ShowCantExitText()
+    {
+        SoundManager.Instance.PlaySFX(SFX.ExitFailSFX, Camera.main.transform.position);
+        StartCoroutine(ShowInvenFullTextCoroutine());
+    }
+
+    private IEnumerator ShowInvenFullTextCoroutine()
+    {
+        invenFullText.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        invenFullText.SetActive(false);
     }
 }

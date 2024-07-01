@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -57,6 +60,7 @@ public class Inventory : MonoBehaviour
             AccountDataManager.Instance.UpdateAccountItems(Items);
             return true;
         }
+        InventoryUI.Instance.ShowCantExitText();
         return false;
     }
 
