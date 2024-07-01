@@ -73,6 +73,7 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             SoundManager.Instance.PlaySFX(SFX.CatHitSFX, Camera.main.transform.position);
+            CamShake.Instance.ShakeCamera(0.5f, 0.1f);
 
             SetInvincible(true);
             spriteRenderer.color = new Color(1, 0f, 0f, 1f);
@@ -87,9 +88,11 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer.color = (playerStealth.Stealth == true) ? new Color(1, 1, 1, 0.5f) : Color.white;
     }
 
-    private void Die()
+    public void Die()
     {
         SoundManager.Instance.PlaySFX(SFX.DeathSFX, Camera.main.transform.position);
+        GetComponent<Animator>().SetTrigger("Dead");
+        CamShake.Instance.ShakeCamera(1f, 1f);
 
         DeathUI.Instance.Death();
     }

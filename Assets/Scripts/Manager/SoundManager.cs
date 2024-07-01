@@ -106,6 +106,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void StopBGM()
+    {
+        BGMAudioSource.Stop();
+    }
+
     private IEnumerator PlayBGM(int _bgmIndex)
     {
         // 오디오 데이터를 비동기적으로 로드
