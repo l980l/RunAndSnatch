@@ -13,6 +13,7 @@ public class FerociousHowlSkill : SkillEffect
         if (IsCooltimeReady())
         {
             SoundManager.Instance.PlaySFX(SFX.FerociousHowlSFX, Camera.main.transform.position);
+            CamShake.Instance.ShakeCamera(3f, 1f);
 
             if (playerMovement == null)
             {

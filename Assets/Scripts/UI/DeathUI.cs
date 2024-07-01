@@ -19,10 +19,12 @@ public class DeathUI : MonoBehaviour
 
     [SerializeField] private GameObject DeathPanel;
     [SerializeField] private int CatTownSceneInt;
+    private Animator animator;
 
     private void Start()
     {
         DeathPanel.SetActive(false);
+        animator = DeathPanel.GetComponent<Animator>();
     }
 
     public void Death()
@@ -38,8 +40,9 @@ public class DeathUI : MonoBehaviour
 
     private IEnumerator ShowDeathPanelCoroutine()
     {
-        Time.timeScale = 0f;
+        SoundManager.Instance.StopBGM();
         DeathPanel.SetActive(true);
+        Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
         LoadingSceneController.LoadScene(CatTownSceneInt);

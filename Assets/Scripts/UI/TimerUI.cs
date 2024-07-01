@@ -26,13 +26,15 @@ public class TimerUI : MonoBehaviour
         // 남은 시간이 적다면 
         if(!death && RemainTime <= 10f)
         {
-            AudioSourceIndex = SoundManager.Instance.PlayLoopSFX(SFX.TimerSFX, Camera.main.transform.position);
+            if (AudioSourceIndex == -1)
+                AudioSourceIndex = SoundManager.Instance.PlayLoopSFX(SFX.TimerSFX, Camera.main.transform.position);
         }
 
         // 사망
         if(!death && RemainTime <= 0)
         {
-            DeathUI.Instance.Death();
+            GameManager.Instance.GetPlayer().GetComponent<PlayerHealth>().Die();
+
             death = true;
             if (AudioSourceIndex != -1)
                 SoundManager.Instance.StopLoopSFX(AudioSourceIndex);

@@ -11,6 +11,8 @@ public class BellEft : ItemEffect
         if (playerStun == null)
             playerStun = GameManager.Instance.GetPlayer().GetComponent<PlayerStun>();
         playerStun.SetStunAreaForDuration(value1, 13f);
+        CamShake.Instance.ShakeCamera(3f, 1f);
+
         SoundManager.Instance.PlaySFX(SFX.BellSFX, Camera.main.transform.position);
 
         return true;

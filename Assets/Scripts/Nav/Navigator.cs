@@ -103,14 +103,14 @@ public class Navigator : MonoBehaviour
 
         bool pathFound = await Task.Run(() => AStarAlgorithm());
 
-        if (pathFound)
-        {
-            Debug.Log("경로를 찾았습니다!");
-        }
-        else
-        {
-            Debug.Log("경로를 찾을 수 없습니다.");
-        }
+        //if (pathFound)
+        //{
+        //    Debug.Log("경로를 찾았습니다!");
+        //}
+        //else
+        //{
+        //    Debug.Log("경로를 찾을 수 없습니다.");
+        //}
     }
     private bool AStarAlgorithm()
     {
