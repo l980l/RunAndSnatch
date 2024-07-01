@@ -27,7 +27,7 @@ public class ToolTip : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Tab))
         {
             gameObject.SetActive(false);
         }

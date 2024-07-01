@@ -15,6 +15,9 @@ public class SettingUI : MonoBehaviour
     [SerializeField] private string SFXParamName;
     [SerializeField] private Slider sliderBGM;
     [SerializeField] private Slider sliderSFX;
+    [SerializeField] private int CatTownSceneInt;
+    [SerializeField] private GameObject CreditUI;
+    [SerializeField] private GameObject EscapeUI;
 
     private void Awake()
     {
@@ -41,6 +44,10 @@ public class SettingUI : MonoBehaviour
         ActiveSettingPanel = show;
         SettingPanel.SetActive(ActiveSettingPanel);
         SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+
+        CreditUI.SetActive(false);
+        if (EscapeUI != null) 
+            EscapeUI.SetActive(false);
     }
 
     public void SetBGMVolume(float volume)
@@ -53,5 +60,55 @@ public class SettingUI : MonoBehaviour
     {
         audioMixer.SetFloat(SFXParamName, Mathf.Log10(volume) * 20);
         AccountDataManager.Instance.VolumeSFX = volume;
+    }
+
+    public void KrButtonClick()
+    {
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+
+        if (AccountDataManager.Instance.LanguageType != LanguageType.Kr)
+        {
+            AccountDataManager.Instance.LanguageType = LanguageType.Kr;
+            AccountDataManager.Instance.SaveJsonToCloud();
+        }
+    }
+
+    public void EnButtonClick()
+    {
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+
+        if (AccountDataManager.Instance.LanguageType != LanguageType.En)
+        {
+            AccountDataManager.Instance.LanguageType = LanguageType.En;
+            AccountDataManager.Instance.SaveJsonToCloud();
+        }
+    }
+    public void CreditButtonClick()
+    {
+        CreditUI.SetActive(true);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+    public void BackButtonClick()
+    {
+        CreditUI.SetActive(false);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void EscapeButtonClick()
+    {
+        EscapeUI.SetActive(true);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void YesButtonClick()
+    {
+        AccountDataManager.Instance.DeathPenalty();
+        LoadingSceneController.LoadScene(CatTownSceneInt);
+    }
+
+    public void NoButtonClick()
+    {
+        EscapeUI.SetActive(false);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
     }
 }

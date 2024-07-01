@@ -79,7 +79,6 @@ public class InventoryUI : MonoBehaviour
             else
                 HideGiftInven();
         }
-        SoundManager.Instance.PlaySFX(SFX.SortButtonSFX, Camera.main.transform.position);
     }
 
     public void ShowInven(bool show)
