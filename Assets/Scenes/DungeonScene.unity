@@ -465,6 +465,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 596656181173019846, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 958286673110108742, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -480,6 +484,14 @@ PrefabInstance:
     - target: {fileID: 2755080406126511561, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823336730124803444, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823336730124803444, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4071638738455431199, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: EscapeUI

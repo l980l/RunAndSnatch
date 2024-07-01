@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEditor;
 
 [RequireComponent(typeof(CompositeCollider2D))]
 public class ShadowCasterGenerator : MonoBehaviour
