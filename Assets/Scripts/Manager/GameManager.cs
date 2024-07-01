@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int OriginalItemCount;
     [SerializeField] private int OriginalMonsterCount;
     [SerializeField] private PolygonCollider2D polygonCollider;
-    [SerializeField] private GameObject invenFullText;
     private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
