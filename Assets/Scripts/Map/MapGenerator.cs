@@ -123,7 +123,6 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
-        //GenerateMap();
         grid = GetComponentInParent<Grid>();
 
         queue = new Queue<Vector2Int>();
@@ -136,11 +135,6 @@ public class MapGenerator : MonoBehaviour
             new Vector2Int(0, -1)
         };
     }
-
-    private void Start()
-    {
-        //GenerateShadowCasters();    // ShadowCaster2D »ý¼º.
-    } 
 
     public void GenerateMap()
     {

@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 415596292}
         m_TargetAssemblyTypeName: SettingUI, Assembly-CSharp
         m_MethodName: ShowSettingUI
         m_Mode: 6
@@ -3620,7 +3620,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.525
+  orthographic size: 4.685
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
