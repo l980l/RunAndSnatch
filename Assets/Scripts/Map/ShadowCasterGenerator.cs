@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEditor;
 
 [RequireComponent(typeof(CompositeCollider2D))]
 public class ShadowCasterGenerator : MonoBehaviour
@@ -23,8 +23,6 @@ public class ShadowCasterGenerator : MonoBehaviour
     public void Create()
     {
         tilemapCollider = GetComponent<CompositeCollider2D>();
-        
-        //DestroyOldShadowCasters();
 
         for (int i = 0; i < tilemapCollider.pathCount; i++)
         {
@@ -47,14 +45,4 @@ public class ShadowCasterGenerator : MonoBehaviour
             generateShadowMeshMethod.Invoke(shadowCasterComponent, new object[] { meshField.GetValue(shadowCasterComponent), shapePathField.GetValue(shadowCasterComponent) });
         }
     }
-
-    //public void DestroyOldShadowCasters()
-    //{
-    //    // 모든 쉐도우캐스트 transform 저장. 에디터에서 사용할 것이기 때문에 DestroyImmediate. 
-    //    List<Transform> tempList = transform.Cast<Transform>().ToList();
-    //    foreach (var child in tempList)
-    //    {
-    //        DestroyImmediate(child.gameObject);
-    //    }
-    //}
 }
