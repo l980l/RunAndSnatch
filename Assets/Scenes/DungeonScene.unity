@@ -3620,7 +3620,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.685
+  orthographic size: 4.525
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4160,10 +4160,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 25, y: 25}
-      - {x: -25, y: 25}
-      - {x: -25, y: -25}
-      - {x: 25, y: -25}
+    - - {x: 2500, y: 2500}
+      - {x: -2500, y: 2500}
+      - {x: -2500, y: -2500}
+      - {x: 2500, y: -2500}
   m_UseDelaunayMesh: 0
 --- !u!4 &2140195408
 Transform:
@@ -5355,12 +5355,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 106023228560998632, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
+      propertyPath: WallTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 77736bbb5f207664db508859586c0229, type: 2}
+    - target: {fileID: 106023228560998632, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
       propertyPath: ExitPrefab
       value: 
       objectReference: {fileID: 8645044721440575698, guid: e1ac9063a0c930d408ae454bb8ad5bbe, type: 3}
     - target: {fileID: 307816220771972062, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076834096674147296, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
+      propertyPath: m_GeometryType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4145388301435025425, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
       propertyPath: m_Name
