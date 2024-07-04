@@ -162,21 +162,22 @@ public class InventoryUI : MonoBehaviour
     {
         inventory.Sell();
         GoldTextUpdate();
-
+        ToolTip.Instance.HideTooltip();
         SoundManager.Instance.PlaySFX(SFX.SellSFX, Camera.main.transform.position);
 
     }
     public void GiftButtonClicked()
     {
+        ToolTip.Instance.HideTooltip();
+        SoundManager.Instance.PlaySFX(SFX.GiftSFX, Camera.main.transform.position);
+
         // ≈¯∆¡ æ∆¿Ã≈€
-        if(ToolTip.Instance.ItemType == giftType)
+        if (ToolTip.Instance.ItemType == giftType)
         {
             inventory.Gift(NPCType);
             int giftCount = AccountDataManager.Instance.GetGiftCount(NPCType);
             DialogueManager.Instance.giftCountText.text = "X " + giftCount.ToString();
             DialogueManager.Instance.ShowDialogueWindow(2f);
-
-            SoundManager.Instance.PlaySFX(SFX.GiftSFX, Camera.main.transform.position);
         }
     }
     public void ShowCantExitText()

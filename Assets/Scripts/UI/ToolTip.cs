@@ -25,12 +25,19 @@ public class ToolTip : MonoBehaviour
     public Image ItemImage;
     public int ClickedSlotIndex;
 
+#if UNITY_STANDALONE_WIN
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             gameObject.SetActive(false);
         }
+    }
+#endif
+
+    public void HideTooltip()
+    {
+        gameObject.SetActive(false);
     }
 }
  

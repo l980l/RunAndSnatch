@@ -1393,10 +1393,10 @@ RectTransform:
   m_Father: {fileID: 7238118599419498112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 150.5, y: -0.00000038147027}
-  m_SizeDelta: {x: 550, y: 30}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 345.49997, y: 0.000010681151}
+  m_SizeDelta: {x: 390, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5545736584749627644
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3301,10 +3301,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Monsters and Cats Images by \rLuiz Melo\nTiles by Krishna Palacio\nBGM
-    by GWriterStudio, Monsieur Fred\nSFX by SoundEffect Lab (https://soundeffect-lab.info/)\nFont
-    by Dalgona\nItem, UI Images by \uAE40\uAD00\uD604(Kim KwanHyeon)\nGame Designer:
-    \uAE40\uAD00\uD604\nProgramer: \uAE40\uAD00\uD604"
+  m_Text: "Monsters and Cats Images by \rLuiz Melo\nBGM by GWriterStudio, Monsieur
+    Fred\nSFX by SoundEffect Lab (https://soundeffect-lab.info/)\nFont by Dalgona\nPlants
+    by Krishna Palacio\nItem, UI, Tiles Images by \uAE40\uAD00\uD604(Kim KwanHyeon)\nGame
+    Designer: \uAE40\uAD00\uD604\nProgramer: \uAE40\uAD00\uD604"
 --- !u!1 &4894871235651515049
 GameObject:
   m_ObjectHideFlags: 0

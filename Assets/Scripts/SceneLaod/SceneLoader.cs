@@ -17,7 +17,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (loadType == LoadType.AnyButton)
         {
-            if (Input.GetKeyDown(KeyCode.F1))
+            if (Input.GetMouseButtonUp(0) ||Input.GetKeyDown(KeyCode.F1))
             {
                 LoadingSceneController.LoadScene(NextSceneInt);
             }
