@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerHealth playerHealth;
 
     [SerializeField] private ParticleSystem speedUpPS;
+    
+    private FloatingJoystick joystick;
 
     private void Awake()
     {
@@ -35,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
         // 원본 데이터 세팅
         speed = playerData.speed;
         dodgeSpeed = playerData.dodgeSpeed;
+
+#if UNITY_ANDROID
+        // 모바일 키 세팅
+        SetMobileKeys();
+#endif
     }
 
     private void Update()
@@ -87,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void GetInput()
     {
+#if UNITY_STANDALONE_WIN
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -105,6 +114,31 @@ public class PlayerMovement : MonoBehaviour
                 DodgeEnd();
             }
         }
+#endif
+
+
+#if UNITY_ANDROID
+        inputVec.x = joystick.Horizontal;
+        inputVec.y = joystick.Vertical;
+
+        if (!isDodging && playerStamina.Stamina > 0)
+        {
+            if (MobileKeyManager.instance.RunButtonDown)
+            {
+                DodgeStart();
+            }
+        }
+
+        if (isDodging)
+        {
+            if (!MobileKeyManager.instance.RunButtonDown || playerStamina.Stamina <= 0)
+            {
+                // 체력이 한번 다 닳면 버튼을 다시 눌러야 달리기 가능. 안그러면 글리치 남
+                MobileKeyManager.instance.RunButtonDown = false;
+                DodgeEnd();
+            }
+        }
+#endif
     }
 
     private void DodgeStart()
@@ -135,5 +169,10 @@ public class PlayerMovement : MonoBehaviour
     public void PlaySpeedUpPS()
     {
         speedUpPS.Play();
+    }
+
+    private void SetMobileKeys()
+    {
+        joystick = MobileKeyManager.instance.Joystick;
     }
 }

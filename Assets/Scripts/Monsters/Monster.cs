@@ -70,10 +70,10 @@ public class Monster : MonoBehaviour
                     pathUpdateTimer = 0f; // 타이머 리셋
                 }
                 TracePath(monsterData.speed * monsterData.FTSCoef);
-                // 목적지에 도착했는데, FarTrace라면 Idle로 돌아가자
-                if (nav.curPathIndex >= nav.totalWorldPath.Count)
+                // 목적지에 도착했는데, FarTrace라면 Patrol로 돌아가자
+                if (!PlayerInSight() && nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
-                    animator.SetTrigger("Idle");
+                    animator.SetTrigger("Patrol");
                 }
                 break;
             case MonsterState.NearTrace:
@@ -186,7 +186,7 @@ public class Monster : MonoBehaviour
         {
             // 플레이어의 위치로 이동
             Vector2 direction = (player.transform.position - transform.position).normalized;
-            Vector2 newPosition = rigidBody.position + direction * _speed * Time.deltaTime;
+            Vector2 newPosition = rigidBody.position + direction * _speed * Time.fixedDeltaTime;
             rigidBody.MovePosition(newPosition);
 
             StareAtPos(player.transform.position);
