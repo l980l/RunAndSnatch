@@ -3671,6 +3671,7 @@ GameObject:
   - component: {fileID: 2015271203}
   - component: {fileID: 2015271205}
   - component: {fileID: 2015271206}
+  - component: {fileID: 2015271207}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3721,7 +3722,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.5125
+  orthographic size: 4.525
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3854,6 +3855,18 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &2015271207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015271199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5507d0fd459044380db5d0f3d165f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2026649829 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 106023228560998632, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
@@ -4516,7 +4529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2479765713633460162, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2756917981231909071, guid: 3b1b5f1f2e10c504fac8507216a41a54, type: 3}
       propertyPath: m_Navigation.m_Mode
