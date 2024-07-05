@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class DownloadManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class DownloadManager : MonoBehaviour
     public PlayerData[] playerDatas { get { return PlayerDB; } }
 
     [SerializeField] private Tips tips;
+    [SerializeField] private Text stateText;
+    [SerializeField] private GameObject loginButton;
 
     #region Singleton
     public static DownloadManager Instance { get; private set; }
@@ -34,6 +37,7 @@ public class DownloadManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        loginButton.SetActive(false);
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -41,11 +45,9 @@ public class DownloadManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DownloadItemEffectSO()); // ItemDBSO까지 다운
-        StartCoroutine(DownloadSkillEffects()); // PlayerDB까지 다운
-        StartCoroutine(DownloadMonsterDB());
-        StartCoroutine(DownloadSpawnRatio());
-        StartCoroutine(DownloadTips());
+        // 순차적으로 Tips까지 다운로드
+        stateText.text = "Data Downloading... Please Wait";
+        StartCoroutine(DownloadItemEffectSO()); 
     }
 
     #region ItemEffects
@@ -87,6 +89,8 @@ public class DownloadManager : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Get(ItemDBSOURL);
         yield return www.SendWebRequest();
         SetItemDBSO(www.downloadHandler.text);
+
+        yield return StartCoroutine(DownloadSkillEffects());
     }
 
     private void SetItemDBSO(string tsv)
@@ -117,73 +121,6 @@ public class DownloadManager : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region MonsterData
-
-    const string MonsterDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1598314971&range=A2:M";
-
-    IEnumerator DownloadMonsterDB()
-    {
-        UnityWebRequest www = UnityWebRequest.Get(MonsterDataURL);
-        yield return www.SendWebRequest();
-        SetMonsterDB(www.downloadHandler.text);
-    }
-
-    private void SetMonsterDB(string tsv)
-    {
-        string[] row = tsv.Split('\n');
-        int rowSize = row.Length;
-        int columnSize = row[0].Split('\t').Length;
-
-        for (int i = 0; i < rowSize; i++)
-        {
-            string[] column = row[i].Split("\t");
-            monsterDB[i].Type = Enum.Parse<MonsterType>(column[0]);
-            monsterDB[i].nearTraceRange = int.Parse(column[1]);
-            monsterDB[i].farTraceRange = int.Parse(column[2]);
-            monsterDB[i].attackRange = float.Parse(column[3]);
-            monsterDB[i].speed = int.Parse(column[4]);
-            monsterDB[i].damage = int.Parse(column[5]);
-            monsterDB[i].idleTime = float.Parse(column[6]);
-            monsterDB[i].patrolTime = float.Parse(column[7]);
-            monsterDB[i].nearTraceTime = float.Parse(column[8]);
-            monsterDB[i].restTime = float.Parse(column[9]);
-            monsterDB[i].FTSCoef = float.Parse(column[10]);
-            monsterDB[i].NTSCoef = float.Parse(column[11]);
-            monsterDB[i].projectileSpeed = float.Parse(column[12]);
-        }
-    }
-    #endregion
-
-    #region MonsterSpawnRatio
-
-    const string SpawnRatioURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1993697643&range=A2:D";
-
-    // 난이도별 생성 비율을 스프레드 시트로부터 가져오는 함수
-    IEnumerator DownloadSpawnRatio()
-    {
-        UnityWebRequest www = UnityWebRequest.Get(SpawnRatioURL);
-        yield return www.SendWebRequest();
-        SetSpawnRatio(www.downloadHandler.text);
-    }
-
-    private void SetSpawnRatio(string tsv)
-    {
-        string[] row = tsv.Split('\n');
-        int rowSize = row.Length;
-        int columnSize = row[0].Split('\t').Length;
-
-        for (int i = 0; i < rowSize; i++)
-        {
-            string[] column = row[i].Split("\t");
-
-            MonsterRatio.monsterRatio.Add(int.Parse(column[0]));
-            MonsterRatio.monsterRatio.Add(int.Parse(column[1]));
-            MonsterRatio.monsterRatio.Add(int.Parse(column[2]));
-            MonsterRatio.monsterRatio.Add(int.Parse(column[3]));
-        }
-    }
     #endregion
 
     #region SkillEffects
@@ -227,6 +164,7 @@ public class DownloadManager : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Get(PlayerDataURL);
         yield return www.SendWebRequest();
         SetPlayerDB(www.downloadHandler.text);
+        yield return StartCoroutine(DownloadMonsterDB());
     }
 
     private void SetPlayerDB(string tsv)
@@ -256,6 +194,75 @@ public class DownloadManager : MonoBehaviour
     }
     #endregion
 
+    #region MonsterData
+
+    const string MonsterDataURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1598314971&range=A2:M";
+
+    IEnumerator DownloadMonsterDB()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(MonsterDataURL);
+        yield return www.SendWebRequest();
+        SetMonsterDB(www.downloadHandler.text);
+        yield return StartCoroutine(DownloadSpawnRatio());
+    }
+
+    private void SetMonsterDB(string tsv)
+    {
+        string[] row = tsv.Split('\n');
+        int rowSize = row.Length;
+        int columnSize = row[0].Split('\t').Length;
+
+        for (int i = 0; i < rowSize; i++)
+        {
+            string[] column = row[i].Split("\t");
+            monsterDB[i].Type = Enum.Parse<MonsterType>(column[0]);
+            monsterDB[i].nearTraceRange = int.Parse(column[1]);
+            monsterDB[i].farTraceRange = int.Parse(column[2]);
+            monsterDB[i].attackRange = float.Parse(column[3]);
+            monsterDB[i].speed = int.Parse(column[4]);
+            monsterDB[i].damage = int.Parse(column[5]);
+            monsterDB[i].idleTime = float.Parse(column[6]);
+            monsterDB[i].patrolTime = float.Parse(column[7]);
+            monsterDB[i].nearTraceTime = float.Parse(column[8]);
+            monsterDB[i].restTime = float.Parse(column[9]);
+            monsterDB[i].FTSCoef = float.Parse(column[10]);
+            monsterDB[i].NTSCoef = float.Parse(column[11]);
+            monsterDB[i].projectileSpeed = float.Parse(column[12]);
+        }
+    }
+    #endregion
+
+    #region MonsterSpawnRatio
+
+    const string SpawnRatioURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=1993697643&range=A2:D";
+
+    // 난이도별 생성 비율을 스프레드 시트로부터 가져오는 함수
+    IEnumerator DownloadSpawnRatio()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(SpawnRatioURL);
+        yield return www.SendWebRequest();
+        SetSpawnRatio(www.downloadHandler.text);
+        yield return StartCoroutine(DownloadTips());
+    }
+
+    private void SetSpawnRatio(string tsv)
+    {
+        string[] row = tsv.Split('\n');
+        int rowSize = row.Length;
+        int columnSize = row[0].Split('\t').Length;
+
+        for (int i = 0; i < rowSize; i++)
+        {
+            string[] column = row[i].Split("\t");
+
+            MonsterRatio.monsterRatio.Add(int.Parse(column[0]));
+            MonsterRatio.monsterRatio.Add(int.Parse(column[1]));
+            MonsterRatio.monsterRatio.Add(int.Parse(column[2]));
+            MonsterRatio.monsterRatio.Add(int.Parse(column[3]));
+        }
+    }
+    #endregion
+
     #region Tips
     const string TipsURL = "https://docs.google.com/spreadsheets/d/1N7_WPB-efwyN61w5LAuNaK6scp1m3PSrvF06er_NaWk/export?format=tsv&gid=64458048&range=A2:B";
 
@@ -264,6 +271,8 @@ public class DownloadManager : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Get(TipsURL);
         yield return www.SendWebRequest();
         SetSTips(www.downloadHandler.text);
+        stateText.text = "Data Download Complete!";
+        loginButton.SetActive(true); 
     }
 
     private void SetSTips(string tsv)

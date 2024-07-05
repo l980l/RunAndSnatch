@@ -49,14 +49,14 @@ public class ExitUI : MonoBehaviour
             SoundManager.Instance.PlaySFX(SFX.ExitSuccessSFX, Camera.main.transform.position);
 
             // 연속 탈출 횟수, 던전 여부 업데이트
-            AccountDataManager.Instance.ExitStreak++;
-            AccountDataManager.Instance.InDungeon = false;
-            AccountDataManager.Instance.SaveJsonToCloud();
+            GPGS_AccountDataManager.Instance.ExitStreak++;
+            GPGS_AccountDataManager.Instance.InDungeon = false;
+            GPGS_AccountDataManager.Instance.SaveJsonToCloud();
 
             exitUIPanel.SetActive(true);
             Time.timeScale = 0f;
 
-            exitStreakText.text = "Exit Streak: " + AccountDataManager.Instance.ExitStreak.ToString();
+            exitStreakText.text = "Exit Streak: " + GPGS_AccountDataManager.Instance.ExitStreak.ToString();
             exitTimeText.text = "Time Taken: " + (timerUI.FullTime -timerUI.RemainTime).ToString();
             collectedItemText.text = "Snatched Item Count: " + playerItemCollect.AcquiredItemCount.ToString();
         }
