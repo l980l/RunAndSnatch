@@ -32,7 +32,7 @@ public class PlayerItemCollect : MonoBehaviour
                 // È¹µæ °¡Ä¡ Àû¿ë
                 AcquiredItemCount++;
                 GameManager.Instance.SetItemCount(AcquiredItemCount, ItemDB.Instance.GetTotalItemCount());
-                AccountDataManager.Instance.SaveJsonToCloud();
+                GPGS_AccountDataManager.Instance.SaveJsonToCloud();
             }
         }
     }

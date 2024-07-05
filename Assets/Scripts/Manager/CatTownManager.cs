@@ -11,7 +11,7 @@ public class CatTownManager : MonoBehaviour
 
     private void Start()
     {
-        int selectedPlayerIndex = (int)AccountDataManager.Instance.SelectedCharacter;
+        int selectedPlayerIndex = (int)GPGS_AccountDataManager.Instance.SelectedCharacter;
 
         for (int i = 0; i < NPCPrefabs.Length; i++)
         {

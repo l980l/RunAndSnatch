@@ -133,7 +133,7 @@ public class InventoryUI : MonoBehaviour
     public void GoldTextUpdate()
     {
         // GoldText 업데이트
-        GoldText.text = "Gold " + AccountDataManager.Instance.AccountGold.ToString();
+        GoldText.text = "Gold " + GPGS_AccountDataManager.Instance.AccountGold.ToString();
     }
 
     private IEnumerator ButtonCooldownRoutine()
@@ -175,7 +175,7 @@ public class InventoryUI : MonoBehaviour
         if (ToolTip.Instance.ItemType == giftType)
         {
             inventory.Gift(NPCType);
-            int giftCount = AccountDataManager.Instance.GetGiftCount(NPCType);
+            int giftCount = GPGS_AccountDataManager.Instance.GetGiftCount(NPCType);
             DialogueManager.Instance.giftCountText.text = "X " + giftCount.ToString();
             DialogueManager.Instance.ShowDialogueWindow(2f);
         }

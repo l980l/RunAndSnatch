@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             mapGenerator.GenerateMap();
 
             // 랜덤한 위치로 플레이어 생성. 시네머신, 초상화UI 세팅
-            ChangePlayer(Instantiate(PlayerPrefab[(int)AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity));
+            ChangePlayer(Instantiate(PlayerPrefab[(int)GPGS_AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity));
 
             // SkillUI에 플레이어 세팅
             skillUI.SetPlayer(Player.GetComponent<PlayerMovement>());
@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
             MonsterManager.Instance.GenerateMonstersOnField();
 
             // 던전에 위치함을 저장
-            AccountDataManager.Instance.InDungeon = true;
-            AccountDataManager.Instance.SaveJsonToCloud();
+            GPGS_AccountDataManager.Instance.InDungeon = true;
+            GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         }
     }
 
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     private void SetDungeonData()
     {
-        var accountDataManager = AccountDataManager.Instance;
+        var accountDataManager = GPGS_AccountDataManager.Instance;
         var itemDB = ItemDB.Instance;
         var monsterManager = MonsterManager.Instance;
 

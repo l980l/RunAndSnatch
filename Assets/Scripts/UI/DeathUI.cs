@@ -29,7 +29,7 @@ public class DeathUI : MonoBehaviour
 
     public void Death()
     {
-        AccountDataManager.Instance.DeathPenalty();
+        GPGS_AccountDataManager.Instance.DeathPenalty();
         ShowDeathPanel();
     }
 

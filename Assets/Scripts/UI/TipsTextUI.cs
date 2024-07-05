@@ -19,7 +19,7 @@ public class TipsTextUI : MonoBehaviour
 
     private void Start()
     {
-        language = AccountDataManager.Instance.LanguageType;
+        language = GPGS_AccountDataManager.Instance.LanguageType;
         prevIndex = Random.Range(0, tips.EnTips.Count);
 
         if (language == LanguageType.En)
