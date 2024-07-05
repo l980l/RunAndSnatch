@@ -35,12 +35,12 @@ public class ItemSlot : MonoBehaviour
 
                 toolTip.ItemType = item.ItemType;
                 
-                if (AccountDataManager.Instance.LanguageType == LanguageType.En)
+                if (GPGS_AccountDataManager.Instance.LanguageType == LanguageType.En)
                 {
                     toolTip.ItemName.text = item.ItemNameEn;
                     toolTip.ItemTip.text = item.ItemTipEn;
                 }
-                else if (AccountDataManager.Instance.LanguageType == LanguageType.Kr)
+                else if (GPGS_AccountDataManager.Instance.LanguageType == LanguageType.Kr)
                 {
                     toolTip.ItemName.text = item.ItemNameKr;
                     toolTip.ItemTip.text = item.ItemTipKr;

@@ -22,6 +22,7 @@ public class SettingUI : MonoBehaviour
     [SerializeField] private GameObject EscapeUI;
     [SerializeField] private Dropdown fpsDropdown;
     [SerializeField] private GameObject QuitUI;
+    [SerializeField] private GameObject DeleteAccountDataUI;
 
     // PC에서만 사용하는 변수들
     [SerializeField] private Dropdown resolutionDropdown;
@@ -32,8 +33,8 @@ public class SettingUI : MonoBehaviour
     private void Awake()
     {
         SettingPanel.SetActive(ActiveSettingPanel);
-        sliderBGM.value = AccountDataManager.Instance.VolumeBGM;
-        sliderSFX.value = AccountDataManager.Instance.VolumeSFX;
+        sliderBGM.value = GPGS_AccountDataManager.Instance.VolumeBGM;
+        sliderSFX.value = GPGS_AccountDataManager.Instance.VolumeSFX;
 
 #if UNITY_STANDALONE_WIN
         InitializeWindowsSettings();
@@ -57,7 +58,7 @@ public class SettingUI : MonoBehaviour
         // 끌때, 계정 정보 저장. 
         if (!show)
         {
-            AccountDataManager.Instance.SaveJsonToCloud();
+            GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         }
         ActiveSettingPanel = show;
         SettingPanel.SetActive(ActiveSettingPanel);
@@ -65,6 +66,7 @@ public class SettingUI : MonoBehaviour
 
         CreditUI.SetActive(false);
         QuitUI.SetActive(false);
+        DeleteAccountDataUI.SetActive(false);
         if (EscapeUI != null) 
             EscapeUI.SetActive(false);
     }
@@ -72,23 +74,23 @@ public class SettingUI : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         audioMixer.SetFloat(BGMParamName, Mathf.Log10(volume) * 20);
-        AccountDataManager.Instance.VolumeBGM = volume;
+        GPGS_AccountDataManager.Instance.VolumeBGM = volume;
     }
 
     public void SetSFXVolume(float volume)
     {
         audioMixer.SetFloat(SFXParamName, Mathf.Log10(volume) * 20);
-        AccountDataManager.Instance.VolumeSFX = volume;
+        GPGS_AccountDataManager.Instance.VolumeSFX = volume;
     }
 
     public void KrButtonClick()
     {
         SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
 
-        if (AccountDataManager.Instance.LanguageType != LanguageType.Kr)
+        if (GPGS_AccountDataManager.Instance.LanguageType != LanguageType.Kr)
         {
-            AccountDataManager.Instance.LanguageType = LanguageType.Kr;
-            AccountDataManager.Instance.SaveJsonToCloud();
+            GPGS_AccountDataManager.Instance.LanguageType = LanguageType.Kr;
+            GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         }
     }
 
@@ -96,10 +98,10 @@ public class SettingUI : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
 
-        if (AccountDataManager.Instance.LanguageType != LanguageType.En)
+        if (GPGS_AccountDataManager.Instance.LanguageType != LanguageType.En)
         {
-            AccountDataManager.Instance.LanguageType = LanguageType.En;
-            AccountDataManager.Instance.SaveJsonToCloud();
+            GPGS_AccountDataManager.Instance.LanguageType = LanguageType.En;
+            GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         }
     }
     public void CreditButtonClick()
@@ -121,7 +123,7 @@ public class SettingUI : MonoBehaviour
 
     public void YesButtonClick()
     {
-        AccountDataManager.Instance.DeathPenalty();
+        GPGS_AccountDataManager.Instance.DeathPenalty();
         LoadingSceneController.LoadScene(CatTownSceneInt);
     }
 
@@ -146,6 +148,22 @@ public class SettingUI : MonoBehaviour
     {
         QuitUI.SetActive(false);
         SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+    public void DeleteAccoutDataButtonClick()
+    {
+        DeleteAccountDataUI.SetActive(true);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void DeleteBackButtonClick()
+    {
+        DeleteAccountDataUI.SetActive(false);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void DeleteYesButtonClick()
+    {
+        GPGS_AccountDataManager.Instance.DeleteData();
     }
 
 #if UNITY_STANDALONE_WIN
@@ -208,7 +226,7 @@ public class SettingUI : MonoBehaviour
         resolutionDropdown.transform.parent.gameObject.SetActive(false);
 
         // 프레임레이트 설정.
-        fpsDropdown.value = AccountDataManager.Instance.FrameRateAnd;
+        fpsDropdown.value = GPGS_AccountDataManager.Instance.FrameRateAnd;
         FPSDropdownClick(fpsDropdown.value);
     }
     
@@ -223,15 +241,14 @@ public class SettingUI : MonoBehaviour
                 Application.targetFrameRate = 60;
                 break;
             case 2:
-                Application.targetFrameRate = 144;
+                Application.targetFrameRate = 90;
                 break;
             case 3:
-                // 프레임 레이트 제한 없음
-                Application.targetFrameRate = -1;
+                Application.targetFrameRate = 120;
                 break;
         }
 
-        AccountDataManager.Instance.FrameRateAnd = _option;
+        GPGS_AccountDataManager.Instance.FrameRateAnd = _option;
     }
 #endif
 }

@@ -35,11 +35,11 @@ public class Inventory : MonoBehaviour
 
     public void LoadInven()
     {
-        if (AccountDataManager.Instance.GetAccountInven() != null)
+        if (GPGS_AccountDataManager.Instance.GetAccountInven() != null)
         {
             Items = new List<Item>();
 
-            ItemType[] temp = AccountDataManager.Instance.GetAccountInven();
+            ItemType[] temp = GPGS_AccountDataManager.Instance.GetAccountInven();
             foreach(ItemType item in temp)
             {
                 Items.Add(ItemDB.Instance.itemDBSO.items[(int)item]);
@@ -57,7 +57,7 @@ public class Inventory : MonoBehaviour
             if(onChangeItem != null)
                 onChangeItem.Invoke();
 
-            AccountDataManager.Instance.UpdateAccountItems(Items);
+            GPGS_AccountDataManager.Instance.UpdateAccountItems(Items);
             return true;
         }
         InventoryUI.Instance.ShowCantExitText();
@@ -68,21 +68,21 @@ public class Inventory : MonoBehaviour
     {
         Items.RemoveAt(index);
         onChangeItem.Invoke();
-        AccountDataManager.Instance.UpdateAccountItems(Items);
+        GPGS_AccountDataManager.Instance.UpdateAccountItems(Items);
     }
 
     public void RemoveAllItem()
     {
         Items.Clear();
         onChangeItem.Invoke();
-        AccountDataManager.Instance.UpdateAccountItems(Items);
+        GPGS_AccountDataManager.Instance.UpdateAccountItems(Items);
     }
 
     public void SortItems()
     {
         Items.Sort((item1, item2) => item1.ItemType.CompareTo(item2.ItemType));
-        AccountDataManager.Instance.UpdateAccountItems(Items);
-        AccountDataManager.Instance.SaveJsonToCloud();
+        GPGS_AccountDataManager.Instance.UpdateAccountItems(Items);
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
     }
 
     public void AllSell()
@@ -92,25 +92,25 @@ public class Inventory : MonoBehaviour
         {
             amount += item.Value;
         }
-        AccountDataManager.Instance.AccountGold += amount;
+        GPGS_AccountDataManager.Instance.AccountGold += amount;
         RemoveAllItem();
         // 세이브
-        AccountDataManager.Instance.SaveJsonToCloud();
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
     }
 
     public void Sell()
     {
-        AccountDataManager.Instance.AccountGold += Items[ToolTip.Instance.ClickedSlotIndex].Value;
+        GPGS_AccountDataManager.Instance.AccountGold += Items[ToolTip.Instance.ClickedSlotIndex].Value;
         RemoveItem(ToolTip.Instance.ClickedSlotIndex);
         // 세이브
-        AccountDataManager.Instance.SaveJsonToCloud();
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
     }
     
     public void Gift(CharacterType characterType)
     {
-        AccountDataManager.Instance.AddGiftCount(characterType);
+        GPGS_AccountDataManager.Instance.AddGiftCount(characterType);
         RemoveItem(ToolTip.Instance.ClickedSlotIndex);
         // 세이브
-        AccountDataManager.Instance.SaveJsonToCloud();
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
     }
 }

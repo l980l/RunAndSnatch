@@ -62,7 +62,7 @@ public class DialogueManager : MonoBehaviour
         closeButton.gameObject.SetActive(true);
         nextButton.gameObject.SetActive(false);
         OnConversation = false;
-        SetLanguage(AccountDataManager.Instance.LanguageType);
+        SetLanguage(GPGS_AccountDataManager.Instance.LanguageType);
        
         if (currentLanguage == LanguageType.En)
             nameText.text = dialogue.characterNameEN;
@@ -121,8 +121,8 @@ public class DialogueManager : MonoBehaviour
         changeButton.enabled = true;
         changeButton.interactable = true;
 
-        bool playable = AccountDataManager.Instance.GetPlayable(npcType);
-        int giftCount = AccountDataManager.Instance.GetGiftCount(npcType);
+        bool playable = GPGS_AccountDataManager.Instance.GetPlayable(npcType);
+        int giftCount = GPGS_AccountDataManager.Instance.GetGiftCount(npcType);
 
         changeButton.onClick.RemoveAllListeners();
 
@@ -154,7 +154,7 @@ public class DialogueManager : MonoBehaviour
                 changeButton.onClick.AddListener(() => PurchasePlayer(npcType, npc));
 
                 // 잔액이 부족한 경우
-                if (AccountDataManager.Instance.AccountGold < DownloadManager.Instance.playerDatas[(int)npcType].hireCost)
+                if (GPGS_AccountDataManager.Instance.AccountGold < DownloadManager.Instance.playerDatas[(int)npcType].hireCost)
                 {
                     if (currentLanguage == LanguageType.En)
                         changeButtonText.text = "(Need more gold)";
@@ -265,8 +265,8 @@ public class DialogueManager : MonoBehaviour
         player.GetComponent<PlayerNPC>().enabled = true;
         npc.GetComponent<PlayerNPC>().BePlayer();
 
-        AccountDataManager.Instance.SelectedCharacter = npcType;
-        AccountDataManager.Instance.SaveJsonToCloud();
+        GPGS_AccountDataManager.Instance.SelectedCharacter = npcType;
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
 
         OffDialogue();
     }
@@ -275,10 +275,10 @@ public class DialogueManager : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX(SFX.PerchaseSFX, Camera.main.transform.position);
 
-        AccountDataManager.Instance.AccountGold -= DownloadManager.Instance.playerDatas[(int)npcType].hireCost;
+        GPGS_AccountDataManager.Instance.AccountGold -= DownloadManager.Instance.playerDatas[(int)npcType].hireCost;
         inventoryUI.GoldTextUpdate();
-        AccountDataManager.Instance.SetPlayable(npcType);
-        AccountDataManager.Instance.SaveJsonToCloud();
+        GPGS_AccountDataManager.Instance.SetPlayable(npcType);
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
 
         npc.GetComponent<PlayerNPC>().UpdateAccountData();
         OffDialogue();
@@ -302,7 +302,7 @@ public class DialogueManager : MonoBehaviour
     {
         ItemType giftType = DownloadManager.Instance.playerDatas[(int)npcType].giftType;
         giftImage.sprite = ItemDB.Instance.itemDBSO.items[(int)giftType].ItemImage;
-        int giftCount = AccountDataManager.Instance.GetGiftCount(npcType);
+        int giftCount = GPGS_AccountDataManager.Instance.GetGiftCount(npcType);
         giftCountText.text = "X " + giftCount.ToString();
     }
 

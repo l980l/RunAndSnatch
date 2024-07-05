@@ -114,8 +114,8 @@ public class PlayerNPC : MonoBehaviour
 
     public void UpdateAccountData()
     {
-        playable = AccountDataManager.Instance.GetPlayable(playerData.characterType);
-        giftCount = AccountDataManager.Instance.GetGiftCount(playerData.characterType);
+        playable = GPGS_AccountDataManager.Instance.GetPlayable(playerData.characterType);
+        giftCount = GPGS_AccountDataManager.Instance.GetGiftCount(playerData.characterType);
     }
 
     public void BePlayer()

@@ -3722,7 +3722,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.525
+  orthographic size: 4.685
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3732,7 +3732,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -3813,8 +3813,8 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
+  m_UpdateMethod: 1
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -5583,6 +5583,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5962551958499466065, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993133552250229234, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
+      propertyPath: m_CellGap.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993133552250229234, guid: ed8ebfcdf91a8624d91878fca55c71ee, type: 3}
+      propertyPath: m_CellGap.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
