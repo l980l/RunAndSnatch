@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int OriginalItemCount;
     [SerializeField] private int OriginalMonsterCount;
     [SerializeField] private PolygonCollider2D polygonCollider;
+    [SerializeField] private Text exitStreak;
     private GameObject Player;
 
     public GameObject GetPlayer() { return Player; }
@@ -65,6 +66,12 @@ public class GameManager : MonoBehaviour
             GPGS_AccountDataManager.Instance.InDungeon = true;
             GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         }
+        UpdateExitStreak();
+    }
+
+    public void UpdateExitStreak()
+    {
+        exitStreak.text = "Exit Streak: " + GPGS_AccountDataManager.Instance.ExitStreak.ToString();
     }
 
     // 마을에서 캐릭터 바꾸면 호출될 함수.
