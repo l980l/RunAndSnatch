@@ -23,6 +23,7 @@ public class SettingUI : MonoBehaviour
     [SerializeField] private Dropdown fpsDropdown;
     [SerializeField] private GameObject QuitUI;
     [SerializeField] private GameObject DeleteAccountDataUI;
+    [SerializeField] private GameObject LeaderboardUI;
 
     // PC에서만 사용하는 변수들
     [SerializeField] private Dropdown resolutionDropdown;
@@ -67,6 +68,7 @@ public class SettingUI : MonoBehaviour
         CreditUI.SetActive(false);
         QuitUI.SetActive(false);
         DeleteAccountDataUI.SetActive(false);
+        LeaderboardUI.SetActive(false);
         if (EscapeUI != null) 
             EscapeUI.SetActive(false);
     }
@@ -165,6 +167,37 @@ public class SettingUI : MonoBehaviour
     {
         GPGS_AccountDataManager.Instance.DeleteData();
     }
+
+    public void LeaderboardButtonClick()
+    {
+        LeaderboardUI.SetActive(true);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void LeaderboardBackButtonClick()
+    {
+        LeaderboardUI.SetActive(false);
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void GoldLeaderboardButtonClick()
+    {
+        GPGS_LeaderBoardManager.Instance.ShowGoldLeaderboardUI();
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void ExitStreakLeaderboardButtonClick()
+    {
+        GPGS_LeaderBoardManager.Instance.ShowExitStreakLeaderboardUI();
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
+    public void TotalExitLeaderboardButtonClick()
+    {
+        GPGS_LeaderBoardManager.Instance.ShowDungeonExitLeaderboardUI();
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
+
 
 #if UNITY_STANDALONE_WIN
     private void InitializeWindowsSettings()

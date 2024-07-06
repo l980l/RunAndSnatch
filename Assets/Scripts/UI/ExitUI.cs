@@ -50,6 +50,7 @@ public class ExitUI : MonoBehaviour
 
             // 연속 탈출 횟수, 던전 여부 업데이트
             GPGS_AccountDataManager.Instance.ExitStreak++;
+            GPGS_AccountDataManager.Instance.TotalExitCount++;
             GPGS_AccountDataManager.Instance.InDungeon = false;
             GPGS_AccountDataManager.Instance.SaveJsonToCloud();
 
