@@ -12,6 +12,7 @@ public class AccountData
     public bool[] PlayableCharacter;
     public int[] CharacterGifts;
     public int exitStreak;
+    public int totalExitCount;
     public bool inDungeon;
     public float volumeBGM;
     public float volumeSFX;

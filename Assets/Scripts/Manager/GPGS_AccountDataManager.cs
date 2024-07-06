@@ -21,11 +21,13 @@ public class GPGS_AccountDataManager : MonoBehaviour
     }
     #endregion
     private AccountData accountData;
-    public int AccountGold { get { return accountData.gold; } set { accountData.gold = value; } }
+    public int AccountGold { get { return accountData.gold; } set { accountData.gold = value; GPGS_LeaderBoardManager.Instance.UpdateGoldLeaderboard(); } }
     public CharacterType SelectedCharacter { get { return accountData.selectedCharacter; } set { accountData.selectedCharacter = value; } }
     public ItemType[] GetAccountInven() { return accountData.Items; }
     public LanguageType LanguageType { get { return accountData.language; } set { accountData.language = value; } }
-    public int ExitStreak { get { return accountData.exitStreak; } set { accountData.exitStreak = value; } }
+    public int ExitStreak { get { return accountData.exitStreak; } set { accountData.exitStreak = value; GPGS_LeaderBoardManager.Instance.UpdateExitStreakLeaderboard(); } }
+    public int TotalExitCount { get { return accountData.totalExitCount; } set { accountData.totalExitCount = value; GPGS_LeaderBoardManager.Instance.UpdateDungeonExitLeaderboard(); } }
+
     public bool InDungeon { get { return accountData.inDungeon; } set { accountData.inDungeon = value; } }
     public bool GetPlayable(CharacterType characterType)
     {
@@ -52,7 +54,7 @@ public class GPGS_AccountDataManager : MonoBehaviour
     public void DeathPenalty()
     {
         accountData.Items = new ItemType[0];
-        accountData.gold = (int)(0.8f * accountData.gold);
+        AccountGold = Mathf.RoundToInt(AccountGold * 0.8f);
         ExitStreak = 0;
         InDungeon = false;
         SaveJsonToCloud();

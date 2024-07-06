@@ -574,6 +574,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1348733325516774936, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1970825158224199271, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.00012207031
@@ -602,12 +606,20 @@ PrefabInstance:
       propertyPath: CatTownSceneInt
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4171073960435482312, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4384535474230293927, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4384535474230293927, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470953855535403891, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_Navigation.m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7125198071534918745, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
@@ -690,6 +702,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7733641363491164312, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7896125354538853229, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 20.000061
@@ -704,6 +720,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994936200818114176, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931863795872529862, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
+      propertyPath: m_Navigation.m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9033416690003635907, guid: 13b2ae0df406a8a478ead7fefa0fd102, type: 3}
@@ -2089,11 +2109,11 @@ RectTransform:
   - {fileID: 994361827}
   m_Father: {fileID: 415596293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 770, y: 20}
   m_SizeDelta: {x: 150, y: 70}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1297630880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2107,7 +2127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3722,7 +3742,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.685
+  orthographic size: 4.8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5251,6 +5271,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 946776632}
     - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
+      propertyPath: exitStreak
+      value: 
+      objectReference: {fileID: 7821712891183881623}
+    - target: {fileID: 6718068299808589716, guid: aaa793efae854d1448c235e3fe452a4a, type: 3}
       propertyPath: portraitUI
       value: 
       objectReference: {fileID: 7821712891183881621}
@@ -5727,6 +5751,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5396560612721687805, guid: 1254269d44cb0d641abb9ec6b42f47d4, type: 3}
   m_PrefabInstance: {fileID: 7821712891183881620}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7821712891183881623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1550609096071529510, guid: 1254269d44cb0d641abb9ec6b42f47d4, type: 3}
+  m_PrefabInstance: {fileID: 7821712891183881620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
