@@ -24,9 +24,20 @@
 
 public static class GPGSIds
 {
-        public const string leaderboard_dungeonexitstreak = "CgkIxtqO55YJEAIQBA"; // <GPGSID>
+        public const string achievement_cosmo_we_are_friends = "CgkIxtqO55YJEAIQCA"; // <GPGSID>
         public const string leaderboard_dungeonexit = "CgkIxtqO55YJEAIQBQ"; // <GPGSID>
+        public const string achievement_chrono_we_are_friends = "CgkIxtqO55YJEAIQCQ"; // <GPGSID>
+        public const string achievement_escape_master = "CgkIxtqO55YJEAIQDw"; // <GPGSID>
+        public const string achievement_escape_experienced = "CgkIxtqO55YJEAIQDQ"; // <GPGSID>
+        public const string achievement_misty_we_are_friends = "CgkIxtqO55YJEAIQCg"; // <GPGSID>
+        public const string achievement_leo_we_are_friends = "CgkIxtqO55YJEAIQBw"; // <GPGSID>
+        public const string leaderboard_dungeonexitstreak = "CgkIxtqO55YJEAIQBA"; // <GPGSID>
         public const string leaderboard_gold = "CgkIxtqO55YJEAIQAw"; // <GPGSID>
+        public const string achievement_escape_intermediate = "CgkIxtqO55YJEAIQDA"; // <GPGSID>
+        public const string achievement_escape_god = "CgkIxtqO55YJEAIQEA"; // <GPGSID>
+        public const string achievement_bambi_we_are_friends = "CgkIxtqO55YJEAIQBg"; // <GPGSID>
+        public const string achievement_escape_begginer = "CgkIxtqO55YJEAIQCw"; // <GPGSID>
+        public const string achievement_escape_proficient = "CgkIxtqO55YJEAIQDg"; // <GPGSID>
 
 }
 
