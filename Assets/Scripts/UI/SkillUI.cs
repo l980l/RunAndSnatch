@@ -32,7 +32,7 @@ public class SkillUI : MonoBehaviour
 
     private void Update()
     {
-        if(skillEffect)
+        if (skillEffect)
         {
             // 쿨타임이면 UpdateCoolTime
             if (!canUseSkill)
@@ -55,9 +55,15 @@ public class SkillUI : MonoBehaviour
 
     private void UpdateCoolTime()
     {
-        if(player != null)
+        if(player != null && NetworkManager.Instance.IsNetworkConnected)
         {
-            float flownTime = Time.realtimeSinceStartup - skillEffect.lastExecutionTime;
+            float flownTime = 0f;
+            // 네트워크가 끊기면 스킬을 못쓰니, 이렇게만 비교하면 스킬을 쓰고 네트워크가 끊겼는지 확인할 수 있다.
+            if (NetworkManager.Instance.LastDisconnectTime < skillEffect.lastExecutionTime)
+                flownTime = Time.realtimeSinceStartup - skillEffect.lastExecutionTime;
+            // 스킬 사용 후 네트워크가 끊겼다가 다시 풀린 경우. 
+            else
+                flownTime = Time.realtimeSinceStartup - NetworkManager.Instance.DisconnectTime - skillEffect.lastExecutionTime;
 
             // MaskImage FillAmount 세팅
             float percent = flownTime / coolTime;
@@ -80,7 +86,7 @@ public class SkillUI : MonoBehaviour
 
     public void Click()
     {
-        if(skillEffect)
+        if(skillEffect && NetworkManager.Instance.IsNetworkConnected)
         {
             canUseSkill = false; // 사용 불가능으로 변경
             skillEffect.ExecuteRole();
