@@ -198,6 +198,11 @@ public class SettingUI : MonoBehaviour
         SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
     }
 
+    public void AchievementButtonClick()
+    {
+        GPGS_AchieveManager.Instance.ShowAchievementUI();
+        SoundManager.Instance.PlaySFX(SFX.ButtonSFX, Camera.main.transform.position);
+    }
 
 #if UNITY_STANDALONE_WIN
     private void InitializeWindowsSettings()
