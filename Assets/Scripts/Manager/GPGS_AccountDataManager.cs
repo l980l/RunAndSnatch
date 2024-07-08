@@ -25,7 +25,36 @@ public class GPGS_AccountDataManager : MonoBehaviour
     public CharacterType SelectedCharacter { get { return accountData.selectedCharacter; } set { accountData.selectedCharacter = value; } }
     public ItemType[] GetAccountInven() { return accountData.Items; }
     public LanguageType LanguageType { get { return accountData.language; } set { accountData.language = value; } }
-    public int ExitStreak { get { return accountData.exitStreak; } set { accountData.exitStreak = value; GPGS_LeaderBoardManager.Instance.UpdateExitStreakLeaderboard(); } }
+    public int ExitStreak
+    {
+        get { return accountData.exitStreak; }
+        set
+        {
+            accountData.exitStreak = value;
+            GPGS_LeaderBoardManager.Instance.UpdateExitStreakLeaderboard();
+            switch(accountData.exitStreak)
+            {
+                case 1:
+                    GPGS_AchieveManager.Instance.UnlockEscapeBegginerAchievement();
+                    break;
+                case 3:
+                    GPGS_AchieveManager.Instance.UnlockEscapeIntermediateAchievement();
+                    break;
+                case 5:
+                    GPGS_AchieveManager.Instance.UnlockEscapeExperiencedAchievement();
+                    break;
+                case 7:
+                    GPGS_AchieveManager.Instance.UnlockEscapeProficientAchievement();
+                    break;
+                case 10:
+                    GPGS_AchieveManager.Instance.UnlockEscapeMasterAchievement();
+                    break;
+                case 13: 
+                    GPGS_AchieveManager.Instance.UnlockEscapeGodAchievement();
+                    break;
+            }
+        }
+    }
     public int TotalExitCount { get { return accountData.totalExitCount; } set { accountData.totalExitCount = value; GPGS_LeaderBoardManager.Instance.UpdateDungeonExitLeaderboard(); } }
 
     public bool InDungeon { get { return accountData.inDungeon; } set { accountData.inDungeon = value; } }
@@ -36,6 +65,24 @@ public class GPGS_AccountDataManager : MonoBehaviour
     public void SetPlayable(CharacterType characterType)
     {
         accountData.PlayableCharacter[(int)characterType] = true;
+        switch(characterType)
+        {
+            case CharacterType.Bambi:
+                GPGS_AchieveManager.Instance.UnlockBambiAchievement();
+                break;
+            case CharacterType.Leo:
+                GPGS_AchieveManager.Instance.UnlockLeoAchievement();
+                break;
+            case CharacterType.Cosmo:
+                GPGS_AchieveManager.Instance.UnlockCosmoAchievement();
+                break;
+            case CharacterType.Chrono:
+                GPGS_AchieveManager.Instance.UnlockChronoAchievement();
+                break;
+            case CharacterType.Misty:
+                GPGS_AchieveManager.Instance.UnlockMistyAchievement();
+                break;
+        }
     }
     public int GetGiftCount(CharacterType characterType)
     {
