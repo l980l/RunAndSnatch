@@ -7,9 +7,11 @@ public class PlayerStun : MonoBehaviour
     private CircleCollider2D circleCollider2D;
     private StunArea stunArea;
     [SerializeField] private ParticleSystem stunPS;
+    private WaitForSeconds waitForSeconds;
 
     private void Awake()
     {
+        waitForSeconds = new WaitForSeconds(0.1f);
         circleCollider2D = stunAreaObj.GetComponent<CircleCollider2D>();
         stunArea = stunAreaObj.GetComponent<StunArea>();
     }
@@ -28,7 +30,7 @@ public class PlayerStun : MonoBehaviour
             circleCollider2D.radius = radius;
         stunAreaObj.SetActive(true);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return waitForSeconds;
 
         stunAreaObj.SetActive(false);
     }

@@ -8,6 +8,8 @@ public class GoblinMiss : StateMachineBehaviour
     private MonGoblin goblin;
     private float missTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         goblin = animator.GetComponent<MonGoblin>();
@@ -22,7 +24,7 @@ public class GoblinMiss : StateMachineBehaviour
         missTime -= Time.deltaTime;
         if (missTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 

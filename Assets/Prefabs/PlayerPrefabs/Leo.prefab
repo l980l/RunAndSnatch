@@ -119,6 +119,7 @@ MonoBehaviour:
   ScanTerm: 0.1
   TrailLifeTime: 1
   TrailColor: {r: 1, g: 0.9607844, b: 0, a: 1}
+  TrailPrefab: {fileID: 2666917365786059480, guid: 504a18b0167739344809eda18854b674, type: 3}
 --- !u!50 &7639241061457657673
 Rigidbody2D:
   serializedVersion: 4

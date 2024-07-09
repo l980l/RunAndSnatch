@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum LoadType
 {
-    AnyButton,
+    Click,
     Collide,
 }
 
@@ -15,9 +15,9 @@ public class SceneLoader : MonoBehaviour
 
     void Update()
     {
-        if (loadType == LoadType.AnyButton)
+        if (loadType == LoadType.Click)
         {
-            if (Input.GetMouseButtonUp(0) ||Input.GetKeyDown(KeyCode.F1))
+            if (Input.GetMouseButtonUp(0))
             {
                 LoadingSceneController.LoadScene(NextSceneInt);
             }

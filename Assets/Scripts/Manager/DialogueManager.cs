@@ -50,7 +50,7 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         // PC로 플레이 한다면, space바로 대화 continue 가능.
-        if (OnConversation && Input.GetButtonDown("Jump"))
+        if (OnConversation && Input.GetKeyDown(KeyCode.Space))
         {
             DisplayNextSentence();
         }

@@ -8,6 +8,7 @@ public class MotionTrail : MonoBehaviour
     [SerializeField] private float ScanTerm;
     [SerializeField] private float TrailLifeTime;
     [SerializeField] private Color TrailColor;
+    [SerializeField] private GameObject TrailPrefab;
 
     private int TrailPoolCount;
     private SpriteRenderer spriteRenderer;
@@ -28,8 +29,8 @@ public class MotionTrail : MonoBehaviour
         TrailStartTimes = new List<float>();
         for (int i = 0; i < TrailPoolCount; i++)
         {
-            GameObject Trail = new GameObject();
-            SpriteRenderer SR = Trail.AddComponent<SpriteRenderer>();
+            GameObject Trail = Instantiate(TrailPrefab);
+            SpriteRenderer SR = Trail.GetComponent<SpriteRenderer>();
             SpriteRenderers.Add(SR);
             Trail.SetActive(false);
             Trails.Add(Trail);

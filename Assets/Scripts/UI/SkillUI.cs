@@ -43,10 +43,9 @@ public class SkillUI : MonoBehaviour
             // 사용 가능한 상태라면 input 받기
             else
             {
-                // 스페이스 바를 누르면 호출.
-                if (Input.GetButtonDown("Jump"))
+                // 스페이스 바를 누르면 호출. // 버튼을 누르는 것으로도 호출 가능.
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // 버튼을 누르는 것으로도 호출 가능.
                     Click();
                 }
             }

@@ -8,6 +8,9 @@ public class SkeletonPatrol : StateMachineBehaviour
     private float patrolTime;
     private PlayerStealth playerStealth;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+    private static readonly int FarTraceHash = Animator.StringToHash("FarTrace");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         skeleton = animator.GetComponent<MonSkeleton>();
@@ -28,13 +31,13 @@ public class SkeletonPatrol : StateMachineBehaviour
         patrolTime -= Time.deltaTime;
         if (patrolTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
 
         // 보이는 경우에만 트레이스 해
         if (skeleton.DistanceToPlayer() < skeleton.monsterData.farTraceRange && skeleton.PlayerInSight() && !playerStealth.Stealth)
         {
-            animator.SetTrigger("FarTrace");
+            animator.SetTrigger(FarTraceHash);
         }
     }
 

@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     
     private FloatingJoystick joystick;
 
+    private static readonly int DodgeHash = Animator.StringToHash("Dodge");
+    private static readonly int SpeedHash = Animator.StringToHash("Speed");
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -53,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        animator.SetFloat("Speed", inputVec.sqrMagnitude);
+        animator.SetFloat(SpeedHash, inputVec.sqrMagnitude);
 
         if (playerHealth.HP > 0)
         {
@@ -133,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!MobileKeyManager.instance.RunButtonDown || playerStamina.Stamina <= 0)
             {
-                // 체력이 한번 다 닳면 버튼을 다시 눌러야 달리기 가능. 안그러면 글리치 남
+                // 체력이 한번 다 닳면 버튼을 다시 눌러야 달리기 가능. 안 그러면 글리치 남
                 MobileKeyManager.instance.RunButtonDown = false;
                 DodgeEnd();
             }
@@ -145,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerHealth.SetInvincible(true);
         isDodging = true;
-        animator.SetBool("Dodge", true);
+        animator.SetBool(DodgeHash, true);
         motionTrail.MotionTrailStart();
     }
 
@@ -153,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerHealth.SetInvincible(false);
         isDodging = false;
-        animator.SetBool("Dodge", false);
+        animator.SetBool(DodgeHash, false);
         motionTrail.MotionTrailEnd();
     }
 

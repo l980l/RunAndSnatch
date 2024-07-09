@@ -107,6 +107,7 @@ MonoBehaviour:
   ScanTerm: 0.1
   TrailLifeTime: 1
   TrailColor: {r: 1, g: 0.5058824, b: 0.8941177, a: 1}
+  TrailPrefab: {fileID: 2666917365786059480, guid: 504a18b0167739344809eda18854b674, type: 3}
 --- !u!50 &865720984414114908
 Rigidbody2D:
   serializedVersion: 4
@@ -203,6 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: ec3efda08be4fc843b9fd8bb9d5d0205, type: 2}
+  smallHealPS: {fileID: 0}
+  largeHealPS: {fileID: 0}
 --- !u!114 &4582539927346337111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: ec3efda08be4fc843b9fd8bb9d5d0205, type: 2}
   onMovingSkill: 0
+  speedUpPS: {fileID: 0}
 --- !u!114 &8320022055247836721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: ec3efda08be4fc843b9fd8bb9d5d0205, type: 2}
+  staminaPS: {fileID: 0}
+  staminaRegenPS: {fileID: 0}
 --- !u!114 &2528813710069406138
 MonoBehaviour:
   m_ObjectHideFlags: 0

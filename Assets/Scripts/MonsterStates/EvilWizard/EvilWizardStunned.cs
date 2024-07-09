@@ -7,6 +7,8 @@ public class EvilWizardStunned : StateMachineBehaviour
     private MonEvilWizard wizard;
     private float stunTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         wizard = animator.GetComponent<MonEvilWizard>();
@@ -20,7 +22,7 @@ public class EvilWizardStunned : StateMachineBehaviour
         stunTime -= Time.deltaTime;
         if (stunTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 }

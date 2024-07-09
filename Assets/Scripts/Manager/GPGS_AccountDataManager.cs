@@ -146,20 +146,20 @@ public class GPGS_AccountDataManager : MonoBehaviour
 
         if(status == SavedGameRequestStatus.Success)
         {
-            Debug.Log("File Saved");
+            Logging.Log("File Saved");
             var update = new SavedGameMetadataUpdate.Builder().Build();
 
             var json = JsonUtility.ToJson(accountData);
             byte[] bytes = Encoding.UTF8.GetBytes(json);
 
-            Debug.Log("Saved Data: " + bytes);
+            Logging.Log("Saved Data: " + bytes);
 
             savedGameClient.CommitUpdate(game, update, bytes, OnSavedGameWritten);
         }
 
         else
         {
-            Debug.Log("File Save Failed");
+            Logging.Log("File Save Failed");
         }
     }
 
@@ -167,12 +167,12 @@ public class GPGS_AccountDataManager : MonoBehaviour
     {
         if (status == SavedGameRequestStatus.Success)
         {
-            Debug.Log("File Saved");
+            Logging.Log("File Saved");
         }
 
         else
         {
-            Debug.Log("File Save Failed");
+            Logging.Log("File Save Failed");
         }
     }
     #endregion
@@ -196,14 +196,14 @@ public class GPGS_AccountDataManager : MonoBehaviour
 
         if (status == SavedGameRequestStatus.Success)
         {
-            Debug.Log("File Loaded");
+            Logging.Log("File Loaded");
 
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
         }
 
         else
         {
-            Debug.Log("File Loading Failed");
+            Logging.Log("File Loading Failed");
         }
     }
 
@@ -213,7 +213,7 @@ public class GPGS_AccountDataManager : MonoBehaviour
 
         if(data == "")
         {
-            Debug.Log("No Data. Initialize a new Data");
+            Logging.Log("No Data. Initialize a new Data");
             accountData = new AccountData();
             SaveJsonToCloud();
         }
@@ -224,7 +224,7 @@ public class GPGS_AccountDataManager : MonoBehaviour
             {
                 DeathPenalty();
             }
-            Debug.Log("Load Data: " + data);
+            Logging.Log("Load Data: " + data);
         }
 
         // 마을로 이동
@@ -253,12 +253,12 @@ public class GPGS_AccountDataManager : MonoBehaviour
         {
             savedGameClient.Delete(data);
 
-            Debug.Log("File Deleted!");
+            Logging.Log("File Deleted!");
         }
 
         else 
         {
-            Debug.Log("File Delete Failed");
+            Logging.Log("File Delete Failed");
         }
 
         // 계정 정보를 제거했다면, 게임을 종료.

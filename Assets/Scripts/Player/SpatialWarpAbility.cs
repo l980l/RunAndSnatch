@@ -7,9 +7,11 @@ public class SpatialWarpAbility : MonoBehaviour
     private PlayerMovement playerMovement;
     private Rigidbody2D rb;
     [SerializeField] private ParticleSystem spatialWarpPS;
+    private WaitForSeconds waitForSeconds;
 
     private void Start()
     {
+        waitForSeconds = new WaitForSeconds(0.1f);
         playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -26,7 +28,7 @@ public class SpatialWarpAbility : MonoBehaviour
         playerMovement.onMovingSkill = true;
         rb.MovePosition(GameManager.Instance.GetMapGenerator().RandomPos(false));
 
-        yield return new WaitForSeconds(0.1f);
+        yield return waitForSeconds;
 
         playerMovement.onMovingSkill = false;
         spatialWarpPS.Play();

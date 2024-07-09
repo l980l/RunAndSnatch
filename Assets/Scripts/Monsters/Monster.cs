@@ -33,6 +33,11 @@ public class Monster : MonoBehaviour
     private float stunTime;
     public float StunTime { get { return stunTime; } }
 
+    protected static readonly int StunnedHash = Animator.StringToHash("Stunned");
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+    private static readonly int PatrolHash = Animator.StringToHash("Patrol");
+    private static readonly int MissHash = Animator.StringToHash("Miss");
+
     protected virtual void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -58,7 +63,7 @@ public class Monster : MonoBehaviour
                 // 목적지에 도착했는데, Patrol라면 Idle로 돌아가자
                 if (nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
-                    animator.SetTrigger("Idle");
+                    animator.SetTrigger(IdleHash);
                 }
                 break;
             case MonsterState.FarTrace:
@@ -73,7 +78,7 @@ public class Monster : MonoBehaviour
                 // 목적지에 도착했는데, FarTrace라면 Patrol로 돌아가자
                 if (!PlayerInSight() && nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
-                    animator.SetTrigger("Patrol");
+                    animator.SetTrigger(PatrolHash);
                 }
                 break;
             case MonsterState.NearTrace:
@@ -120,7 +125,7 @@ public class Monster : MonoBehaviour
     public void Miss()
     {
         // FarTrace, NearTrace, Attack, Rest에만 Transition을 걸어두었기 때문에, 다른 상태에서는 넘어가지지 않는다.
-        animator.SetTrigger("Miss");
+        animator.SetTrigger(MissHash);
     }
 
     // 은신 State에서 호출될 함수
@@ -155,13 +160,13 @@ public class Monster : MonoBehaviour
     {
         if (nav.totalWorldPath == null || nav.totalWorldPath.Count == 0)
         {
-            //UnityEngine.Debug.Log("경로 없음");
+            Logging.Log("경로 없음");
             return;
         }
 
         if (nav.curPathIndex >= nav.totalWorldPath.Count)
         {
-            //UnityEngine.Debug.Log("경로를 모두 따라갔습니다.");
+            Logging.Log("경로를 모두 따라갔습니다.");
             return;
         }
 

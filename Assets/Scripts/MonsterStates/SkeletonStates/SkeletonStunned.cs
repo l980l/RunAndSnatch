@@ -7,6 +7,8 @@ public class SkeletonStunned : StateMachineBehaviour
     private MonSkeleton skeleton;
     private float stunTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         skeleton = animator.GetComponent<MonSkeleton>();
@@ -20,7 +22,7 @@ public class SkeletonStunned : StateMachineBehaviour
         stunTime -= Time.deltaTime;
         if (stunTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 }

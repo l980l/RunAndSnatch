@@ -8,6 +8,8 @@ public class SkeletonRest : StateMachineBehaviour
     private SpriteRenderer spriteRenderer;
     private float restTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         skeleton = animator.GetComponent<MonSkeleton>();
@@ -26,7 +28,7 @@ public class SkeletonRest : StateMachineBehaviour
         restTime -= Time.deltaTime;
         if (restTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 

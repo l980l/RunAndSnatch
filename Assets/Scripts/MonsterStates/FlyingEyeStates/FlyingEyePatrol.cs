@@ -8,6 +8,9 @@ public class FlyingEyePatrol : StateMachineBehaviour
     private PlayerStealth playerStealth;
     private float patrolTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+    private static readonly int FarTraceHash = Animator.StringToHash("FarTrace");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         flyingEye = animator.GetComponent<MonFlyingEye>();
@@ -28,13 +31,13 @@ public class FlyingEyePatrol : StateMachineBehaviour
         patrolTime -= Time.deltaTime;
         if (patrolTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
 
         // 보이는 경우에만 트레이스 해
         if (flyingEye.DistanceToPlayer() < flyingEye.monsterData.farTraceRange && flyingEye.PlayerInSight() && !playerStealth.Stealth)
         {
-            animator.SetTrigger("FarTrace");
+            animator.SetTrigger(FarTraceHash);
         }
     }
 
