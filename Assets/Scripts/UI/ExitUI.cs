@@ -30,8 +30,11 @@ public class ExitUI : MonoBehaviour
     [SerializeField] private int DungeonSceneInt;
     [SerializeField] private int CatTownSceneInt;
 
+    private WaitForSeconds waitForSeconds;
+
     private void Start()
     {
+        waitForSeconds = new WaitForSeconds(2f);
         cantExitText.SetActive(false);
         exitUIPanel.SetActive(false);
     }
@@ -78,7 +81,7 @@ public class ExitUI : MonoBehaviour
     private IEnumerator ShowCantExitTextCoroutine()
     {
         cantExitText.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return waitForSeconds;
         cantExitText.SetActive(false);
     }
 

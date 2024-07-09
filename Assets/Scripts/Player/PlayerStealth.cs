@@ -9,9 +9,11 @@ public class PlayerStealth : MonoBehaviour
 
     public bool Stealth { get; private set; }
     private SpriteRenderer spriteRenderer;
+    private WaitForSeconds waitForSeconds;
 
     private void Awake()
     {
+        waitForSeconds = new WaitForSeconds(0.1f);
         spriteRenderer = GetComponent<SpriteRenderer>();
         circleCollider2D = stealthArea.GetComponent<CircleCollider2D>();
     }
@@ -34,7 +36,7 @@ public class PlayerStealth : MonoBehaviour
             circleCollider2D.radius = radius;
         stealthArea.SetActive(true);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return waitForSeconds;
 
         // stealthArea 비활성화
         stealthArea.SetActive(false);

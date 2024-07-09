@@ -8,6 +8,8 @@ public class SkeletonShield : StateMachineBehaviour
     private MonSkeleton skeleton;
     private float shieldTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         SoundManager.Instance.PlaySFX(SFX.SkeletonShieldSFX, animator.transform.position);
@@ -23,7 +25,7 @@ public class SkeletonShield : StateMachineBehaviour
         shieldTime -= Time.deltaTime;
         if (shieldTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 }

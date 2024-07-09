@@ -20,9 +20,11 @@ public class DeathUI : MonoBehaviour
     [SerializeField] private GameObject DeathPanel;
     [SerializeField] private int CatTownSceneInt;
     private Animator animator;
+    private WaitForSecondsRealtime waitForSecondsRealtime;
 
     private void Start()
     {
+        waitForSecondsRealtime = new WaitForSecondsRealtime(2f);
         DeathPanel.SetActive(false);
         animator = DeathPanel.GetComponent<Animator>();
     }
@@ -43,7 +45,7 @@ public class DeathUI : MonoBehaviour
         SoundManager.Instance.StopBGM();
         DeathPanel.SetActive(true);
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(2f);
+        yield return waitForSecondsRealtime;
         Time.timeScale = 1f;
         LoadingSceneController.LoadScene(CatTownSceneInt);
     }

@@ -8,6 +8,9 @@ public class GoblinPatrol : StateMachineBehaviour
     private PlayerStealth playerStealth;
     private float patrolTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+    private static readonly int FarTraceHash = Animator.StringToHash("FarTrace");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         goblin = animator.GetComponent<MonGoblin>();
@@ -28,13 +31,13 @@ public class GoblinPatrol : StateMachineBehaviour
         patrolTime -= Time.deltaTime;
         if (patrolTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
 
         // 보이는 경우에만 트레이스 해
         if (goblin.DistanceToPlayer() < goblin.monsterData.farTraceRange && goblin.PlayerInSight() && !playerStealth.Stealth)
         {
-            animator.SetTrigger("FarTrace");
+            animator.SetTrigger(FarTraceHash);
         }
     }
 

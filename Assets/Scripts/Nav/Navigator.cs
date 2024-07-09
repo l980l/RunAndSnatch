@@ -105,11 +105,11 @@ public class Navigator : MonoBehaviour
 
         //if (pathFound)
         //{
-        //    Debug.Log("경로를 찾았습니다!");
+        //    Logging.Log("경로를 찾았습니다!");
         //}
         //else
         //{
-        //    Debug.Log("경로를 찾을 수 없습니다.");
+        //    Logging.Log("경로를 찾을 수 없습니다.");
         //}
     }
     private bool AStarAlgorithm()

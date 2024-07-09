@@ -114,7 +114,7 @@ public class UC_AccountDataManager : MonoBehaviour
             {
                 DeathPenalty();
             }
-            Debug.Log(jsonData);
+            Logging.Log(jsonData);
         }
         else
         {
@@ -129,7 +129,7 @@ public class UC_AccountDataManager : MonoBehaviour
             var data = new Dictionary<string, object> { { key, Data } };
             await CloudSaveService.Instance.Data.Player.SaveAsync(data);
 
-            Debug.Log("File saved!");
+            Logging.Log("File saved!");
         }
         catch (CloudSaveValidationException e)
         {
@@ -152,7 +152,7 @@ public class UC_AccountDataManager : MonoBehaviour
             var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key });
             if (playerData.TryGetValue(key, out var keyName))
             {
-                Debug.Log($"keyName: {keyName.Value.GetAs<string>()}");
+                Logging.Log($"keyName: {keyName.Value.GetAs<string>()}");
                 return keyName.Value.GetAs<string>();
             }
             else

@@ -5,6 +5,8 @@ using UnityEngine;
 public class MonSkeleton : Monster
 {
     [SerializeField] private BoxCollider2D atkBox;
+    private static readonly int ShieldHash = Animator.StringToHash("Shield");
+
     protected override void Awake()
     {
         base.Awake();
@@ -34,10 +36,10 @@ public class MonSkeleton : Monster
         // 플레이어를 스켈레톤이 바라보고 있었다면 막기.
         if(LeftSidePlayer == GetComponent<SpriteRenderer>().flipX)
         {
-            animator.SetTrigger("Shield");
+            animator.SetTrigger(ShieldHash);
         }
         else
-            animator.SetTrigger("Stunned");
+            animator.SetTrigger(StunnedHash);
     }
 
     private IEnumerator DisableAtkBox(float _delay)

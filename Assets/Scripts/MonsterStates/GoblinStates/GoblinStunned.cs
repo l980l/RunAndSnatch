@@ -7,6 +7,8 @@ public class GoblinStunned : StateMachineBehaviour
     private MonGoblin goblin;
     private float stunTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         goblin = animator.GetComponent<MonGoblin>();
@@ -20,7 +22,7 @@ public class GoblinStunned : StateMachineBehaviour
         stunTime -= Time.deltaTime;
         if (stunTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 }

@@ -41,10 +41,10 @@ public class UC_LoginManager : MonoBehaviour
     {
         AuthenticationService.Instance.SignedIn += () => {
             // Shows how to get a playerID
-            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
+            Logging.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
             // Shows how to get an access token
-            Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
+            Logging.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
         };
 
         AuthenticationService.Instance.SignInFailed += (err) => {
@@ -52,12 +52,12 @@ public class UC_LoginManager : MonoBehaviour
         };
 
         AuthenticationService.Instance.SignedOut += () => {
-            Debug.Log("Player signed out.");
+            Logging.Log("Player signed out.");
         };
 
         AuthenticationService.Instance.Expired += () =>
         {
-            Debug.Log("Player session could not be refreshed and expired.");
+            Logging.Log("Player session could not be refreshed and expired.");
         };
     }
 }

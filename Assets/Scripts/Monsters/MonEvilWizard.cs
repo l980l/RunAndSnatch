@@ -71,7 +71,7 @@ public class MonEvilWizard : Monster
     public override void OnStunSkill(float _stunTime)   // 플레이어가 스턴 스킬을 사용하면 호출
     {
         base.OnStunSkill(_stunTime);
-        animator.SetTrigger("Stunned");
+        animator.SetTrigger(StunnedHash);
     }
     
     // EvilWizard는 Raycast를 지팡이 위치에서 시작해야 한다.

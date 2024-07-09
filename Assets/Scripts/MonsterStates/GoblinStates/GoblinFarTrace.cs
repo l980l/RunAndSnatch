@@ -6,6 +6,9 @@ public class GoblinFarTrace : StateMachineBehaviour
 {
     private MonGoblin goblin;
 
+    private static readonly int PatrolHash = Animator.StringToHash("Patrol");
+    private static readonly int NearTraceHash = Animator.StringToHash("NearTrace");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         goblin = animator.GetComponent<MonGoblin>();
@@ -22,13 +25,13 @@ public class GoblinFarTrace : StateMachineBehaviour
         // 플레이어로의 거리 < nearTraceRange
         if (distance < goblin.monsterData.nearTraceRange)
         {
-            animator.SetTrigger("NearTrace");
+            animator.SetTrigger(NearTraceHash);
         }
 
         // 플레이어로의 거리 > farTraceRange
         if (distance > goblin.monsterData.farTraceRange)
         {
-            animator.SetTrigger("Patrol");
+            animator.SetTrigger(PatrolHash);
         }
     }
 

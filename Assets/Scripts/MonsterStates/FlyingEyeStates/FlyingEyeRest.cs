@@ -8,6 +8,8 @@ public class FlyingEyeRest : StateMachineBehaviour
     private SpriteRenderer spriteRenderer;
     private float restTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         flyingEye = animator.GetComponent<MonFlyingEye>();
@@ -26,7 +28,7 @@ public class FlyingEyeRest : StateMachineBehaviour
         restTime -= Time.deltaTime;
         if (restTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 

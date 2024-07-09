@@ -7,6 +7,8 @@ public class FlyingEyeStunned : StateMachineBehaviour
     private MonFlyingEye flyingEye;
     private float stunTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         flyingEye = animator.GetComponent<MonFlyingEye>();
@@ -20,7 +22,7 @@ public class FlyingEyeStunned : StateMachineBehaviour
         stunTime -= Time.deltaTime;
         if (stunTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 }

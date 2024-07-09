@@ -23,8 +23,11 @@ public class NetworkManager : MonoBehaviour
     public float LastDisconnectTime { get; private set; }
     public float DisconnectTime { get; private set; }
 
+    private WaitForSecondsRealtime waitForSecondsRealtime;
+
     void Start()
     {
+        waitForSecondsRealtime = new WaitForSecondsRealtime(2f);
         IsNetworkConnected = false;
         NetworkUI.SetActive(false);
         StartCoroutine(CheckNetworkConnection());
@@ -57,7 +60,7 @@ public class NetworkManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSecondsRealtime(2f); // 2초마다 네트워크 상태 확인
+            yield return waitForSecondsRealtime; // 2초마다 네트워크 상태 확인
         }
     }
 }

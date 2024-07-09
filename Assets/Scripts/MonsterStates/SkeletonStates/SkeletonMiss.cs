@@ -7,6 +7,8 @@ public class SkeletonMiss : StateMachineBehaviour
     private MonSkeleton skeleton;
     private float missTime;
 
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         skeleton = animator.GetComponent<MonSkeleton>();
@@ -21,7 +23,7 @@ public class SkeletonMiss : StateMachineBehaviour
         missTime -= Time.deltaTime;
         if (missTime < 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger(IdleHash);
         }
     }
 

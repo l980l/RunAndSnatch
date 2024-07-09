@@ -7,6 +7,10 @@ public class SkeletonNearTrace : StateMachineBehaviour
     private MonSkeleton skeleton;
     private float nearTraceTime;
 
+    private static readonly int AttackHash = Animator.StringToHash("Attack");
+    private static readonly int RestHash = Animator.StringToHash("Rest");
+    private static readonly int FarTraceHash = Animator.StringToHash("FarTrace");
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         skeleton = animator.GetComponent<MonSkeleton>();
@@ -25,14 +29,14 @@ public class SkeletonNearTrace : StateMachineBehaviour
         // nearTraceRange < 플레이어와의 거리 < farTraceRange
         if (distance > skeleton.monsterData.nearTraceRange && distance < skeleton.monsterData.farTraceRange)
         {
-            animator.SetTrigger("FarTrace");
+            animator.SetTrigger(FarTraceHash);
         }
 
         // 일정 시간 이상 전력질주 했으면 Rest
         nearTraceTime -= Time.deltaTime;
         if (nearTraceTime < 0)
         {
-            animator.SetTrigger("Rest");
+            animator.SetTrigger(RestHash);
         }
 
         // 플레이어와의 거리 < attackRange
@@ -41,7 +45,7 @@ public class SkeletonNearTrace : StateMachineBehaviour
             // 사이에 벽이 없어야 함.
             if (skeleton.PlayerInSight())
             {
-                animator.SetTrigger("Attack");
+                animator.SetTrigger(AttackHash);
             }
         }
     }

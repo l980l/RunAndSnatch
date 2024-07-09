@@ -5,6 +5,8 @@ using UnityEngine;
 public class FlyingEyeFarTrace : StateMachineBehaviour
 {
     private MonFlyingEye flyingEye;
+    private static readonly int PatrolHash = Animator.StringToHash("Patrol");
+    private static readonly int NearTraceHash = Animator.StringToHash("NearTrace");
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -22,13 +24,13 @@ public class FlyingEyeFarTrace : StateMachineBehaviour
         // 플레이어로의 거리 < nearTraceRange
         if (distance < flyingEye.monsterData.nearTraceRange)
         {
-            animator.SetTrigger("NearTrace");
+            animator.SetTrigger(NearTraceHash);
         }
 
         // 플레이어로의 거리 > farTraceRange
         if (distance > flyingEye.monsterData.farTraceRange)
         {
-            animator.SetTrigger("Patrol");
+            animator.SetTrigger(PatrolHash);
         }
     }
 

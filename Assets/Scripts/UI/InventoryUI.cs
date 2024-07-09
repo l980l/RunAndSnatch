@@ -29,9 +29,13 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject invenFullText;
 
     private Inventory inventory;
-     
+    private WaitForSeconds waitFor3Seconds;
+    private WaitForSeconds waitFor2Seconds;
+
     private void Start()
     {
+        waitFor3Seconds = new WaitForSeconds(3f);
+        waitFor2Seconds = new WaitForSeconds(2f);
         itemSlots = itemSlotHolder.GetComponentsInChildren<ItemSlot>();
         inventoryPanel.SetActive(ActiveInventory);
 
@@ -139,7 +143,7 @@ public class InventoryUI : MonoBehaviour
     private IEnumerator ButtonCooldownRoutine()
     {
         SortButton.interactable = false; // 버튼 비활성화
-        yield return new WaitForSeconds(3); // 3초 대기
+        yield return waitFor3Seconds; // 3초 대기
         SortButton.interactable = true; // 버튼 다시 활성화
     }
 
@@ -189,7 +193,7 @@ public class InventoryUI : MonoBehaviour
     private IEnumerator ShowInvenFullTextCoroutine()
     {
         invenFullText.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return waitFor2Seconds;
         invenFullText.SetActive(false);
     }
 }

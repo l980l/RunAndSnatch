@@ -205,6 +205,7 @@ MonoBehaviour:
   ScanTerm: 0.1
   TrailLifeTime: 1
   TrailColor: {r: 1, g: 0.5058824, b: 0.8941177, a: 1}
+  TrailPrefab: {fileID: 2666917365786059480, guid: 504a18b0167739344809eda18854b674, type: 3}
 --- !u!114 &854273274750980813
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,8 +5,11 @@ using UnityEngine;
 public class MonGoblin : Monster
 {
     [SerializeField] private BoxCollider2D atkBox;
+    private WaitForSeconds waitForSeconds;
+
     protected override void Awake()
     {
+        waitForSeconds = new WaitForSeconds(0.1f);
         base.Awake();
         atkBox.enabled = false;
     }
@@ -19,19 +22,19 @@ public class MonGoblin : Monster
         {
             FlipCollider(GetComponent<SpriteRenderer>().flipX);
             atkBox.enabled = true;
-            StartCoroutine(DisableAtkBox(0.1f));
+            StartCoroutine(DisableAtkBox());
         }
     }
 
     public override void OnStunSkill(float _stunTime)   // 플레이어가 스턴 스킬을 사용하면 호출
     {
         base.OnStunSkill(_stunTime);
-        animator.SetTrigger("Stunned");
+        animator.SetTrigger(StunnedHash);
     }
 
-    private IEnumerator DisableAtkBox(float _delay)
+    private IEnumerator DisableAtkBox()
     {
-        yield return new WaitForSeconds(_delay);
+        yield return waitForSeconds;
         if (atkBox != null)
         {
             atkBox.enabled = false;

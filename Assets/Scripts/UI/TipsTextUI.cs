@@ -11,10 +11,12 @@ public class TipsTextUI : MonoBehaviour
     private LanguageType language;
     private Text tipsText;
     private int prevIndex;
+    private WaitForSecondsRealtime waitForSecondsRealtime;
 
     private void Awake()
     {
         tipsText = GetComponent<Text>();
+        waitForSecondsRealtime = new WaitForSecondsRealtime(holdTime);
     }
 
     private void Start()
@@ -32,7 +34,7 @@ public class TipsTextUI : MonoBehaviour
 
     private IEnumerator ShowTipsCoroutine()
     {
-        yield return new WaitForSecondsRealtime(holdTime);
+        yield return waitForSecondsRealtime;
 
         int newIndex = Random.Range(0, tips.EnTips.Count);
         while (newIndex == prevIndex)

@@ -11,6 +11,7 @@ public class EWProjectile : MonoBehaviour
     private bool isMove;
     public Vector2 Dir { set { dir = value; } }
     public bool IsMove { set { isMove = value; } }
+    private static readonly int ExplodeHash = Animator.StringToHash("Explode");
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class EWProjectile : MonoBehaviour
         if(collision.gameObject.layer == 6 || collision.gameObject.layer == 12)
         {
             isMove = false;
-            animator.SetTrigger("Explode");
+            animator.SetTrigger(ExplodeHash);
         }
     }
 
