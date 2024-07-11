@@ -17,9 +17,9 @@ public class LoadingSceneController : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");   // 로딩씬은 작으니까 그냥 동기로 로딩.
     }
     
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        AdMobManager.Instance.ToggleBannerAd(true);
         StartCoroutine(LoadSceneProcess());
     }
 
@@ -33,17 +33,18 @@ public class LoadingSceneController : MonoBehaviour
         {
             yield return null;
 
-            if(op.progress < 0.9f)
+            if(op.progress < 0.7f)
             {
                 progressbar.fillAmount = op.progress;
             }
             else
             {
                 timer += Time.unscaledDeltaTime;
-                progressbar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
+                progressbar.fillAmount = Mathf.Lerp(0.7f, 1f, timer / 3f);
                 if (progressbar.fillAmount >= 1f)
                 {
                     op.allowSceneActivation = true;
+                    AdMobManager.Instance.ToggleBannerAd(false);
                     yield break;
                 }
             }

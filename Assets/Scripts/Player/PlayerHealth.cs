@@ -56,8 +56,8 @@ public class PlayerHealth : MonoBehaviour
             if (collision.gameObject.GetComponentInParent<Monster>() != null)
             {
                 int damage = collision.gameObject.GetComponentInParent<Monster>().monsterData.damage;
-                OnDamage(0);
-                // OnDamage(damage);
+                //OnDamage(0);
+                OnDamage(damage);
             }
         }
     }
