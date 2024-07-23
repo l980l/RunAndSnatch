@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         Player = _nextPlayer;
         // 시네머신 팔로우 플레이어 트랜스폼으로 세팅.
         CVC.m_Follow = Player.transform;
+        CVC.m_LookAt = Player.transform;
         // 초상화UI 세팅
         portraitUI.SetPortrait(Player.GetComponent<PlayerMovement>().PlayerData.portraitImage);
     }

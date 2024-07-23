@@ -78,10 +78,10 @@ public class PlayerNPC : MonoBehaviour
             if (dir.x != 0)
                 spriteRenderer.flipX = dir.x < 0;
 
-            // zÁÂÇ¥¸¦ yÁÂÇ¥ÀÇ 0.01ÇÁ·Î·Î ¼³Á¤
-            Vector3 position = transform.position;
-            position.z = position.y * 0.01f;
-            transform.position = position;
+            //// zÁÂÇ¥¸¦ yÁÂÇ¥ÀÇ 0.01ÇÁ·Î·Î ¼³Á¤
+            //Vector3 position = transform.position;
+            //position.z = position.y * 0.01f;
+            //transform.position = position;
         }
     }
 

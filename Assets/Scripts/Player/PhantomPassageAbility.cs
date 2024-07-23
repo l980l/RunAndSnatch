@@ -12,9 +12,11 @@ public class PhantomPassageAbility : MonoBehaviour
     private Grid grid;
     [SerializeField] private ParticleSystem bgPS;
     [SerializeField] private ParticleSystem catPS;
+    private WaitForSeconds waitForSeconds;
 
     private void Start()
     {
+        waitForSeconds = new WaitForSeconds(0.1f);
         playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
         mapGenerator= GameManager.Instance.GetMapGenerator();
@@ -37,7 +39,7 @@ public class PhantomPassageAbility : MonoBehaviour
         // mistyLight 밝히기
         mistyLight.enabled = true;
 
-        yield return new WaitForSecondsRealtime(duration);
+        yield return new WaitForSeconds(duration);
 
         // 끝나면 Player 레이어로
         gameObject.layer = 6;
@@ -54,12 +56,9 @@ public class PhantomPassageAbility : MonoBehaviour
         playerMovement.onMovingSkill = true;
         Vector3Int nowPos = grid.WorldToCell(transform.position);
         // 현재 위치가 벽인 경우. 가장 가까운 Road 찾고, Cell 중간 길이 더해주고.
-        if (mapGenerator.isWallAtPos(nowPos.x, nowPos.y) == true)
-        {
-            rb.MovePosition(grid.CellToWorld((Vector3Int)mapGenerator.GetNearestRoad(nowPos.x, nowPos.y)) + grid.GetLayoutCellCenter());
-        }
+        transform.position = grid.CellToWorld((Vector3Int)mapGenerator.GetNearestRoad(nowPos.x, nowPos.y)) + grid.GetLayoutCellCenter();
 
-        yield return new WaitForFixedUpdate();
+        yield return waitForSeconds;
 
         playerMovement.onMovingSkill = false;
         bgPS.Stop();

@@ -59,19 +59,14 @@ public class MapGenerator : MonoBehaviour
 
     public Vector2Int GetNearestRoad(int x, int y)
     {
-        int startX = width / 2 + x;
-        int startY = height / 2 + y;
-
         if (!isWallAtPos(x, y))
-        {
             return new Vector2Int(x, y);
-        }
 
         queue.Clear();
         visited.Clear();
 
-        queue.Enqueue(new Vector2Int(startX, startY));
-        visited.Add(new Vector2Int(startX, startY));
+        queue.Enqueue(new Vector2Int(x, y));
+        visited.Add(new Vector2Int(x, y));
 
         while (queue.Count > 0)
         {
@@ -81,15 +76,18 @@ public class MapGenerator : MonoBehaviour
             {
                 Vector2Int neighbor = current + direction;
 
-                if (neighbor.x >= 0 && neighbor.x < width && neighbor.y >= 0 && neighbor.y < height)
+                int RealX = width / 2 + neighbor.x;
+                int RealY = height / 2 + neighbor.y;
+
+                if (RealX >= 0 && RealX < width && RealY >= 0 && RealY < height)
                 {
                     if (!visited.Contains(neighbor))
                     {
                         visited.Add(neighbor);
 
-                        if (!isWallAtPos(neighbor.x - width / 2, neighbor.y - height / 2))
+                        if (!isWallAtPos(neighbor.x, neighbor.y))
                         {
-                            return new Vector2Int(neighbor.x - width / 2, neighbor.y - height / 2);
+                            return new Vector2Int(neighbor.x, neighbor.y);
                         }
 
                         queue.Enqueue(neighbor);
@@ -99,7 +97,7 @@ public class MapGenerator : MonoBehaviour
         }
         // 모든 인접한 좌표를 탐색했음에도 벽이 아닌 공간을 찾지 못한 경우
         // 이는 이론상 발생하지 않아야 함 (맵에 최소한 하나의 빈 공간이 있다고 가정)
-        return new Vector2Int(-1, -1); // 적절한 에러 처리
+        return new Vector2Int(0, 0); // 적절한 에러 처리
     }
 
     public Vector3 CustomCellToWorld(Vector3Int cellPosition)

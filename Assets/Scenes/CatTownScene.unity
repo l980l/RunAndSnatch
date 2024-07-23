@@ -2766,7 +2766,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c94a49c1867bee54295799b0b16b2dda, type: 3}
   - {fileID: 8300000, guid: ca3c86c5c5fe8574ba4df4bbbe9d92cb, type: 3}
   - {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
-  - {fileID: 8300000, guid: c4962471ce7619f4085038c5a7749db9, type: 3}
+  - {fileID: 8300000, guid: 494e7cf6a09cdc94b83ec47a63014a80, type: 3}
   - {fileID: 8300000, guid: ad56932448c212942940a61e8fc77ad1, type: 3}
   - {fileID: 8300000, guid: b9fd1839d4ddeb9419fde6d18e5b3419, type: 3}
   - {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
@@ -3305,7 +3305,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.9625
+  orthographic size: 6.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3422,7 +3422,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 1
+  m_UpdateMethod: 0
   m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
@@ -3832,12 +3832,12 @@ MonoBehaviour:
   - {fileID: 5758820627953287101, guid: 28e830e798401f04199d8032bdf49b78, type: 3}
   - {fileID: 1042099217566777607, guid: ea47cfc3e66919a499c7d416a0d68e9f, type: 3}
   NPCPositions:
-  - {x: -8, y: -7, z: 50}
-  - {x: 3, y: 8, z: 50}
-  - {x: 9, y: -7, z: 50}
-  - {x: 8, y: 8, z: 50}
-  - {x: 0, y: -7, z: 50}
-  - {x: -2, y: 8, z: 50}
+  - {x: -8, y: -7, z: 0}
+  - {x: 3, y: 8, z: 0}
+  - {x: 9, y: -7, z: 0}
+  - {x: 8, y: 8, z: 0}
+  - {x: 0, y: -7, z: 0}
+  - {x: -2, y: 8, z: 0}
   StartPosition: {x: -10, y: 0.8, z: 0}
 --- !u!4 &1473783827
 Transform:

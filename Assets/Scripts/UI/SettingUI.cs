@@ -273,16 +273,20 @@ public class SettingUI : MonoBehaviour
         switch (_option)
         {
             case 0:
-                Application.targetFrameRate = 30;
+                Application.targetFrameRate = 45;
+                Time.fixedDeltaTime = 1f / 45f;
                 break;
             case 1:
                 Application.targetFrameRate = 60;
+                Time.fixedDeltaTime = 1f / 60f;
                 break;
             case 2:
                 Application.targetFrameRate = 90;
+                Time.fixedDeltaTime = 1f / 90f;
                 break;
             case 3:
                 Application.targetFrameRate = 120;
+                Time.fixedDeltaTime = 1f / 120f;
                 break;
         }
 

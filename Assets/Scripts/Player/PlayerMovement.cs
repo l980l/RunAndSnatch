@@ -56,8 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        animator.SetFloat(SpeedHash, inputVec.sqrMagnitude);
-
         if (playerHealth.HP > 0)
         {
             // 이동 관련 스킬을 사용 중이지 않은 경우
@@ -76,19 +74,21 @@ public class PlayerMovement : MonoBehaviour
                     rigidBody.MovePosition(rigidBody.position + nextVec);
                 }
             }
+
+            //// z좌표를 y좌표의 0.01프로로 설정
+            //Vector3 position = transform.position;
+            //position.z = position.y * 0.01f;
+            //transform.position = position;
         }
     }
 
     private void LateUpdate()
     {
+        animator.SetFloat(SpeedHash, inputVec.sqrMagnitude);
+
         // 이동 방향에 맞게 좌우 반전.
         if (inputVec.x != 0)
             spriteRenderer.flipX = inputVec.x < 0;
-
-        // z좌표를 y좌표의 0.01프로로 설정
-        Vector3 position = transform.position;
-        position.z = position.y * 0.01f;
-        transform.position = position;
     }
 
     private void OnDisable()
