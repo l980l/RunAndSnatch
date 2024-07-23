@@ -24,7 +24,7 @@ public class MonFlyingEye : Monster
 
             if (player != null)
             {
-                Vector2 nextVec = dir * monsterData.speed * monsterData.NTSCoef * 1.2f * Time.deltaTime;
+                Vector2 nextVec = dir * monsterData.speed * monsterData.NTSCoef * 1.2f * Time.fixedDeltaTime;
                 // 플레이어 방향으로 이동
                 rigidBody.MovePosition(rigidBody.position + nextVec);
             }
