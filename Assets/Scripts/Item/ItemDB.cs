@@ -36,7 +36,7 @@ public class ItemDB : MonoBehaviour
         for (int i = 0; i < ItemCount; i++)
         {
             // 랜덤한 벽 근처 위치에 아이템 생성
-            GameObject NewFieldItem = Instantiate(FieldItemPrefab, GameManager.Instance.GetMapGenerator().RandomPos(true), Quaternion.identity);
+            GameObject NewFieldItem = Instantiate(FieldItemPrefab, GameManager.Instance.GetMapGenerator().RandomPos(true, false), Quaternion.identity);
             // 랜덤한 아이템으로 세팅
             NewFieldItem.GetComponent<FieldItem>().SetItem((ItemType)UnityEngine.Random.Range(0, (int)ItemType.Max));
         }

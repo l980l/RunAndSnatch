@@ -75,6 +75,18 @@ public class Navigator : MonoBehaviour
     Dictionary<Vector3Int, float> gScore = new Dictionary<Vector3Int, float>();
     Dictionary<Vector3Int, float> fScore = new Dictionary<Vector3Int, float>();
 
+    private static readonly List<Vector3Int> directions = new List<Vector3Int>
+    {
+        new Vector3Int(1, 0, 0),    // 오른쪽
+        new Vector3Int(-1, 0, 0),   // 왼쪽
+        new Vector3Int(0, 1, 0),    // 위
+        new Vector3Int(0, -1, 0),   // 아래
+        new Vector3Int(1, 1, 0),    // 오른쪽 위 대각선
+        new Vector3Int(-1, 1, 0),   // 왼쪽 위 대각선
+        new Vector3Int(1, -1, 0),   // 오른쪽 아래 대각선
+        new Vector3Int(-1, -1, 0)   // 왼쪽 아래 대각선
+    };
+
     private void SetNowTilePos()
     {
         nowTilePos = grid.WorldToCell(transform.position);
@@ -136,7 +148,7 @@ public class Navigator : MonoBehaviour
 
             closedSet.Add(current);
 
-            foreach (Vector3Int direction in GetDirections())
+            foreach (Vector3Int direction in directions)
             {
                 Vector3Int neighbor = current + direction;
 
@@ -182,23 +194,6 @@ public class Navigator : MonoBehaviour
     private bool CanMoveToTile(Vector3Int position)
     {
         return !GameManager.Instance.GetMapGenerator().isWallAtPos(position.x, position.y);
-    }
-
-    private static readonly List<Vector3Int> directions = new List<Vector3Int>
-    {
-        new Vector3Int(1, 0, 0),    // 오른쪽
-        new Vector3Int(-1, 0, 0),   // 왼쪽
-        new Vector3Int(0, 1, 0),    // 위
-        new Vector3Int(0, -1, 0),   // 아래
-        new Vector3Int(1, 1, 0),    // 오른쪽 위 대각선
-        new Vector3Int(-1, 1, 0),   // 왼쪽 위 대각선
-        new Vector3Int(1, -1, 0),   // 오른쪽 아래 대각선
-        new Vector3Int(-1, -1, 0)   // 왼쪽 아래 대각선
-    };
-
-    private List<Vector3Int> GetDirections()
-    {
-        return directions;
     }
 
     private float HeuristicCostEstimate(Vector3Int a, Vector3Int b)

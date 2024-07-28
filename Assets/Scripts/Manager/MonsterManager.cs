@@ -33,7 +33,7 @@ public class MonsterManager : MonoBehaviour
                 cumulativeRatio += MonsterRatio.monsterRatio[j];
                 if (randomValue < cumulativeRatio)
                 {
-                    Instantiate(monsterPrefab[j], GameManager.Instance.GetMapGenerator().RandomPos(false), Quaternion.identity);
+                    Instantiate(monsterPrefab[j], GameManager.Instance.GetMapGenerator().RandomPos(false, false), Quaternion.identity);
                     break;
                 }
             }

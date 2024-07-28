@@ -155,7 +155,6 @@ public class Monster : MonoBehaviour
         return false;
     }
 
-    //prevPathDest로의 길로 이동하는 함수
     private void TracePath(float _speed)
     {
         if (nav.totalWorldPath == null || nav.totalWorldPath.Count == 0)
