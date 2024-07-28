@@ -26,7 +26,7 @@ public class SpatialWarpAbility : MonoBehaviour
     private IEnumerator TeleportCoroutine()
     {
         playerMovement.onMovingSkill = true;
-        rb.MovePosition(GameManager.Instance.GetMapGenerator().RandomPos(false));
+        rb.MovePosition(GameManager.Instance.GetMapGenerator().RandomPos(false, true));
 
         yield return waitForSeconds;
 

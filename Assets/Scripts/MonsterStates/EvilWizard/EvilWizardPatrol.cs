@@ -21,7 +21,7 @@ public class EvilWizardPatrol : StateMachineBehaviour
         // 애니메이션 재생 속도
         animator.speed = 0.5f;
         // 랜덤한 위치로 Patrol 목표 지점 설정
-        animator.GetComponent<Navigator>().SetDesTilePos(GameManager.Instance.GetMapGenerator().RandomPos(false));
+        animator.GetComponent<Navigator>().SetDesTilePos(GameManager.Instance.GetMapGenerator().RandomPos(false, true));
         animator.GetComponent<Navigator>().FindPath();
     }
 

@@ -378,9 +378,20 @@ public class MapGenerator : MonoBehaviour
         MaskRoomList = new List<bool>(new bool[maxRoom]);
     }
 
-    // Road 위의 랜덤한 위치를 그리드 좌표계로 반환하는 함수.
-    // false을 인자로 넣어주면 모든 Road 위에서 랜덤. true을 인자로 넣어주면 벽 근처의 Road 위에서 랜덤.
-    private (int x, int y) RandomRoad(bool CheckWall)    
+    // Road 위의 랜덤한 위치를 월드 좌표계로 변환하여 반환하는 함수.
+    // false을 CheckWall로 넣어주면 모든 Road 위에서 랜덤. true을 CheckWall로 넣어주면 벽 근처의 Road 위에서 랜덤.
+    // Duplication은 중복 좌표 허용을 의미. 아이템과 플레이어, 몬스터가 전부 다른 장소에서 생성되게 하기 위해 사용.
+    public Vector3 RandomPos(bool CheckWall, bool Duplication)
+    {
+        var (x, y) = RandomRoad(CheckWall, Duplication);
+        Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
+        Vector3 result = grid.CellToWorld(temp);
+        result += RoadTilemap.GetLayoutCellCenter();
+
+        return result;
+    }
+
+    private (int x, int y) RandomRoad(bool CheckWall, bool Duplication)    
     {
         int ListSize = MaxRoomList.Count;
         int index = 0;
@@ -389,34 +400,33 @@ public class MapGenerator : MonoBehaviour
         while (true)
         {
             index = UnityEngine.Random.Range(0, ListSize);
-            // 마스킹 안 된 곳인 경우, 이웃한 벽 체크.
-            if (!MaskRoomList[index])
+
+            // 이웃한 벽 체크
+            if (CheckWall)
             {
-                if(CheckWall)
-                {
-                    int NearWall = 8 - CountAliveNeighbours(MaxRoomList[index].Item1, MaxRoomList[index].Item2);
-                    // 벽이 2개 이하면 다른 곳 찾아.
-                    if (NearWall < 3)
-                        continue;
-                }
-
-                MaskRoomList[index] = true;
-                break;
+                int NearWall = 8 - CountAliveNeighbours(MaxRoomList[index].Item1, MaxRoomList[index].Item2);
+                // 벽이 2개 이하면 다른 곳 찾아.
+                if (NearWall < 3)
+                    continue;
             }
+
+            // 중복 좌표 불허
+            if (!Duplication)
+            {
+                // 마스킹 안 된 곳인 경우, 이웃한 벽 체크.
+                if (!MaskRoomList[index])
+                {
+                    MaskRoomList[index] = true;
+                    break;
+                }
+            }
+
+            // 중복 좌표 허용
+            else
+                break;
         }
+
         return MaxRoomList[index];
-    }
-
-    // Road 위의 랜덤한 위치를 월드 좌표계로 변환하여 반환하는 함수.
-    // false을 인자로 넣어주면 모든 Road 위에서 랜덤. true을 인자로 넣어주면 벽 근처의 Road 위에서 랜덤.
-    public Vector3 RandomPos(bool CheckWall)
-    {
-        var (x, y) = RandomRoad(CheckWall);
-        Vector3Int temp = new Vector3Int(-width / 2 + x, -height / 2 + y, 0);
-        Vector3 result = grid.CellToWorld(temp);
-        result += RoadTilemap.GetLayoutCellCenter();
-
-        return result;
     }
 
     private void SetBoarder()

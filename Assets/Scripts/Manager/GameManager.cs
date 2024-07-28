@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             mapGenerator.GenerateMap();
 
             // 랜덤한 위치로 플레이어 생성. 시네머신, 초상화UI 세팅
-            ChangePlayer(Instantiate(PlayerPrefab[(int)GPGS_AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false), Quaternion.identity));
+            ChangePlayer(Instantiate(PlayerPrefab[(int)GPGS_AccountDataManager.Instance.SelectedCharacter], mapGenerator.RandomPos(false, false), Quaternion.identity));
 
             // SkillUI에 플레이어 세팅
             skillUI.SetPlayer(Player.GetComponent<PlayerMovement>());
