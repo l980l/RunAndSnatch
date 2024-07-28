@@ -74,11 +74,6 @@ public class PlayerMovement : MonoBehaviour
                     rigidBody.MovePosition(rigidBody.position + nextVec);
                 }
             }
-
-            //// z좌표를 y좌표의 0.01프로로 설정
-            //Vector3 position = transform.position;
-            //position.z = position.y * 0.01f;
-            //transform.position = position;
         }
     }
 

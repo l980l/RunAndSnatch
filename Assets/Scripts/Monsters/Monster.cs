@@ -54,8 +54,6 @@ public class Monster : MonoBehaviour
 
         switch (monsterState)
         {
-            case MonsterState.Idle:
-                break;
             case MonsterState.Patrol:
                 // 목표 설정은 Patrol 초기에 한번만 세팅하면 되니까 각 몬스터의 PatrolState에서 Enter시에 하자
                 // Patrol은 전부 0.5배속으로 통일하자
@@ -67,12 +65,10 @@ public class Monster : MonoBehaviour
                 }
                 break;
             case MonsterState.FarTrace:
-                // 시야에 들어오고, 1초가 지났으면 탐색.
+                // 시야에 들어오면, 1초마다 경로 탐색
                 if (PlayerInSight() && pathUpdateTimer >= pathUpdateInterval)
                 {
-                    nav.SetDesTilePos(player.transform.position);
-                    nav.FindPath();
-                    pathUpdateTimer = 0f; // 타이머 리셋
+                    SetPath();
                 }
                 TracePath(monsterData.speed * monsterData.FTSCoef);
                 // 목적지에 도착했는데, FarTrace라면 Patrol로 돌아가자
@@ -82,35 +78,19 @@ public class Monster : MonoBehaviour
                 }
                 break;
             case MonsterState.NearTrace:
-                // 시야에 들어오고, 1초가 지났으면 탐색.
+                // 시야에 들어오면, 1초마다 경로 탐색
                 if (PlayerInSight() && pathUpdateTimer >= pathUpdateInterval)
                 {
-                    nav.SetDesTilePos(player.transform.position);
-                    nav.FindPath();
-                    pathUpdateTimer = 0f; // 타이머 리셋
+                    SetPath();
                 }
                 TracePath(monsterData.speed * monsterData.NTSCoef);
                 // 목적지에 도착했는데, NearTrace라면 플레이어로 A* 없이 그냥 이동한다. 
-                if (nav.curPathIndex >= nav.totalWorldPath.Count)
+                if (PlayerInSight() && nav.curPathIndex >= nav.totalWorldPath.Count)
                 {
                     MoveToPlayer(monsterData.speed * monsterData.NTSCoef);
                 }
                 break;
-            case MonsterState.Attack:
-                break;
-            case MonsterState.Rest:
-                break;
-            case MonsterState.Stunned:
-                break;
         }
-    }
-
-    private void LateUpdate()
-    {
-        //// z좌표를 y좌표의 0.01프로로 설정
-        //Vector3 position = transform.position;
-        //position.z = position.y * 0.01f;
-        //transform.position = position;
     }
 
     virtual protected void Attack() {}
@@ -124,7 +104,6 @@ public class Monster : MonoBehaviour
     // Player가 은신 스킬을 사용하면 호출될 함수
     public void Miss()
     {
-        // FarTrace, NearTrace, Attack, Rest에만 Transition을 걸어두었기 때문에, 다른 상태에서는 넘어가지지 않는다.
         animator.SetTrigger(MissHash);
     }
 
@@ -153,6 +132,13 @@ public class Monster : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void SetPath()
+    {
+        nav.SetDesTilePos(player.transform.position);
+        nav.FindPath();
+        pathUpdateTimer = 0f; // 타이머 리셋
     }
 
     private void TracePath(float _speed)
