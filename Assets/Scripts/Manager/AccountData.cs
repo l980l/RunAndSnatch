@@ -29,7 +29,7 @@ public class AccountData
         CharacterGifts = new int[(int)CharacterType.Max];
         volumeBGM = 0.5f;
         volumeSFX = 0.5f;
-        frameRateAnd = 0;
+        frameRateAnd = 1;
         winResolutionIndex = -1;
         isFullscreen = true;
     }

@@ -92,6 +92,7 @@ public class AdMobManager : MonoBehaviour
         // 리워드 광고 시청 완료
         rewardAd.OnUserEarnedReward += (sender, e) =>
         {
+            // ?.은 null 조건 연산자로 onRewardedAdFinished가 null이 아닌 경우에만 Invoke를 호출한다.
             onRewardedAdFinished?.Invoke();
         };
     }
