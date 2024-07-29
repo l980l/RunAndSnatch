@@ -93,6 +93,6 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Animator>().SetTrigger("Dead");
         CamShake.Instance.ShakeCamera(1f, 1f);
 
-        DeathUI.Instance.Death();
+        DeathUI.Instance.ShowDeathPanel();
     }
 }

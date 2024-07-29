@@ -32,12 +32,7 @@ public class DeathUI : MonoBehaviour
         DeathPanel.SetActive(false);
     }
 
-    public void Death()
-    {
-        ShowDeathPanel();
-    }
-
-    private void ShowDeathPanel()
+    public void ShowDeathPanel()
     {
         SoundManager.Instance.StopBGM();
         Time.timeScale = 0f;
@@ -48,12 +43,14 @@ public class DeathUI : MonoBehaviour
         else
             PenaltyText.text = "광고를 시청하면 사망 패널티를 받지 않습니다.\r\n광고를 시청하시겠습니까?";
 
+        // 중복 구독을 피하기 위해.
+        AdMobManager.Instance.onRewardedAdFinished = null;
         AdMobManager.Instance.onRewardedAdFinished += RewardFunc;
     }
 
     private void RewardFunc()
     {
-        StartCoroutine(GoToCatTownCoroutine());
+        StartCoroutine(RewardGoToCatTownCoroutine());
     }
 
     public void RewardAdButtonClick()
@@ -66,8 +63,6 @@ public class DeathUI : MonoBehaviour
         else
             PenaltyText.text = "곧 마을로 돌아가게 될 것입니다.";
 
-        GPGS_AccountDataManager.Instance.InDungeon = false;
-        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         AdMobManager.Instance.RewardButtonClick();
     }
 
@@ -86,6 +81,15 @@ public class DeathUI : MonoBehaviour
 
     private IEnumerator GoToCatTownCoroutine()
     {
+        yield return waitForSecondsRealtime;
+        Time.timeScale = 1f;
+        LoadingSceneController.LoadScene(CatTownSceneInt);
+    }
+
+    private IEnumerator RewardGoToCatTownCoroutine()
+    {
+        GPGS_AccountDataManager.Instance.InDungeon = false;
+        GPGS_AccountDataManager.Instance.SaveJsonToCloud();
         yield return waitForSecondsRealtime;
         Time.timeScale = 1f;
         LoadingSceneController.LoadScene(CatTownSceneInt);
