@@ -1,62 +1,79 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PriorityQueue<T>
 {
     private List<KeyValuePair<T, float>> elements = new List<KeyValuePair<T, float>>();
+    private readonly object syncLock = new object();
+
     public int Count => elements.Count;
+
     public void Enqueue(T item, float priority)
     {
-        elements.Add(new KeyValuePair<T, float>(item, priority));
+        lock (syncLock)
+        {
+            elements.Add(new KeyValuePair<T, float>(item, priority));
+        }
     }
 
     public T Dequeue()
     {
-        int bestIndex = 0;
-
-        for (int i = 0; i < elements.Count; i++)
+        lock (syncLock)
         {
-            if (elements[i].Value < elements[bestIndex].Value)
-            {
-                bestIndex = i;
-            }
-        }
+            int bestIndex = 0;
 
-        T bestItem = elements[bestIndex].Key;
-        elements.RemoveAt(bestIndex);
-        return bestItem;
+            for (int i = 0; i < elements.Count; i++)
+            {
+                if (elements[i].Value < elements[bestIndex].Value)
+                {
+                    bestIndex = i;
+                }
+            }
+
+            T bestItem = elements[bestIndex].Key;
+            elements.RemoveAt(bestIndex);
+            return bestItem;
+        }
     }
 
     public bool Contains(T item)
     {
-        foreach (var element in elements)
+        lock (syncLock)
         {
-            if (EqualityComparer<T>.Default.Equals(element.Key, item))
+            foreach (var element in elements)
             {
-                return true;
+                if (EqualityComparer<T>.Default.Equals(element.Key, item))
+                {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
 
     public void UpdatePriority(T item, float priority)
     {
-        for (int i = 0; i < elements.Count; i++)
+        lock (syncLock)
         {
-            if (EqualityComparer<T>.Default.Equals(elements[i].Key, item))
+            for (int i = 0; i < elements.Count; i++)
             {
-                elements[i] = new KeyValuePair<T, float>(item, priority);
-                return;
+                if (EqualityComparer<T>.Default.Equals(elements[i].Key, item))
+                {
+                    elements[i] = new KeyValuePair<T, float>(item, priority);
+                    return;
+                }
             }
         }
     }
 
     public void Clear()
     {
-        elements.Clear();
+        lock (syncLock)
+        {
+            elements.Clear();
+        }
     }
 }
 
@@ -69,11 +86,11 @@ public class Navigator : MonoBehaviour
     public int curPathIndex;
 
     // A* 알고리즘을 위한 우선순위 큐
-    PriorityQueue<Vector3Int> openSet = new PriorityQueue<Vector3Int>();
-    HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>();
-    Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
-    Dictionary<Vector3Int, float> gScore = new Dictionary<Vector3Int, float>();
-    Dictionary<Vector3Int, float> fScore = new Dictionary<Vector3Int, float>();
+    private PriorityQueue<Vector3Int> openSet = new PriorityQueue<Vector3Int>();
+    private HashSet<Vector3Int> closedSet = new HashSet<Vector3Int>();
+    private Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+    private Dictionary<Vector3Int, float> gScore = new Dictionary<Vector3Int, float>();
+    private Dictionary<Vector3Int, float> fScore = new Dictionary<Vector3Int, float>();
 
     private static readonly List<Vector3Int> directions = new List<Vector3Int>
     {
@@ -86,6 +103,8 @@ public class Navigator : MonoBehaviour
         new Vector3Int(1, -1, 0),   // 오른쪽 아래 대각선
         new Vector3Int(-1, -1, 0)   // 왼쪽 아래 대각선
     };
+
+    private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
     private void SetNowTilePos()
     {
@@ -111,19 +130,27 @@ public class Navigator : MonoBehaviour
 
     public async void FindPath()
     {
-        SetNowTilePos();
-
-        bool pathFound = await Task.Run(() => AStarAlgorithm());
-
-        if (pathFound)
+        await semaphore.WaitAsync();
+        try
         {
-            Logging.Log("경로를 찾았습니다!");
+            SetNowTilePos();
+            bool pathFound = await Task.Run(() => AStarAlgorithm());
+
+            if (pathFound)
+            {
+                Logging.Log("경로를 찾았습니다!");
+            }
+            else
+            {
+                Logging.Log("경로를 찾을 수 없습니다.");
+            }
         }
-        else
+        finally
         {
-            Logging.Log("경로를 찾을 수 없습니다.");
+            semaphore.Release();
         }
     }
+
     private bool AStarAlgorithm()
     {
         openSet.Clear();
@@ -183,6 +210,7 @@ public class Navigator : MonoBehaviour
 
         return false;
     }
+
     private bool CanMoveDiagonally(Vector3Int current, Vector3Int direction)
     {
         Vector3Int check1 = new Vector3Int(current.x + direction.x, current.y, 0);
@@ -198,7 +226,6 @@ public class Navigator : MonoBehaviour
 
     private float HeuristicCostEstimate(Vector3Int a, Vector3Int b)
     {
-        // 유클리드 거리 사용
         return Vector3Int.Distance(a, b);
     }
 
@@ -209,15 +236,14 @@ public class Navigator : MonoBehaviour
         while (cameFrom.ContainsKey(current))
         {
             current = cameFrom[current];
-
             Vector3 temp = GameManager.Instance.GetMapGenerator().CustomCellToWorld(current);
-
             WorldPath.Add(temp);
         }
         WorldPath.Reverse();
         totalWorldPath = WorldPath;
         curPathIndex = 2;
     }
+
     public void DrawPath()
     {
         for (int i = 1; i < totalWorldPath.Count; i++)
